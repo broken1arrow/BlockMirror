@@ -1,0 +1,28 @@
+name: BlockMirror
+version: ${project.version}
+main: org.brokenarrow.blockmirror.BlockMirror
+author: Broken
+api-version: 1.13
+softdepend:
+
+permissions:
+  blockmirror.command.custom_mirror:
+    description: Allow players to mirror blocks on custom locations.
+    default: false
+  blockmirror.command.classic_mirror:
+    description: Allow players to mirror blocks from a pattern will mirror in x,y and z depending what player choice.
+    default: false
+  blockmirror.command.patterns_command:
+    description: Allow players to mirror blocks from a custom pattern (for example place blocks in a circle or other patterns).
+    default: false
+  blockmirror.admin.command.reload:
+    description: Reload the plugin.
+    default: false
+  blockmirror.admin.*:
+    description: Give you acces to all commands.
+    default: false
+    children:
+      blockmirror.command.custom_mirror: true
+      blockmirror.command.classic_mirror: true
+      blockmirror.command.patterns_command: true
+      blockmirror.admin.command.reload: true

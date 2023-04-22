@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.brokenarrow</groupId>
+    <artifactId>BlockMirror</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    
+    <modules>
+        <module>Api</module>
+        <module>Core</module>
+    </modules>
+
+    <properties>
+        <!-- The full path to your plugin's main class, so that Spigot can find and load it -->
+        <!--  <main.class>org.brokenarrow</main.class>-->
+        <plugin.name>BlockMirror</plugin.name>
+        <dependency.version>0.10.0</dependency.version>
+        <dependencies.name>dependencies</dependencies.name>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>spigotmc-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+        <repository> <!-- for development builds -->
+            <id>sonatype-oss-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+
+        <repository>
+            <id>bg-repo</id>
+            <url>https://repo.bg-software.com/repository/api/</url>
+        </repository>
+        <repository>
+            <id>PluginsJarUseForAPI</id>
+            <url>file:///F:\PluginsJarUseForAPI</url>
+        </repository>
+        <repository>
+            <id>sk89q-repo</id>
+            <url>https://maven.enginehub.org/repo/</url>
+        </repository>
+        <repository>
+            <id>essentials-releases</id>
+            <url>https://repo.essentialsx.net/releases/</url>
+        </repository>
+        <repository>
+            <id>essentials-snapshots</id>
+            <url>https://repo.essentialsx.net/snapshots/</url>
+        </repository>
+        <repository>
+            <id>minecraft-repo</id>
+            <url>https://libraries.minecraft.net/</url>
+        </repository>
+
+    </repositories>
+
+    <!--
+       Configure what other libraries or plugins are we going to use in this plugin.
+
+       As a starting point, we are importing the Spigot API and Foundation.
+   -->
+    <dependencyManagement>
+        <dependencies>
+            <!--
+               Import the Spigot API since it's necessary for our plugin
+
+               Make sure you change the version to the latest version you want to use for your plugin.
+                <groupId>org.spigotmc</groupId>
+                <artifactId>spigot-api</artifactId>
+           -->
+            <dependency>
+                <groupId>org.spigotmc</groupId>
+                <artifactId>spigot-api</artifactId>
+                <!-- Change this to the latest version to stay up to date
+                <version>1.16.5-R0.1-SNAPSHOT</version>
+                -->
+                <version>1.19.3-R0.1-SNAPSHOT</version>
+                <!--       <version>1.8.8-R0.1-SNAPSHOT</version> -->
+                <!--
+                   The scope indicates if this library should be packaged together with our plugin
+                   when we want to publish it.
+
+                   Set this to "compile" if you want all classes from this library to be copied
+                   to your plugin's jar, otherwise set this to "provided".
+                   <scope>provided</scope>
+               -->
+                <scope>provided</scope>
+            </dependency>
+            <!--     <dependency>
+                      <groupId>org.bstats</groupId>
+                      <artifactId>bstats-bukkit</artifactId>
+                      <version>3.0.0</version>
+                      <scope>provided</scope>
+                  </dependency>-->
+            <dependency>
+                <groupId>com.github.MilkBowl</groupId>
+                <artifactId>VaultAPI</artifactId>
+                <version>1.7</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--       <dependency>
+                        <groupId>org.mineacademy.plugin</groupId>
+                        <artifactId>EssentialsX</artifactId>
+                        <version>2.20.0-SNAPSHOT-1375</version>
+                       <scope>provided</scope>
+                    </dependency>-->
+            <!--    <dependency>
+                 <groupId>net.essentialsx</groupId>
+                 <artifactId>EssentialsX</artifactId>
+                 <version>2.20.0-SNAPSHOT</version>
+                 <scope>provided</scope>
+             </dependency>-->
+            <dependency>
+                <groupId>net.essentialsx</groupId>
+                <artifactId>EssentialsX</artifactId>
+                <version>2.19.0</version>
+                <scope>provided</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.bstats</groupId>
+                        <artifactId>bstats-bukkit</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.github.broken1arrow</groupId>
+                <artifactId>MenuLibrary</artifactId>
+                <version>0.85</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.sk89q.worldguard</groupId>
+                <artifactId>worldguard-bukkit</artifactId>
+                <version>7.0.5-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--
+               Import the Foundation library to kickstart our plugin development
+           -->
+            <!--       <dependency>
+                       <groupId>com.github.kangarko</groupId>
+                       <artifactId>Foundation</artifactId>
+                       <version>${foundation.version}</version>
+                       &lt;!&ndash; Include Foundation and its dependencies. There are exceptions, see shade plugin below &ndash;&gt;
+                       <scope>compile</scope>
+                   </dependency>-->
+
+            <dependency>
+                <groupId>com.github.pop4959</groupId>
+                <artifactId>LWCX</artifactId>
+                <version>master-ad0f824361-1</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--  <dependency>
+                 <groupId>net.kyori</groupId>
+                 <artifactId>adventure-api</artifactId>
+                 <version>4.9.2</version>
+             </dependency> -->
+            <dependency>
+                <groupId>jetsHopper</groupId>
+                <artifactId>jetsHopper</artifactId>
+                <scope>system</scope>
+                <systemPath>H:/PluginsJarUseForAPI/JetsHoppers-3.2.12.jar</systemPath>
+                <version>3.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>CMILib</groupId>
+                <artifactId>CMILib</artifactId>
+                <scope>system</scope>
+                <systemPath>H:/PluginsJarUseForAPI/CMILib-0.0.20.jar</systemPath>
+                <version>3.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.broken1arrow</groupId>
+                <artifactId>RBG-Gradients</artifactId>
+                <version>0.24</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.mojang</groupId>
+                <artifactId>authlib</artifactId>
+                <version>1.5.21</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>me.clip</groupId>
+                <artifactId>placeholderapi</artifactId>
+                <version>2.11.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.bgsoftware</groupId>
+                <artifactId>WildStackerAPI</artifactId>
+                <version>3.8.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.bgsoftware</groupId>
+                <artifactId>WildChestsAPI</artifactId>
+                <version>2022.7</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.broken1arrow</groupId>
+                <artifactId>Item-NBT-API</artifactId>
+                <version>2.11.1.0</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.angeschossen</groupId>
+                <artifactId>LandsAPI</artifactId>
+                <version>5.15.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.24</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains</groupId>
+                <artifactId>annotations</artifactId>
+                <version>20.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.brokenarrow</groupId>
+                <artifactId>BlockMirror-Api</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.brokenarrow</groupId>
+                <artifactId>Core</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>compile</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+
+        <!--
+           When we are building your plugins, what plugins should we use during this process?
+
+           The plugins here extend the functionality of Maven, just like your plugin enhances Minecraft
+           These are not Minecraft plugins, but only Maven plugins!
+        -->
+        <plugins>
+
+            <!--
+               The first and the most essential plugin is the compiler, that translates your
+               human readable code into bytecode.
+           -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+
+                <!--
+                   You want to check and update the latest version periodically from
+                   https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin
+               -->
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${maven.compiler.target}</source>
+                    <target>${maven.compiler.target}</target>
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                </configuration>
+            </plugin>
+
+            <!--
+               The second plugin is the shade plugin, packaging every library with
+               the "compile" scope (see dependencies)
+           -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+
+                <!--
+                   You want to check and update the latest version periodically from
+                   https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-shade-plugin
+               -->
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>${plugin.name}-${project.version}</finalName>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>all</shadedClassifierName>
+                            <artifactSet>
+                                <includes>
+                                    <include>com.github.broken1arrow:MenuLibrary*</include>
+                                    <include>broken_MenuAPI:*</include>
+                                    <exclude>net.kyori:*</exclude>
+                                    <include>org.brokenarrow:BlockMirror-Api</include>
+                                    <include>com.github.broken1arrow:RBG-Gradients</include>
+                                    <include>com.github.broken1arrow.Item-NBT-API:item-nbt-api:*</include>
+                                </includes>
+                                <excludes>
+                                    <exclude>net.kyori:adventure-platform-bukkit*</exclude>
+                                    <exclude>net.kyori:adventure-nbt</exclude>
+                                    <exclude>net.kyori:adventure-nbt-api</exclude>
+                                    <exclude>net.kyori:adventure-bossbar</exclude>
+                                    <exclude>net.kyori:adventure-inventory</exclude>
+                                    <exclude>net.kyori:adventure-audience</exclude>
+                                </excludes>
+                            </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.broken.lib.rbg</pattern>
+                                    <shadedPattern>${project.groupId}.${plugin.name}.dependencies.rbglib
+                                    </shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.brokenarrow.menu.library</pattern>
+                                    <shadedPattern>${project.groupId}.${plugin.name}.dependencies.menulib
+                                    </shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>de.tr7zw.changeme</pattern>
+                                    <shadedPattern>${project.groupId}.${plugin.name}.dependencies.nbt
+                                    </shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <!--
+        During the build, we are going to scan all files in src/main/resources
+        folder such as plugin.yml and your settings files and replace all variables
+        such as ${main.class} with their proper values.
+
+        You can use native variables such as ${project.X} or the ones you defined above
+        in the properties section.
+        -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+</project>

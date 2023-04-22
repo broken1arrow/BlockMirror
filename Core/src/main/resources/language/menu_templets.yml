@@ -1,0 +1,366 @@
+Menus:
+  Auction_selector:
+    menu_settings:
+      name: "Auction selector"
+      sound: null
+      size: 54
+    buttons:
+      "1":
+        buttonType: mirrorX
+        passive:
+          material: RED_WOOL
+          name: "&aMirror x."
+          lore:
+            - "&fClick to set it to mirror x."
+          glow: false
+        active:
+          material: GREEN_WOOL
+          name: "&aMirror x."
+          lore:
+            - "&fClick to unset it to mirror x."
+          glow: true
+      "3":
+        buttonType: mirrorY
+        passive:
+          material: RED_WOOL
+          name: "&aMirror y."
+          lore:
+            - "&fClick to set it to mirror y."
+          glow: false
+        active:
+          material: GREEN_WOOL
+          name: "&aMirror y."
+          lore:
+            - "&fClick to unset it to mirror y."
+          glow: true
+      "5":
+        buttonType: mirrorZ
+        passive:
+          material: RED_WOOL
+          name: "&aMirror z."
+          lore:
+            - "&fClick to set it to mirror z."
+          glow: false
+        active:
+          material: GREEN_WOOL
+          name: "&aMirror z."
+          lore:
+            - "&fClick to unset it to mirror z."
+          glow: true
+      "19":
+        buttonType: mirrorXY
+        passive:
+          material: RED_WOOL
+          name: "&aMirror XY."
+          lore:
+            - "&fClick to set it to mirror XY."
+          glow: false
+        active:
+          material: GREEN_WOOL
+          name: "&aMirror XY."
+          lore:
+            - "&fClick to unset it to mirror XY."
+          glow: true
+      "21":
+        buttonType: mirrorZY
+        passive:
+          material: RED_WOOL
+          name: "&aMirror ZY."
+          lore:
+            - "&fClick to set it to mirror ZY."
+          glow: false
+        active:
+          material: GREEN_WOOL
+          name: "&aMirror ZY."
+          lore:
+            - "&fClick to unset it to mirror ZY."
+          glow: true
+      "28":
+        buttonType: mirrorXZ
+        passive:
+          material: RED_WOOL
+          name: "&aMirror XZ."
+          lore:
+            - "&fClick to set it to mirror XZ."
+          glow: false
+        active:
+          material: GREEN_WOOL
+          name: "&aMirror XZ."
+          lore:
+            - "&fClick to unset it to mirror XZ."
+          glow: true
+      "30":
+        buttonType: mirrorZX
+        passive:
+          material: RED_WOOL
+          name: "&aMirror ZX."
+          lore:
+            - "&fClick to set it to mirror ZX."
+          glow: false
+        active:
+          material: GREEN_WOOL
+          name: "&aMirror ZX."
+          lore:
+            - "&fClick to unset it to mirror ZX."
+          glow: true
+      "34":
+        buttonType: block_face
+        passive:
+          material: RED_WOOL
+          name: "&aSet blockface"
+          lore:
+            - "&fWill force the face"
+            - "&fof the block."
+            - ""
+            - "&fCurent set to:&6 {1}"
+          glow: false
+        active:
+          material: GREEN_WOOL
+          name: "&aSet new blockface"
+          lore:
+            - "&fWill force the face"
+            - "&fof the block."
+            - ""
+            - "&fCurent set to:&6 {1}"
+          glow: true
+      "25":
+        buttonType: CentreLoc
+        passive:
+          material: RED_WOOL
+          name: "&aSet centre loc"
+          lore:
+            - "&fClick here for set"
+            - "&fcentre location."
+            - ""
+            - "&fCurent location:&6 {0}"
+          glow: false
+        active:
+          material: GREEN_WOOL
+          name: "&aCentre loc"
+          lore:
+            - "&fClick here for set"
+            - "&fcentre location."
+            - ""
+            - "&fCurent location:&6 {0}"
+          glow: true
+      "16":
+        buttonType: Start
+        passive:
+          material: RED_WOOL
+          name: "&aActivate"
+          lore:
+            - "&fClick here for activate"
+          glow: false
+        active:
+          material: GREEN_WOOL
+          name: "&aActivated"
+          lore:
+            - "&fClick here for deactivate"
+          glow: true
+      "36-44,0,8-9,17-18,26-27,35-36":
+        material: BLACK_STAINED_GLASS_PANE
+        name: "&a"
+        lore:
+          - "&f"
+  set_blockface:
+    menu_settings:
+      name: "Set direction"
+      fill-space: 0-18
+      sound: null
+      size: 54
+    buttons:
+      "-1":
+        material: RED_WOOL
+        name: "&aBlockface:&6 {0}"
+        lore:
+          - "&fClick to set"
+          - "&fface."
+          - "&6"
+          - "&aCurrently set to: {2}"
+        glow: false
+      "29":
+        buttonType: Prv_page
+        passive:
+          material: arrow
+          name: "&aPrevius page"
+          lore:
+            - ""
+          glow: false
+        active:
+          material: arrow
+          name: "&aPrevius page"
+          lore:
+            - " "
+          glow: true
+      "33":
+        buttonType: Nxt_page
+        passive:
+          material: arrow
+          name: "&aNext page"
+          lore:
+            - ""
+          glow: false
+        active:
+          material: arrow
+          name: "&aNext page"
+          lore:
+            - ""
+          glow: true
+      "27":
+        buttonType: back
+        material: CHORUS_FRUIT
+        name: "&aGo back"
+        lore:
+          - " "
+        glow: false
+      "28,30-32,34-35":
+        material: BLACK_STAINED_GLASS_PANE
+        name: "&a"
+        lore:
+          - "&f"
+  Choose_pattern:
+    menu_settings:
+      name: "Choose pattern"
+      fill-space: 0-18
+      sound: null
+      size: 54
+    buttons:
+      "-1":
+        passive:
+          material: RED_WOOL
+          name: "&aPattern:&6 {0}"
+          lore:
+            - "&f"
+            - "&fClick to use this pattern."
+            - "&f"
+            - "&fShift and click for get"
+            - "&fsettings for this pattern."
+            - "&f"
+            - "&6{1}"
+          glow: false
+        active:
+          material: RED_WOOL
+          name: "&aPattern:&6 {0}"
+          lore:
+            - "&f"
+            - "&fClick to use this pattern."
+            - "&f"
+            - "&fShift and click for get"
+            - "&fsettings for this pattern."
+            - "&f"
+            - "&6{1}"
+          glow: true
+      "27":
+        buttonType: back
+        material: CHORUS_FRUIT
+        name: "&aGo back"
+        lore:
+          - " "
+        glow: false
+      "29":
+        buttonType: Prv_page
+        passive:
+          material: arrow
+          name: "&aPrevius page"
+          lore:
+            - ""
+          glow: false
+        active:
+          material: arrow
+          name: "&aPrevius page"
+          lore:
+            - " "
+          glow: true
+      "33":
+        buttonType: Nxt_page
+        passive:
+          material: arrow
+          name: "&aNext page"
+          lore:
+            - ""
+          glow: false
+        active:
+          material: arrow
+          name: "&aNext page"
+          lore:
+            - ""
+          glow: true
+      "31":
+        buttonType: CentreLoc
+        passive:
+          material: RED_WOOL
+          name: "&aSet centre loc"
+          lore:
+            - "&fClick here for set"
+            - "&fcentre location."
+            - ""
+            - "&fCurent location:&6 {0}"
+          glow: false
+        active:
+          material: GREEN_WOOL
+          name: "&aCentre loc"
+          lore:
+            - "&fClick here for set"
+            - "&fcentre location."
+            - ""
+            - "&fCurent location:&6 {0}"
+          glow: true
+  Pattern_settings:
+    menu_settings:
+      name: "Patterns setting"
+      fill-space: 0-18
+      sound: null
+      size: 54
+    buttons:
+      "-1":
+        passive:
+          material: RED_WOOL
+          name: "&aPattern setting:&6 {0}"
+          lore:
+            - "&fClick to set this setting."
+            - "&f"
+            - "&6{1}"
+          glow: false
+        active:
+          material: RED_WOOL
+          name: "&aPattern setting:&6 {0}"
+          lore:
+            - "&fClick to unset this setting."
+            - "&f"
+            - "&6{1}"
+          glow: true
+      "27":
+        buttonType: back
+        material: CHORUS_FRUIT
+        name: "&aGo back"
+        lore:
+          - " "
+        glow: false
+      "29":
+        buttonType: Prv_page
+        passive:
+          material: arrow
+          name: "&aPrevius page"
+          lore:
+            - ""
+          glow: false
+        active:
+          material: arrow
+          name: "&aPrevius page"
+          lore:
+            - " "
+          glow: true
+      "33":
+        buttonType: Nxt_page
+        passive:
+          material: arrow
+          name: "&aNext page"
+          lore:
+            - ""
+          glow: false
+        active:
+          material: arrow
+          name: "&aNext page"
+          lore:
+            - ""
+          glow: true

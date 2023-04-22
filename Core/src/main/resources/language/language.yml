@@ -1,0 +1,29 @@
+#Placeholders
+
+Plugin_name: "&8[&aBlock&b mirror&8]&f"
+Prefix_decor: "---------------> {0} <--------------"
+Suffix_decor: "---------------> {0} <--------------"
+
+Placeholders:
+  Block_face_set: "Not set"
+  Booleans_rename:
+    True: "true"
+    False: "false"
+Messages:
+  Classic_command_clear: "&fHas cleared all set data"
+  Custom_command_clear: "&fHas cleared all set data"
+  Pattern_command_clear: "&fHas cleared all set data"
+  Custom_command_set:
+    - "&fYou have start, click on the blocks to choose locations you want it place blocks.It will "
+    - "&fuse the first clicked block as center and if you shift + left click it will choose"
+    - "&fthe block below the clicked block."
+  Custom_command_place: "&fYou can now place block, it will mirror locations you set."
+  Command_reload: "&fYou have now reloaded the plugin."
+  Drop_item: "&fHas turn of the marker."
+  Switch_slot: "&fHas turn of the marker."
+  Set_center_loc: "&fYou set center location:&6 {0}."
+  Set_loc: "&fYou has set location:&6 {0}."
+  Not_enough_blocks:
+    - "&fYou have only&6 {0} and need {1} blocks more."
+    - "&fTotaly you need {2}"
+  

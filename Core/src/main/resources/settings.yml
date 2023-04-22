@@ -1,0 +1,46 @@
+# Settings
+
+Main_command: "blockmirror|mirror"
+# If you want player get for example always grasblock
+#, no matter what tool he use.
+Silk_touch: false
+Tools:
+  Marker_tool:
+    Matrial: STICK
+    Display_name: "&fMark the locations"
+    Lore:
+      - "&aSet locations you want to mirror"
+      - "&a"
+      - "&aChange item or drop this to"
+      - "&aturn it off."
+Patterns:
+  Circle:
+    # fill all blocks within the pattern if set to true.
+    Fill_all_blocks: false
+    Settings:
+      Passive:
+        Matrial: OAK_SIGN
+        Display_name: "&fFill blocks"
+        Lore:
+          - "&aClick to activate if"
+          - "&ayou want to fill all"
+          - "&ablocks, in the pattern."
+      Active:
+        Matrial: DARK_OAK_SIGN
+        Display_name: "&fFill blocks"
+        Lore:
+          - "&aClick to activate if"
+          - "&ayou want to fill all"
+          - "&ablocks, in the pattern."
+    Passive:
+      Matrial: OAK_SIGN
+      Display_name: "&fCircle pattern"
+      Lore:
+        - "&aLeftclick to set this pattern"
+      Glow: true
+    Active:
+      Matrial: DARK_OAK_SIGN
+      Display_name: "&fCircle pattern"
+      Lore:
+        - "&aRightclick to unset this pattern"
+      Glow: false
