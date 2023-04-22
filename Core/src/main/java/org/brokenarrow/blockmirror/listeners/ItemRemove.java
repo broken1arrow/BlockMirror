@@ -1,6 +1,7 @@
 package org.brokenarrow.blockmirror.listeners;
 
 import org.brokenarrow.blockmirror.BlockMirror;
+import org.brokenarrow.blockmirror.api.blockListener;
 import org.brokenarrow.blockmirror.api.builders.language.Language;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.bukkit.Material;
@@ -10,11 +11,12 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class ItemRemove {
+public class ItemRemove implements blockListener {
 
 	BlockMirror plugin = BlockMirror.getPlugin();
 
-	public void swichSlot(PlayerItemHeldEvent event) {
+	@Override
+	public void onSwichSlot(PlayerItemHeldEvent event) {
 		Player player = event.getPlayer();
 		if (!player.hasMetadata(Actions.set_distance.name())) return;
 
@@ -34,7 +36,8 @@ public class ItemRemove {
 		}
 	}
 
-	public void dropItem(PlayerDropItemEvent event) {
+	@Override
+	public void onDropItem(PlayerDropItemEvent event) {
 		Player player = event.getPlayer();
 		if (!player.hasMetadata(Actions.set_distance.name())) return;
 

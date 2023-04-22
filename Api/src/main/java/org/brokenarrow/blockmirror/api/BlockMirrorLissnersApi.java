@@ -1,6 +1,9 @@
 package org.brokenarrow.blockmirror.api;
 
+import javax.annotation.Nonnull;
+
 public interface BlockMirrorLissnersApi {
 
-	CustomPlacementsApi getCustomPlacements();
+	void addLissner(@Nonnull blockListener listener);
+
 }

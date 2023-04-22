@@ -1,7 +1,7 @@
 package org.brokenarrow.blockmirror.listeners;
 
 import org.brokenarrow.blockmirror.PlayerCache;
-import org.brokenarrow.blockmirror.api.CustomPlacementsApi;
+import org.brokenarrow.blockmirror.api.blockListener;
 import org.brokenarrow.blockmirror.api.builders.Distance;
 import org.brokenarrow.blockmirror.api.builders.MirrorLoc;
 import org.brokenarrow.blockmirror.api.builders.MirrorOption;
@@ -30,7 +30,7 @@ import java.util.Set;
 
 import static org.brokenarrow.blockmirror.BlockMirror.getPlugin;
 
-public class ClassicPlacement implements CustomPlacementsApi {
+public class ClassicPlacement implements blockListener {
 	private final ValidTool validTool = new ValidTool();
 
 	@Override

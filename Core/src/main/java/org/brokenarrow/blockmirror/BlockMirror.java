@@ -20,6 +20,10 @@ import org.brokenarrow.blockmirror.commands.ClassicMirror;
 import org.brokenarrow.blockmirror.commands.CustomMirror;
 import org.brokenarrow.blockmirror.commands.PatternsCommand;
 import org.brokenarrow.blockmirror.commands.Reload;
+import org.brokenarrow.blockmirror.listeners.ClassicPlacement;
+import org.brokenarrow.blockmirror.listeners.CustomPlacements;
+import org.brokenarrow.blockmirror.listeners.ItemRemove;
+import org.brokenarrow.blockmirror.listeners.PatternPlacements;
 import org.brokenarrow.blockmirror.settings.LanguageCache;
 import org.brokenarrow.blockmirror.settings.MenusCache;
 import org.brokenarrow.blockmirror.settings.Settings;
@@ -70,13 +74,25 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 		this.settings = new Settings(this);
 		this.settings.reload();
 
-		this.getServer().getPluginManager().registerEvents(new BlockMirrorLissners(), this);
+		registerListeners();
+		
 		this.patternCache.addPattern(new CirclePattern());
 		registerCommands();
 	}
 
 	@Override
 	public void onDisable() {
+	}
+
+	public void registerListeners() {
+		BlockMirrorListeners blockMirrorListeners = new BlockMirrorListeners();
+		this.getServer().getPluginManager().registerEvents(blockMirrorListeners, this);
+
+
+		blockMirrorListeners.addLissner(new ClassicPlacement());
+		blockMirrorListeners.addLissner(new CustomPlacements());
+		blockMirrorListeners.addLissner(new ItemRemove());
+		blockMirrorListeners.addLissner(new PatternPlacements());
 	}
 
 	@Override
