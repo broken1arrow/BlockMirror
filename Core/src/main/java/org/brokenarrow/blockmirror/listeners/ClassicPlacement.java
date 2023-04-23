@@ -139,6 +139,14 @@ public class ClassicPlacement implements BlockListener {
 					if (mirrorLoc.isMirrorY()) {
 						locations.add(mirrorLocation(xDiff, centerY - placedLoc.getBlockY(), centerZ - placedLoc.getBlockZ(), data.getCenterLocation()));
 					}
+					// Mirror the location across the X axis.
+					if (mirrorLoc.isMirrorX()) {
+						locations.add(mirrorLocation(centerX - placedLoc.getBlockX(), yDiff, centerZ - placedLoc.getBlockZ(), data.getCenterLocation()));
+						// Mirror the location across the Y axis. If also X is activaded.
+						if (mirrorLoc.isMirrorY()) {
+							locations.add(mirrorLocation(centerX - placedLoc.getBlockX(), centerY - placedLoc.getBlockY(), centerZ - placedLoc.getBlockZ(), data.getCenterLocation()));
+						}
+					}
 					break;
 				case MIRROR_XY:
 					// Mirror the location across both the X and Y axes.
