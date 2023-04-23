@@ -2,7 +2,7 @@ package org.brokenarrow.blockmirror.listeners;
 
 import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.PlayerCache;
-import org.brokenarrow.blockmirror.api.blockListener;
+import org.brokenarrow.blockmirror.api.BlockListener;
 import org.brokenarrow.blockmirror.api.builders.Distance;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
 import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
@@ -33,7 +33,7 @@ import java.util.Map;
 
 import static org.brokenarrow.blockmirror.BlockMirror.getPlugin;
 
-public class CustomPlacements implements blockListener {
+public class CustomPlacements implements BlockListener {
 	private final Language language = BlockMirror.getPlugin().getLanguageCache().getLanguage();
 	private final ValidTool validTool = new ValidTool();
 

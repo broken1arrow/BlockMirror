@@ -2,7 +2,7 @@ package org.brokenarrow.blockmirror.listeners;
 
 import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.PlayerCache;
-import org.brokenarrow.blockmirror.api.blockListener;
+import org.brokenarrow.blockmirror.api.BlockListener;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
 import org.brokenarrow.blockmirror.api.builders.SettingsData;
@@ -26,7 +26,7 @@ import java.util.Map;
 
 import static org.brokenarrow.blockmirror.BlockMirror.getPlugin;
 
-public class PatternPlacements implements blockListener {
+public class PatternPlacements implements BlockListener {
 	private final ValidTool validTool = new ValidTool();
 
 	@Override

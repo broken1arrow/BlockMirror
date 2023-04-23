@@ -20,6 +20,7 @@ import org.brokenarrow.blockmirror.commands.ClassicMirror;
 import org.brokenarrow.blockmirror.commands.CustomMirror;
 import org.brokenarrow.blockmirror.commands.PatternsCommand;
 import org.brokenarrow.blockmirror.commands.Reload;
+import org.brokenarrow.blockmirror.listeners.CheckPlayerInventory;
 import org.brokenarrow.blockmirror.listeners.ClassicPlacement;
 import org.brokenarrow.blockmirror.listeners.CustomPlacements;
 import org.brokenarrow.blockmirror.listeners.ItemRemove;
@@ -75,7 +76,7 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 		this.settings.reload();
 
 		registerListeners();
-		
+
 		this.patternCache.addPattern(new CirclePattern());
 		registerCommands();
 	}
@@ -93,6 +94,7 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 		blockMirrorListeners.addLissner(new CustomPlacements());
 		blockMirrorListeners.addLissner(new ItemRemove());
 		blockMirrorListeners.addLissner(new PatternPlacements());
+		blockMirrorListeners.addLissner(new CheckPlayerInventory());
 	}
 
 	@Override

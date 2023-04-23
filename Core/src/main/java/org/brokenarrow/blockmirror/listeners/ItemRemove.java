@@ -1,7 +1,7 @@
 package org.brokenarrow.blockmirror.listeners;
 
 import org.brokenarrow.blockmirror.BlockMirror;
-import org.brokenarrow.blockmirror.api.blockListener;
+import org.brokenarrow.blockmirror.api.BlockListener;
 import org.brokenarrow.blockmirror.api.builders.language.Language;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.bukkit.Material;
@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class ItemRemove implements blockListener {
+public class ItemRemove implements BlockListener {
 
 	BlockMirror plugin = BlockMirror.getPlugin();
 

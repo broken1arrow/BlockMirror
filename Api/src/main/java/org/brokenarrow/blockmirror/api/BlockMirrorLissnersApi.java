@@ -4,6 +4,6 @@ import javax.annotation.Nonnull;
 
 public interface BlockMirrorLissnersApi {
 
-	void addLissner(@Nonnull blockListener listener);
+	void addLissner(@Nonnull BlockListener listener);
 
 }

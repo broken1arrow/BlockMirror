@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public interface blockListener {
+public interface BlockListener {
 
 	default void onBlockPlace(BlockPlaceEvent event) {
 	}

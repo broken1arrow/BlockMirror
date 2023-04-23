@@ -1,7 +1,7 @@
 package org.brokenarrow.blockmirror.listeners;
 
 import org.brokenarrow.blockmirror.BlockMirror;
-import org.brokenarrow.blockmirror.api.blockListener;
+import org.brokenarrow.blockmirror.api.BlockListener;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
 import org.brokenarrow.blockmirror.api.builders.SettingsData;
 import org.brokenarrow.blockmirror.api.utility.Actions;
@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class CheckPlayerInventory implements blockListener {
+public class CheckPlayerInventory implements BlockListener {
 	SettingsData settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
 
 	@Override
