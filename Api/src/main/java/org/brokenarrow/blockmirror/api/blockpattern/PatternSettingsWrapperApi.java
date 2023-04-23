@@ -22,14 +22,14 @@ public interface PatternSettingsWrapperApi {
 	 *
 	 * @param player
 	 */
-	void setSetting(final Player player);
+	void leftClick(final PatternData patternData, final Player player);
 
 	/**
 	 * Unset the setting for this player.
 	 *
 	 * @param player
 	 */
-	void unSetSetting(final Player player);
+	void rightClick(final PatternData patternData, final Player player);
 
 	/**
 	 * If it currently set to true or false.
@@ -46,7 +46,7 @@ public interface PatternSettingsWrapperApi {
 	 * @return the material you want as icon.
 	 */
 	@Nonnull
-	Material icon(boolean active);
+	Material icon(final Player player, boolean active);
 
 	/**
 	 * The name of the item.
@@ -55,7 +55,7 @@ public interface PatternSettingsWrapperApi {
 	 * @return the name to set.
 	 */
 	@Nonnull
-	String displayName(boolean active);
+	String displayName(final Player player, boolean active);
 
 	/**
 	 * The lore on the item.
@@ -64,7 +64,7 @@ public interface PatternSettingsWrapperApi {
 	 * @return the lore to set or null if it not set.
 	 */
 	@Nullable
-	List<String> lore(boolean active);
-	
+	List<String> lore(final Player player, boolean active);
+
 
 }

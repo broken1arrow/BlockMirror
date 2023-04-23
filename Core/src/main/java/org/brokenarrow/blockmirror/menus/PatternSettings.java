@@ -24,12 +24,14 @@ import java.util.List;
 public class PatternSettings extends MenuHolder {
 
 	private final MenuTemplate menuTemplate;
+	private final PatternData patternData;
 	private PlayerBuilder data;
 	private BlockMirror plugin = BlockMirror.getPlugin();
 
 	public PatternSettings(Player player, String menuName, @Nonnull PatternData patternData) {
 		super(patternData.getPatternSettingsWrapers());
 		this.menuTemplate = BlockMirror.getPlugin().getMenusCache().getTemplate(menuName);
+		this.patternData = patternData;
 		if (this.menuTemplate == null) return;
 		data = BlockMirror.getPlugin().getPlayerCache().getOrCreateData(player.getUniqueId());
 		setMenuSize(menuTemplate.getinvSize(menuName));
@@ -50,11 +52,11 @@ public class PatternSettings extends MenuHolder {
 		return new MenuButton() {
 			@Override
 			public void onClickInsideMenu(final Player player, final Inventory menu, final ClickType click, final ItemStack clickedItem, final Object object) {
-				PatternSettingsWrapperApi pattern = (PatternSettingsWrapperApi) object;
+				PatternSettingsWrapperApi patternSettings = (PatternSettingsWrapperApi) object;
 				if (click.isLeftClick())
-					pattern.setSetting(player);
+					patternSettings.leftClick(patternData, player);
 				else
-					pattern.unSetSetting(player);
+					patternSettings.rightClick(patternData, player);
 				PatternSettings.super.updateButton(this);
 			}
 
@@ -91,12 +93,12 @@ public class PatternSettings extends MenuHolder {
 					}
 					String text = TextConvertPlaceholders.translatePlaceholders(
 							menudisplayName,
-							pattern.displayName(isSettingSet), pattern.lore(isSettingSet));
+							pattern.displayName(getViewer(), isSettingSet), pattern.lore(getViewer(), isSettingSet));
 
 					List<String> lore = TextConvertPlaceholders.translatePlaceholdersList(
 							menuLore,
-							pattern.displayName(isSettingSet), pattern.lore(isSettingSet));
-					return CreateItemStack.of(pattern.icon(isSettingSet), text, lore).setGlow(glow).makeItemStack();
+							pattern.displayName(getViewer(), isSettingSet), pattern.lore(getViewer(), isSettingSet));
+					return CreateItemStack.of(pattern.icon(getViewer(), isSettingSet), text, lore).setGlow(glow).makeItemStack();
 
 				}
 				return null;

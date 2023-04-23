@@ -18,20 +18,40 @@ Patterns:
     # fill all blocks within the pattern if set to true.
     Fill_all_blocks: false
     Settings:
-      Passive:
-        Matrial: OAK_SIGN
-        Display_name: "&fFill blocks"
-        Lore:
-          - "&aClick to activate if"
-          - "&ayou want to fill all"
-          - "&ablocks, in the pattern."
-      Active:
-        Matrial: DARK_OAK_SIGN
-        Display_name: "&fFill blocks"
-        Lore:
-          - "&aClick to activate if"
-          - "&ayou want to fill all"
-          - "&ablocks, in the pattern."
+      Fill_blocks:
+        Passive:
+          Matrial: ANDESITE
+          Display_name: "&fFill blocks"
+          Lore:
+            - "&aClick to activate if"
+            - "&ayou want to fill all"
+            - "&ablocks, in the pattern."
+        Active:
+          Matrial: POLISHED_ANDESITE
+          Display_name: "&fFill blocks"
+          Lore:
+            - "&aClick to deactivate if"
+            - "&ayou not want to fill all"
+            - "&ablocks, in the pattern."
+      Change_facing:
+        Passive:
+          Matrial: OAK_SAPLING
+          Display_name: "&fChange facing."
+          Lore:
+            - "&aClick to activate if"
+            - "&ayou want to change the"
+            - "&afacing of the block"
+            - " "
+            - "&aCurrent set:&6 {1}"
+        Active:
+          Matrial: OAK_LOG
+          Display_name: "&fChange facing."
+          Lore:
+            - "&aClick to deactivate if"
+            - "&ayou not want to change the"
+            - "&afacing of the block"
+            - " "
+            - "&aCurrent set:&6 {1}"
     Passive:
       Matrial: OAK_SIGN
       Display_name: "&fCircle pattern"

@@ -77,7 +77,7 @@ public class CirclePattern implements PatternData {
 		List<PatternSettingsWrapperApi> patternSettingsWrapers = new ArrayList<>();
 		BlockPatterns blockPatterns = this.getBlockPatterns();
 		if (blockPatterns != null) {
-			patternSettingsWrapers.add(blockPatterns.getCirclePattern().getPatternSettingsWrapperApi());
+			patternSettingsWrapers.addAll(blockPatterns.getCirclePattern().getPatternSettingsWrapperApi());
 		}
 		return patternSettingsWrapers;
 	}

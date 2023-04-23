@@ -5,12 +5,15 @@ import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
 import org.brokenarrow.blockmirror.api.builders.patterns.PatternWrapperApi;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PatternWrapper implements PatternWrapperApi {
 
 	private final ItemWrapper passive;
 	private final ItemWrapper active;
-	private PatternSettingsWrapperApi patternSettingsWrapperApi;
+	private List<PatternSettingsWrapperApi> patternSettingsWrapperApi = new ArrayList<>();
 	private boolean fillBlocks;
 
 	public PatternWrapper(final ItemWrapper passive, final ItemWrapper active) {
@@ -30,13 +33,19 @@ public class PatternWrapper implements PatternWrapperApi {
 	}
 
 	@Override
-	public PatternSettingsWrapperApi getPatternSettingsWrapperApi() {
+	public List<PatternSettingsWrapperApi> getPatternSettingsWrapperApi() {
 		return patternSettingsWrapperApi;
 	}
 
 	@Override
 	public PatternWrapper setPatternSettingsWraperApi(final PatternSettingsWrapperApi patternSettingsWrapperApi) {
-		this.patternSettingsWrapperApi = patternSettingsWrapperApi;
+		this.patternSettingsWrapperApi.add(patternSettingsWrapperApi);
+		return this;
+	}
+
+	@Override
+	public PatternWrapper setPatternSettingsWraperApi(final PatternSettingsWrapperApi... patternSettingsWrapperApi) {
+		this.patternSettingsWrapperApi.addAll(Arrays.asList(patternSettingsWrapperApi));
 		return this;
 	}
 

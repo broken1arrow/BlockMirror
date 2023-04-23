@@ -71,6 +71,9 @@ public class CustomPlacements implements BlockListener {
 				builder.setCenterLocation(location);
 			} else {
 				Location location = block.getLocation();
+				if (player.isSneaking()) {
+					location.add(0, 1, 0);
+				}
 				List<Distance> distances = data.getDistances();
 				if (distances == null) distances = new ArrayList<>();
 				distances.add(calcualateDistance(location, data.getCenterLocation()));

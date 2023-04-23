@@ -9,6 +9,7 @@ import org.brokenarrow.blockmirror.api.builders.SettingsData;
 import org.brokenarrow.blockmirror.api.builders.language.Language;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.brokenarrow.blockmirror.api.utility.blockdrops.ValidTool;
+import org.brokenarrow.blockmirror.utily.BlockPlacements;
 import org.brokenarrow.blockmirror.utily.InventoyUtility;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -60,7 +61,9 @@ public class PatternPlacements implements BlockListener {
 					if (patternData.replaceOnlyAir() && blockMaterial != Material.AIR)
 						continue;
 					location.getBlock().setType(material);
+					BlockPlacements.setDirection(data, location.getBlock(), block);
 				}
+				BlockPlacements.setDirection(data, block, block);
 				Bukkit.getScheduler().runTaskLater(BlockMirror.getPlugin(), () -> InventoyUtility.removeItemFromInventory(player, event.getItemInHand(), amountNeeded), 1);
 			} else {
 				if (language.getPluginMessages() != null)

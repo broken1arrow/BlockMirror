@@ -1,6 +1,7 @@
 package org.brokenarrow.blockmirror.menus;
 
 import org.brokenarrow.blockmirror.BlockMirror;
+import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.builders.BlockRotation;
 import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
 import org.brokenarrow.blockmirror.api.builders.PlayerBuilder.Builder;
@@ -9,6 +10,7 @@ import org.brokenarrow.blockmirror.api.builders.menu.ButtonType;
 import org.brokenarrow.blockmirror.api.builders.menu.MenuButtonData;
 import org.brokenarrow.blockmirror.api.builders.menu.MenuTemplate;
 import org.brokenarrow.blockmirror.api.filemanger.SerializeingLocation;
+import org.brokenarrow.blockmirror.menus.type.MenuType;
 import org.brokenarrow.blockmirror.utily.TextConvertPlaceholders;
 import org.brokenarrow.menu.library.MenuButton;
 import org.brokenarrow.menu.library.MenuHolder;
@@ -27,12 +29,16 @@ import java.util.List;
 public class SetBlockFace extends MenuHolder {
 
 	private final MenuTemplate menuTemplate;
+	private final MenuType menuType;
+	private final PatternData patternData;
 	private PlayerBuilder data;
 	private BlockMirror plugin = BlockMirror.getPlugin();
 
-	public SetBlockFace(PlayerBuilder data, String menuName) {
+	public SetBlockFace(PlayerBuilder data, PatternData patternData, MenuType menuType, String menuName) {
 		super(Arrays.asList(BlockFace.values()));
 		this.menuTemplate = BlockMirror.getPlugin().getMenusCache().getTemplate(menuName);
+		this.menuType = menuType;
+		this.patternData = patternData;
 		if (this.menuTemplate == null) return;
 		if (data == null) this.data = new PlayerBuilder.Builder().build();
 		else this.data = data;
@@ -60,7 +66,7 @@ public class SetBlockFace extends MenuHolder {
 					else
 						builder.setBlockRotation(new BlockRotation(((BlockFace) object).name()));
 					BlockMirror.getPlugin().getPlayerCache().setPlayerData(player.getUniqueId(), builder.build());
-					new SetBlockFace(BlockMirror.getPlugin().getPlayerCache().getData(player.getUniqueId()), "set_blockface").menuOpen(player);
+					new SetBlockFace(BlockMirror.getPlugin().getPlayerCache().getData(player.getUniqueId()), patternData, menuType, "set_blockface").menuOpen(player);
 				}
 			}
 
@@ -139,7 +145,11 @@ public class SetBlockFace extends MenuHolder {
 
 	public boolean run(final MenuButtonData value, final Inventory menu, final Player player, final ClickType click) {
 		if (value.getButtonType() == ButtonType.Back) {
-			new ClassicMirrorSettings(player, "Auction_selector").menuOpen(player);
+			if (menuType == MenuType.Classic_Mirror_Settings)
+				new ClassicMirrorSettings(player, "Auction_selector").menuOpen(player);
+			else if (this.patternData != null)
+				new PatternSettings(player, "Pattern_settings", this.patternData)
+						.menuOpen(player);
 			return false;
 		}
 		if (value.getButtonType() == ButtonType.Nxt_page) {

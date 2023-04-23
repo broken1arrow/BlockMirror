@@ -32,7 +32,9 @@ public interface BlockMirrorAPI {
 
 	PatternWrapperApi createPatternWrapperApi(@Nonnull final ItemWrapper circlePassive, final ItemWrapper circleActive);
 
-	PatternSettingsWrapperApi createPatternSettingsWraper(@Nonnull final ItemWrapper passive, final ItemWrapper active);
+	PatternSettingsWrapperApi createSetFillBlocksInPattern(@Nonnull final ItemWrapper passive, final ItemWrapper active);
+
+	PatternSettingsWrapperApi createChangeFacingToPattern(@Nonnull ItemWrapper passive, ItemWrapper active);
 
 	void addPatter(PatternData pattern);
 

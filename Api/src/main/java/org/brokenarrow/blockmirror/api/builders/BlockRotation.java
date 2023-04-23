@@ -22,7 +22,7 @@ public class BlockRotation {
 	public Axis getAxis() {
 		return axis;
 	}
-	
+
 	public BlockFace getBlockFace() {
 		return blockFace;
 	}
@@ -30,13 +30,18 @@ public class BlockRotation {
 	public BlockRotation convertRotation(boolean useAxis) {
 
 		if (useAxis) {
-			if (this.getRotation().equals("WEST") || this.getRotation().equals("EAST"))
+			if (this.getRotation().equals("WEST") || this.getRotation().equals("EAST")) {
 				this.axis = Axis.X;
-			if (this.getRotation().equals("UP") || this.getRotation().equals("DOWN"))
+				return this;
+			}
+			if (this.getRotation().equals("UP") || this.getRotation().equals("DOWN")) {
 				this.axis = Axis.Y;
-			if (this.getRotation().equals("NORTH") || this.getRotation().equals("SOUTH"))
+				return this;
+			}
+			if (this.getRotation().equals("NORTH") || this.getRotation().equals("SOUTH")) {
 				this.axis = Axis.Z;
-			else
+				return this;
+			} else
 				this.axis = Axis.Y;
 		} else {
 			BlockFace[] blockFaces = BlockFace.values();

@@ -13,8 +13,9 @@ import org.brokenarrow.blockmirror.api.builders.patterns.PatternWrapperApi;
 import org.brokenarrow.blockmirror.api.commands.CommandBuilder;
 import org.brokenarrow.blockmirror.blockpatterns.CirclePattern;
 import org.brokenarrow.blockmirror.blockpatterns.cache.PatternCache;
-import org.brokenarrow.blockmirror.blockpatterns.utily.PatternSettingsWrapper;
+import org.brokenarrow.blockmirror.blockpatterns.utily.ChangeFacingToPattern;
 import org.brokenarrow.blockmirror.blockpatterns.utily.PatternWrapper;
+import org.brokenarrow.blockmirror.blockpatterns.utily.SetFillBlocksInPattern;
 import org.brokenarrow.blockmirror.commandhandler.CommandRegister;
 import org.brokenarrow.blockmirror.commands.ClassicMirror;
 import org.brokenarrow.blockmirror.commands.CustomMirror;
@@ -134,8 +135,13 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 	}
 
 	@Override
-	public PatternSettingsWrapperApi createPatternSettingsWraper(@Nonnull final ItemWrapper passive, final ItemWrapper active) {
-		return new PatternSettingsWrapper(passive, active);
+	public PatternSettingsWrapperApi createSetFillBlocksInPattern(@Nonnull final ItemWrapper passive, final ItemWrapper active) {
+		return new SetFillBlocksInPattern(passive, active);
+	}
+
+	@Override
+	public PatternSettingsWrapperApi createChangeFacingToPattern(@Nonnull final ItemWrapper passive, final ItemWrapper active) {
+		return new ChangeFacingToPattern(passive, active);
 	}
 
 	@Override

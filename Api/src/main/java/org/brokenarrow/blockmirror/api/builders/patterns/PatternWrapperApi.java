@@ -4,6 +4,7 @@ import org.brokenarrow.blockmirror.api.blockpattern.PatternSettingsWrapperApi;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public interface PatternWrapperApi {
 
@@ -13,7 +14,7 @@ public interface PatternWrapperApi {
 	 *
 	 * @return the settings wrapper.
 	 */
-	PatternSettingsWrapperApi getPatternSettingsWrapperApi();
+	List<PatternSettingsWrapperApi> getPatternSettingsWrapperApi();
 
 	/**
 	 * Try get either the active or passive item wrapper.
@@ -64,5 +65,7 @@ public interface PatternWrapperApi {
 	 * @param patternSettingsWraper
 	 * @return this class.
 	 */
-	PatternWrapperApi setPatternSettingsWraperApi(PatternSettingsWrapperApi patternSettingsWraper);
+	PatternWrapperApi setPatternSettingsWraperApi(final PatternSettingsWrapperApi patternSettingsWraper);
+
+	PatternWrapperApi setPatternSettingsWraperApi(final PatternSettingsWrapperApi... patternSettingsWraper);
 }

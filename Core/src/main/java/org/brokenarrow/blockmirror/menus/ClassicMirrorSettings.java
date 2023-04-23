@@ -21,6 +21,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
+import static org.brokenarrow.blockmirror.menus.type.MenuType.Classic_Mirror_Settings;
+
 public class ClassicMirrorSettings extends MenuHolder {
 
 	private final MenuTemplate menuTemplate;
@@ -185,7 +187,7 @@ public class ClassicMirrorSettings extends MenuHolder {
 			mirrorbuilder.setMirrorZX(click.isLeftClick());
 		}
 		if (value.getButtonType() == ButtonType.block_face) {
-			new SetBlockFace(data, "set_blockface").menuOpen(player);
+			new SetBlockFace(data, null, Classic_Mirror_Settings, "set_blockface").menuOpen(player);
 		}
 		builder.setMirrorLoc(mirrorbuilder.build());
 		BlockMirror.getPlugin().getPlayerCache().setPlayerData(player.getUniqueId(), builder.build());
