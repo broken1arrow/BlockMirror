@@ -152,6 +152,10 @@ public class ClassicMirrorSettings extends MenuHolder {
 		}
 		if (value.getButtonType() == ButtonType.CentreLoc) {
 			if (click.isLeftClick()) {
+				if (data.getCenterLocation() != null) {
+					BlockMirror.getPlugin().getRunTask().setQueueTime(data.getEffectID(), 1);
+					BlockVisualize.visulizeBlock(player.getLocation().getBlock(), data.getCenterLocation(), false);
+				}
 				builder.setCenterLocation(player.getLocation());
 				SpawnBorderEffects spawnBorderEffects = new SpawnBorderEffects(null, player, player.getLocation(), -1, 2.5);
 				builder.setEffectID(spawnBorderEffects.getID());

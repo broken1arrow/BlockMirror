@@ -17,14 +17,14 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class BlockVisualizerCache {
-	private final Map<Location, VisualizeData> visualizedBlocks = new HashMap<>();
+	private final Map<Location, VisualizeData> visualizedBlocks = new ConcurrentHashMap<>();
 	private final VisualTask visualTask;
 
 	public BlockVisualizerCache() {
