@@ -1,5 +1,6 @@
 package org.brokenarrow.blockmirror.api.utility.blockdrops;
 
+import org.brokenarrow.menu.library.utility.ServerVersion;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
@@ -28,7 +29,9 @@ public class ValidTool {
 	@Nonnull
 	public ItemStack[] validateItem(boolean alwaysSilk, ItemStack tool, Block minedBlock) {
 		if (alwaysSilk) return new ItemStack[]{new ItemStack(minedBlock.getType())};
-		
+		if (ServerVersion.olderThan(ServerVersion.v1_13)) {
+			return minedBlock.getDrops(tool).toArray(new ItemStack[0]);
+		}
 		//todo Check so this works in any version. If not works, I need find easy way to check so players gets wrong item with wrong tool.
 		if (!minedBlock.isPreferredTool(tool)) return new ItemStack[0];
 		Material material = minedBlock.getType();
@@ -51,7 +54,7 @@ public class ValidTool {
 		if (material.name().endsWith("_LEAVES")) {
 			return isLeaves(tool, new ItemStack(material), minedBlock);
 		}
-		if (material == Material.TWISTING_VINES || material == Material.WEEPING_VINES ||
+		if (material == Material.matchMaterial("TWISTING_VINES") || material == Material.matchMaterial("WEEPING_VINES") ||
 				material == Material.VINE || material == Material.matchMaterial("GLOW_LICHEN")) {
 			return isVines(tool, new ItemStack(material), minedBlock);
 		}

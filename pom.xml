@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
-    
+
     <modules>
         <module>Api</module>
         <module>Core</module>
@@ -146,7 +146,7 @@
             <dependency>
                 <groupId>com.github.broken1arrow</groupId>
                 <artifactId>MenuLibrary</artifactId>
-                <version>0.85</version>
+                <version>0.88</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>

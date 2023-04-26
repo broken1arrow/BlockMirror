@@ -2,6 +2,7 @@ package org.brokenarrow.blockmirror.api.builders;
 
 import org.bukkit.Location;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class PlayerBuilder {
@@ -33,6 +34,7 @@ public class PlayerBuilder {
 		return centerLocation;
 	}
 
+	@Nullable
 	public BlockRotation getBlockRotation() {
 		return blockRotation;
 	}

@@ -3,6 +3,8 @@ package org.brokenarrow.blockmirror.api.utility.blockdrops;
 
 import org.brokenarrow.blockmirror.api.utility.Pair;
 import org.brokenarrow.blockmirror.api.utility.RandomUntility;
+import org.brokenarrow.menu.library.utility.Item.CreateItemStack;
+import org.brokenarrow.menu.library.utility.ServerVersion;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -23,62 +25,111 @@ public class RandomDrops {
 
 	private final Map<Material, LootDropsData> lootDropsDataMap = new HashMap<Material, LootDropsData>() {{
 		// Add data for Weeping Vines
-		LootDropsData weepingVinesData = new LootDropsData()
-				.setLootDrop(Material.WEEPING_VINES, new DropData(33).setChanceForLevels(new Pair<>(1, 55.0), new Pair<>(2, 77.0), new Pair<>(3, 100.0))
-						.customDropChance((toolLevel, tool, mainedBlock) -> {
-							if (toolLevel > 3) return 100.0;
-							return -1;
-						}));
-		this.put(Material.WEEPING_VINES, weepingVinesData);
+		if (ServerVersion.atLeast(ServerVersion.v1_16)) {
+			LootDropsData weepingVinesData = new LootDropsData()
+					.setLootDrop(Material.WEEPING_VINES, new DropData(33).setChanceForLevels(new Pair<>(1, 55.0), new Pair<>(2, 77.0), new Pair<>(3, 100.0))
+							.customDropChance((toolLevel, tool, mainedBlock) -> {
+								if (toolLevel > 3) return 100.0;
+								return -1;
+							}));
+			this.put(Material.WEEPING_VINES, weepingVinesData);
 
-		// Add data for Twisting Vines
-		LootDropsData twistingVinesData = new LootDropsData()
-				.setLootDrop(Material.TWISTING_VINES, new DropData(33).setChanceForLevels(new Pair<>(1, 55.0), new Pair<>(2, 77.0), new Pair<>(3, 100.0))
-						.customDropChance((toolLevel, tool, mainedBlock) -> {
-							if (toolLevel > 3) return 100.0;
-							return -1;
-						}));
-		this.put(Material.TWISTING_VINES, twistingVinesData);
+			// Add data for Twisting Vines
+			LootDropsData twistingVinesData = new LootDropsData()
+					.setLootDrop(Material.TWISTING_VINES, new DropData(33).setChanceForLevels(new Pair<>(1, 55.0), new Pair<>(2, 77.0), new Pair<>(3, 100.0))
+							.customDropChance((toolLevel, tool, mainedBlock) -> {
+								if (toolLevel > 3) return 100.0;
+								return -1;
+							}));
+			this.put(Material.TWISTING_VINES, twistingVinesData);
+		}
 
 		// Add data for Birch Leaves
+		Material birchSapling;
+		Material birchLeaves;
+		if (ServerVersion.atLeast(ServerVersion.v1_13)) {
+			birchSapling = Material.OAK_SAPLING;
+			birchLeaves = Material.OAK_LEAVES;
+		} else {
+			birchSapling = CreateItemStack.of("BIRCH_SAPLING").makeItemStack().getType();
+			birchLeaves = CreateItemStack.of("BIRCH_LEAVES").makeItemStack().getType();
+		}
+
 		LootDropsData birchLeavesData = new LootDropsData()
-				.setLootDrop(Material.BIRCH_SAPLING, new DropData(5.0).setChanceForLevels(new Pair<>(1, 6.25), new Pair<>(2, 8.33), new Pair<>(3, 10.0)))
+				.setLootDrop(birchSapling, new DropData(5.0).setChanceForLevels(new Pair<>(1, 6.25), new Pair<>(2, 8.33), new Pair<>(3, 10.0)))
 				.setLootDrop(Material.STICK, new DropData(2.0)
 						.setChanceForLevels(new Pair<>(1, 5.5), new Pair<>(2, 6.25), new Pair<>(3, 8.325))
 						.alterAmount((randomUntility, toolLevel, tool, mainedBlock) -> randomUntility.chance(50) ? 2 : 1));
-		this.put(Material.BIRCH_LEAVES, birchLeavesData);
+		this.put(birchLeaves, birchLeavesData);
 
+
+		Material acaciaSapling;
+		Material acaciaLeaves;
+		if (ServerVersion.atLeast(ServerVersion.v1_13)) {
+			acaciaSapling = Material.OAK_SAPLING;
+			acaciaLeaves = Material.OAK_LEAVES;
+		} else {
+			acaciaSapling = CreateItemStack.of("ACACIA_SAPLING").makeItemStack().getType();
+			acaciaLeaves = CreateItemStack.of("ACACIA_LEAVES").makeItemStack().getType();
+		}
 		// Add data for Acacia Leaves
 		LootDropsData acaciaLeavesData = new LootDropsData()
-				.setLootDrop(Material.ACACIA_SAPLING, new DropData(5.0)
+				.setLootDrop(acaciaSapling, new DropData(5.0)
 						.setChanceForLevels(new Pair<>(1, 6.25), new Pair<>(2, 8.33), new Pair<>(3, 10.0)))
 				.setLootDrop(Material.STICK, new DropData(2.0)
 						.setChanceForLevels(new Pair<>(1, 5.5), new Pair<>(2, 6.25), new Pair<>(3, 8.325))
 						.alterAmount((randomUntility, toolLevel, tool, mainedBlock) -> randomUntility.chance(50) ? 2 : 1));
-		this.put(Material.ACACIA_LEAVES, acaciaLeavesData);
+		this.put(acaciaLeaves, acaciaLeavesData);
 
+		Material oakSapling;
+		Material oakLeaves;
+		if (ServerVersion.atLeast(ServerVersion.v1_13)) {
+			oakSapling = Material.OAK_SAPLING;
+			oakLeaves = Material.OAK_LEAVES;
+		} else {
+			oakSapling = CreateItemStack.of("OAK_SAPLING").makeItemStack().getType();
+			oakLeaves = CreateItemStack.of("OAK_LEAVES").makeItemStack().getType();
+		}
 		// Add data for Oak Leaves
 		LootDropsData oakLeavesData = new LootDropsData()
-				.setLootDrop(Material.OAK_SAPLING, new DropData(5.0).setChanceForLevels(new Pair<>(1, 6.25), new Pair<>(2, 8.33), new Pair<>(3, 10.0)))
+				.setLootDrop(oakSapling, new DropData(5.0).setChanceForLevels(new Pair<>(1, 6.25), new Pair<>(2, 8.33), new Pair<>(3, 10.0)))
 				.setLootDrop(Material.STICK, new DropData(2.0).setChanceForLevels(new Pair<>(1, 5.5), new Pair<>(2, 6.25), new Pair<>(3, 8.325))
 						.alterAmount((randomUntility, toolLevel, tool, mainedBlock) -> randomUntility.chance(50) ? 2 : 1))
 				.setLootDrop(Material.APPLE, new DropData(0.5).setChanceForLevels(new Pair<>(1, 0.556), new Pair<>(2, 0.625), new Pair<>(3, 0.833)));
-		this.put(Material.OAK_LEAVES, oakLeavesData);
+		this.put(oakLeaves, oakLeavesData);
 
+		Material darkOakSapling;
+		Material darkOakLeaves;
+		if (ServerVersion.atLeast(ServerVersion.v1_13)) {
+			darkOakSapling = Material.OAK_SAPLING;
+			darkOakLeaves = Material.OAK_LEAVES;
+		} else {
+			darkOakSapling = CreateItemStack.of("DARK_OAK_SAPLING").makeItemStack().getType();
+			darkOakLeaves = CreateItemStack.of("DARK_OAK_LEAVES").makeItemStack().getType();
+		}
 		// Add data for Dark Oak Leaves
 		LootDropsData darkOakLeavesData = new LootDropsData()
-				.setLootDrop(Material.DARK_OAK_SAPLING, new DropData(5.0).setChanceForLevels(new Pair<>(1, 6.25), new Pair<>(2, 8.33), new Pair<>(3, 10.0)))
+				.setLootDrop(darkOakSapling, new DropData(5.0).setChanceForLevels(new Pair<>(1, 6.25), new Pair<>(2, 8.33), new Pair<>(3, 10.0)))
 				.setLootDrop(Material.STICK, new DropData(2.0).setChanceForLevels(new Pair<>(1, 5.5), new Pair<>(2, 6.25), new Pair<>(3, 8.325))
 						.alterAmount((randomUntility, toolLevel, tool, mainedBlock) -> randomUntility.chance(50) ? 2 : 1))
 				.setLootDrop(Material.APPLE, new DropData(0.5).setChanceForLevels(new Pair<>(1, 0.556), new Pair<>(2, 0.625), new Pair<>(3, 0.833)));
-		this.put(Material.DARK_OAK_LEAVES, darkOakLeavesData);
+		this.put(darkOakLeaves, darkOakLeavesData);
 
+		Material jungleSapling;
+		Material jungleLeaves;
+		if (ServerVersion.atLeast(ServerVersion.v1_13)) {
+			jungleSapling = Material.OAK_SAPLING;
+			jungleLeaves = Material.OAK_LEAVES;
+		} else {
+			jungleSapling = CreateItemStack.of("JUNGLE_SAPLING").makeItemStack().getType();
+			jungleLeaves = CreateItemStack.of("JUNGLE_LEAVES").makeItemStack().getType();
+		}
 		// Add data for Jungle Leaves
 		LootDropsData jungleLeavesData = new LootDropsData()
-				.setLootDrop(Material.JUNGLE_SAPLING, new DropData(2.0).setChanceForLevels(new Pair<>(1, 2.224), new Pair<>(2, 2.5), new Pair<>(3, 3.336)))
+				.setLootDrop(jungleSapling, new DropData(2.0).setChanceForLevels(new Pair<>(1, 2.224), new Pair<>(2, 2.5), new Pair<>(3, 3.336)))
 				.setLootDrop(Material.STICK, new DropData(2.0).setChanceForLevels(new Pair<>(1, 5.5), new Pair<>(2, 6.25), new Pair<>(3, 8.325))
 						.alterAmount((randomUntility, toolLevel, tool, mainedBlock) -> randomUntility.chance(50) ? 2 : 1));
-		this.put(Material.JUNGLE_LEAVES, jungleLeavesData);
+		this.put(jungleLeaves, jungleLeavesData);
 
 		// Add data for Azalea Leaves
 		Material azaleaLeaves = Material.matchMaterial("AZALEA_LEAVES");

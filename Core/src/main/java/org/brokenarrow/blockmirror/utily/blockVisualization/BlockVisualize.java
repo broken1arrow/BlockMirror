@@ -1,5 +1,6 @@
 package org.brokenarrow.blockmirror.utily.blockVisualization;
 
+import org.brokenarrow.menu.library.utility.Item.CreateItemStack;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -41,7 +42,7 @@ public class BlockVisualize {
 	public static Material getMaterial() {
 
 		final Material material = null;
-		return material != null ? material : Material.BONE_BLOCK;
+		return material != null ? material : CreateItemStack.of("BONE_BLOCK").makeItemStack().getType();
 	}
 
 	public static String getText() {

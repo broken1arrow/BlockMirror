@@ -2,6 +2,7 @@ package org.brokenarrow.blockmirror.api.builders;
 
 
 import org.brokenarrow.blockmirror.api.filemanger.ConfigurationSerializeUtility;
+import org.brokenarrow.menu.library.utility.Item.CreateItemStack;
 import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
@@ -89,8 +90,8 @@ public class ItemWrapper implements ConfigurationSerializeUtility {
 
 	public static ItemWrapper deserialize(Map<String, Object> map) {
 		String name = (String) map.getOrDefault("Material", null);
-		Material material = Material.ACACIA_SLAB;
-		if (name != null) material = Material.valueOf(name);
+		Material material = CreateItemStack.of("OAK_SLAB").makeItemStack().getType();
+		if (name != null) material = CreateItemStack.of(name).makeItemStack().getType();
 
 		String displayName = (String) map.get("Display_name");
 		List<String> lore = (List<String>) map.get("Lore");

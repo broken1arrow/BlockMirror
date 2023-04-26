@@ -15,7 +15,6 @@ import org.brokenarrow.blockmirror.utily.TextConvertPlaceholders;
 import org.brokenarrow.menu.library.MenuButton;
 import org.brokenarrow.menu.library.MenuHolder;
 import org.brokenarrow.menu.library.utility.Item.CreateItemStack;
-import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -96,7 +95,7 @@ public class SetBlockFace extends MenuHolder {
 						glow = menuButton.getActive().isGlow();
 					}
 
-					return CreateItemStack.of(Material.CRACKED_STONE_BRICKS, text, lore)
+					return CreateItemStack.of("CRACKED_STONE_BRICKS", text, lore)
 							.setGlow(glow && data.getBlockRotation() != null).makeItemStack();
 				}
 				return null;
