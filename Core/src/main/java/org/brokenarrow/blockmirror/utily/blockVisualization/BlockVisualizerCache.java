@@ -31,7 +31,7 @@ public final class BlockVisualizerCache {
 		this.visualTask = new VisualTask();
 	}
 
-	public void visualize(final Player viwer, @NotNull final Block block, final Material mask, final String blockName) {
+	public void visualize(final Player viwer, @NotNull final Block block, final Material mask, final String text) {
 		if (block == null) {
 			throw new NullPointerException("block is marked non-null but is null");
 		} else {
@@ -41,8 +41,10 @@ public final class BlockVisualizerCache {
 			}
 			Validate.checkBoolean(isVisualized(block), "Block at " + block.getLocation() + " already visualized");
 			final Location location = block.getLocation();
-			final FallingBlock falling = spawnFallingBlock(location, mask, blockName);
-			final VisualizeData visualizeData = new VisualizeData(viwer, falling, blockName, mask, false);
+			final FallingBlock falling = spawnFallingBlock(location, mask, text);
+			final VisualizeData visualizeData = new VisualizeData(viwer, falling, text, mask);
+			visualizeData.setRemoveIfAir(false);
+			visualizeData.setStopIfAir(false);
 			final Iterator<Player> players = block.getWorld().getPlayers().iterator();
 			if (viwer == null) {
 				while (players.hasNext()) {
@@ -63,16 +65,15 @@ public final class BlockVisualizerCache {
 		}
 	}
 
-	private FallingBlock spawnFallingBlock(final Location location, final Material mask, final String blockName) {
+	private FallingBlock spawnFallingBlock(final Location location, final Material mask, final String text) {
 		if (ServerVersion.olderThan(ServerVersion.v1_9)) {
 			return null;
 		} else {
 			final FallingBlock falling = spawnFallingBlock(location.clone().add(0.5D, 0.0, 0.5D), mask);
 			falling.setDropItem(false);
 			falling.setVelocity(new Vector(0, 0, 0));
-			setCustomName(falling, blockName);
+			setCustomName(falling, text);
 			apply(falling, true);
-			//apply(falling, false);
 			return falling;
 		}
 	}
@@ -250,14 +251,17 @@ public final class BlockVisualizerCache {
 				final Location location = visualizeBlocks.getKey();
 				final VisualizeData visualizeData = visualizeBlocks.getValue();
 				if (ServerVersion.newerThan(ServerVersion.v1_9) && (location.getBlock().getType() == Material.AIR)) {
-					if (visualizeData.isStopIfAir())
+					if (visualizeData.isRemoveIfAir()) {
 						stopVisualizing(location.getBlock());
-					continue;
+					}
+					if (visualizeData.isStopIfAir())
+						continue;
 				}
 
 
-				if (visualizeData.getViwer() == null) for (final Player player : visualizeData.getPlayersAllowed())
-					visualize(player, location.getBlock(), visualizeData.getMask(), visualizeData.getText());
+				if (visualizeData.getViwer() == null)
+					for (final Player player : visualizeData.getPlayersAllowed())
+						visualize(player, location.getBlock(), visualizeData.getMask(), visualizeData.getText());
 				else
 					visualize(visualizeData.getViwer(), location.getBlock(), visualizeData.getMask(), visualizeData.getText());
 			}
@@ -270,27 +274,35 @@ public final class BlockVisualizerCache {
 		private final FallingBlock fallingBlock;
 		private final String text;
 		private final Material mask;
-		private final boolean stopIfAir;
+		private boolean stopIfAir;
+		private boolean removeIfAir;
 
-		public VisualizeData(final Player viwer, final FallingBlock fallingBlock, final String text, final Material mask, boolean stopIfAir) {
-			this(viwer, new HashSet<>(), fallingBlock, text, mask, stopIfAir);
+		public VisualizeData(final Player viwer, final FallingBlock fallingBlock, final String text, final Material mask) {
+			this(viwer, new HashSet<>(), fallingBlock, text, mask);
 		}
 
-		public VisualizeData(final Player viwer, final Set<Player> playersAllowed, final FallingBlock fallingBlock, final String text, final Material mask, boolean stopIfAir) {
+		public VisualizeData(final Player viwer, final Set<Player> playersAllowed, final FallingBlock fallingBlock, final String text, final Material mask) {
 			this.viwer = viwer;
 			this.playersAllowed = playersAllowed;
 			this.fallingBlock = fallingBlock;
 			this.text = text;
 			this.mask = mask;
+		}
+
+		public void setStopIfAir(final boolean stopIfAir) {
 			this.stopIfAir = stopIfAir;
 		}
 
-		public Player getViwer() {
-			return viwer;
+		public void setRemoveIfAir(final boolean removeIfAir) {
+			this.removeIfAir = removeIfAir;
 		}
 
 		public void addPlayersAllowed(final Player viwer) {
 			playersAllowed.add(viwer);
+		}
+
+		public Player getViwer() {
+			return viwer;
 		}
 
 		public Set<Player> getPlayersAllowed() {
@@ -311,6 +323,10 @@ public final class BlockVisualizerCache {
 
 		public boolean isStopIfAir() {
 			return stopIfAir;
+		}
+
+		public boolean isRemoveIfAir() {
+			return removeIfAir;
 		}
 	}
 }
