@@ -32,6 +32,10 @@ public final class BlockVisualizerCache {
 	}
 
 	public void visualize(final Player viwer, @NotNull final Block block, final Material mask, final String text) {
+		this.visualize(viwer, block, mask, text, null);
+	}
+
+	public void visualize(final Player viwer, @NotNull final Block block, final Material mask, final String text, String permission) {
 		if (block == null) {
 			throw new NullPointerException("block is marked non-null but is null");
 		} else {
@@ -45,6 +49,10 @@ public final class BlockVisualizerCache {
 			final VisualizeData visualizeData = new VisualizeData(viwer, falling, text, mask);
 			visualizeData.setRemoveIfAir(false);
 			visualizeData.setStopIfAir(false);
+			if (permission == null)
+				visualizeData.setPermission("blockmirror.admin.*");
+			else
+				visualizeData.setPermission(permission);
 			final Iterator<Player> players = block.getWorld().getPlayers().iterator();
 			if (viwer == null) {
 				while (players.hasNext()) {
@@ -55,7 +63,7 @@ public final class BlockVisualizerCache {
 			} else {
 				while (players.hasNext()) {
 					final Player player = players.next();
-					if (player.hasPermission("cch.admin.block_visualize") || player.getUniqueId().equals(viwer.getUniqueId())) {
+					if (player.hasPermission(visualizeData.getPermission()) || player.getUniqueId().equals(viwer.getUniqueId())) {
 						visualizeData.addPlayersAllowed(player);
 						sendBlockChange(2, player, location, ServerVersion.olderThan(ServerVersion.v1_9) ? mask : Material.BARRIER);
 					}
@@ -273,6 +281,7 @@ public final class BlockVisualizerCache {
 		private final Set<Player> playersAllowed;
 		private final FallingBlock fallingBlock;
 		private final String text;
+		private String permission;
 		private final Material mask;
 		private boolean stopIfAir;
 		private boolean removeIfAir;
@@ -299,6 +308,14 @@ public final class BlockVisualizerCache {
 
 		public void addPlayersAllowed(final Player viwer) {
 			playersAllowed.add(viwer);
+		}
+
+		public void setPermission(final String permission) {
+			this.permission = permission;
+		}
+
+		public String getPermission() {
+			return permission;
 		}
 
 		public Player getViwer() {
