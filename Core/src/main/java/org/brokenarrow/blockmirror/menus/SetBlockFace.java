@@ -21,6 +21,7 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +32,7 @@ public class SetBlockFace extends MenuHolder {
 	private final MenuType menuType;
 	private final PatternData patternData;
 	private PlayerBuilder data;
-	private BlockMirror plugin = BlockMirror.getPlugin();
+	private final BlockMirror plugin = BlockMirror.getPlugin();
 
 	public SetBlockFace(PlayerBuilder data, PatternData patternData, MenuType menuType, String menuName) {
 		super(Arrays.asList(BlockFace.values()));
@@ -48,7 +49,7 @@ public class SetBlockFace extends MenuHolder {
 	}
 
 	@Override
-	public MenuButton getFillButtonAt(final Object object) {
+	public MenuButton getFillButtonAt(@Nonnull final Object object) {
 		return registerFillButtons(object);
 	}
 
@@ -57,7 +58,7 @@ public class SetBlockFace extends MenuHolder {
 		MenuButtonData menuButton = menuTemplate.getMenuButton(-1);
 		return new MenuButton() {
 			@Override
-			public void onClickInsideMenu(final Player player, final Inventory menu, final ClickType click, final ItemStack clickedItem, final Object object) {
+			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
 				Builder builder = data.getBuilder();
 				if (builder != null) {
 					if (click.isRightClick())
@@ -70,7 +71,7 @@ public class SetBlockFace extends MenuHolder {
 			}
 
 			@Override
-			public ItemStack getItem(final Object object) {
+			public ItemStack getItem(@Nonnull final Object object) {
 				if (menuButton != null) {
 					String text = ((BlockFace) object).name();
 					List<String> lore = new ArrayList<>();
@@ -118,7 +119,7 @@ public class SetBlockFace extends MenuHolder {
 		if (value == null) return null;
 		return new MenuButton() {
 			@Override
-			public void onClickInsideMenu(final Player player, final Inventory menu, final ClickType click, final ItemStack clickedItem, final Object object) {
+			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
 				if (run(value, menu, player, click)) {
 					data = BlockMirror.getPlugin().getPlayerCache().getData(player.getUniqueId());
 					SetBlockFace.super.updateButton(this);

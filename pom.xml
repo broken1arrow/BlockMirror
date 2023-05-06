@@ -146,7 +146,7 @@
             <dependency>
                 <groupId>com.github.broken1arrow</groupId>
                 <artifactId>MenuLibrary</artifactId>
-                <version>0.88</version>
+                <version>0.91</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>

@@ -21,6 +21,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
+import javax.annotation.Nonnull;
+
 import static org.brokenarrow.blockmirror.menus.type.MenuType.Classic_Mirror_Settings;
 
 public class ClassicMirrorSettings extends MenuHolder {
@@ -40,7 +42,7 @@ public class ClassicMirrorSettings extends MenuHolder {
 	}
 
 	@Override
-	public MenuButton getFillButtonAt(final Object object) {
+	public MenuButton getFillButtonAt(@Nonnull final Object object) {
 		return null;
 	}
 
@@ -48,7 +50,7 @@ public class ClassicMirrorSettings extends MenuHolder {
 	private MenuButton registerFillButtons() {
 		return new MenuButton() {
 			@Override
-			public void onClickInsideMenu(final Player player, final Inventory menu, final ClickType click, final ItemStack clickedItem, final Object object) {
+			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
 
 			}
 
@@ -69,7 +71,7 @@ public class ClassicMirrorSettings extends MenuHolder {
 		if (value == null) return null;
 		return new MenuButton() {
 			@Override
-			public void onClickInsideMenu(final Player player, final Inventory menu, final ClickType click, final ItemStack clickedItem, final Object object) {
+			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
 				if (run(value, menu, player, click)) {
 					data = BlockMirror.getPlugin().getPlayerCache().getData(player.getUniqueId());
 					ClassicMirrorSettings.super.updateButton(this);

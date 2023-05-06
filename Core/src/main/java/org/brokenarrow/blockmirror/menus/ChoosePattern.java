@@ -20,13 +20,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ChoosePattern extends MenuHolder {
 
 	private final MenuTemplate menuTemplate;
 	private PlayerBuilder data;
-	private BlockMirror plugin = BlockMirror.getPlugin();
+	private final BlockMirror plugin = BlockMirror.getPlugin();
 
 
 	public ChoosePattern(Player player, String menuName) {
@@ -42,7 +43,7 @@ public class ChoosePattern extends MenuHolder {
 
 
 	@Override
-	public MenuButton getFillButtonAt(final Object object) {
+	public MenuButton getFillButtonAt(@Nonnull final Object object) {
 		return registerFillButtons();
 	}
 
@@ -51,7 +52,7 @@ public class ChoosePattern extends MenuHolder {
 		MenuButtonData menuButton = menuTemplate.getMenuButton(-1);
 		return new MenuButton() {
 			@Override
-			public void onClickInsideMenu(final Player player, final Inventory menu, final ClickType click, final ItemStack clickedItem, final Object object) {
+			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
 				if (click.isLeftClick() && click.isShiftClick()) {
 					player.closeInventory();
 					new PatternSettings(player, "Pattern_settings", (PatternData) object)
@@ -64,7 +65,7 @@ public class ChoosePattern extends MenuHolder {
 			}
 
 			@Override
-			public ItemStack getItem(final Object object) {
+			public ItemStack getItem(@Nonnull final Object object) {
 				if (menuButton != null) {
 					PatternData pattern = (PatternData) object;
 
@@ -132,7 +133,7 @@ public class ChoosePattern extends MenuHolder {
 		if (value == null) return null;
 		return new MenuButton() {
 			@Override
-			public void onClickInsideMenu(final Player player, final Inventory menu, final ClickType click, final ItemStack clickedItem, final Object object) {
+			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
 				if (run(value, menu, player, click)) {
 					data = BlockMirror.getPlugin().getPlayerCache().getData(player.getUniqueId());
 					ChoosePattern.super.updateButton(this);

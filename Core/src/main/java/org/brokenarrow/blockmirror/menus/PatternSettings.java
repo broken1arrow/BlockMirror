@@ -26,7 +26,7 @@ public class PatternSettings extends MenuHolder {
 	private final MenuTemplate menuTemplate;
 	private final PatternData patternData;
 	private PlayerBuilder data;
-	private BlockMirror plugin = BlockMirror.getPlugin();
+	private final BlockMirror plugin = BlockMirror.getPlugin();
 
 	public PatternSettings(Player player, String menuName, @Nonnull PatternData patternData) {
 		super(patternData.getPatternSettingsWrapers());
@@ -42,7 +42,7 @@ public class PatternSettings extends MenuHolder {
 
 
 	@Override
-	public MenuButton getFillButtonAt(final Object object) {
+	public MenuButton getFillButtonAt(@Nonnull final Object object) {
 		return registerFillButtons();
 	}
 
@@ -51,7 +51,7 @@ public class PatternSettings extends MenuHolder {
 		MenuButtonData menuButton = menuTemplate.getMenuButton(-1);
 		return new MenuButton() {
 			@Override
-			public void onClickInsideMenu(final Player player, final Inventory menu, final ClickType click, final ItemStack clickedItem, final Object object) {
+			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
 				PatternSettingsWrapperApi patternSettings = (PatternSettingsWrapperApi) object;
 				if (click.isLeftClick())
 					patternSettings.leftClick(patternData, player);
@@ -61,7 +61,7 @@ public class PatternSettings extends MenuHolder {
 			}
 
 			@Override
-			public ItemStack getItem(final Object object) {
+			public ItemStack getItem(@Nonnull final Object object) {
 				if (menuButton != null) {
 					PatternSettingsWrapperApi pattern = (PatternSettingsWrapperApi) object;
 
@@ -122,7 +122,7 @@ public class PatternSettings extends MenuHolder {
 		if (value == null) return null;
 		return new MenuButton() {
 			@Override
-			public void onClickInsideMenu(final Player player, final Inventory menu, final ClickType click, final ItemStack clickedItem, final Object object) {
+			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
 				if (run(value, menu, player, click)) {
 					data = BlockMirror.getPlugin().getPlayerCache().getData(player.getUniqueId());
 					PatternSettings.super.updateButton(this);
