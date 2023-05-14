@@ -36,7 +36,7 @@ public interface BlockMirrorAPI {
 
 	PatternSettingsWrapperApi createChangeFacingToPattern(@Nonnull ItemWrapper passive, ItemWrapper active);
 
-	void addPatter(PatternData pattern);
+	void addPatterns(PatternData pattern);
 
 	PlayerCacheApi getPlayerCache();
 }

@@ -26,13 +26,10 @@ public class ItemRemove implements BlockListener {
 		String metadata = plugin.getNbt().getCompMetadata().getMetadata(itemStack, Actions.set_distance.name());
 
 		if (metadata != null) {
-
 			plugin.sendMessage(player, "Switch_slot");
 
 			event.getPlayer().getInventory().setItem(event.getPreviousSlot(), new ItemStack(Material.AIR));
 			player.removeMetadata(Actions.set_distance.name(), plugin);
-
-			//BlockMirror.runTaskLater(20, () -> new ModifyContinerData.AlterContainerDataMenu(playerMetadata).menuOpen(player), false);
 		}
 	}
 
@@ -46,9 +43,8 @@ public class ItemRemove implements BlockListener {
 		String metadata = plugin.getNbt().getCompMetadata().getMetadata(itemStack, Actions.set_distance.name());
 
 		if (metadata != null) {
-
-			if (language.getPluginMessages() != null)
-				plugin.sendMessage(player, "Drop_item");
+			
+			plugin.sendMessage(player, "Drop_item");
 
 			Inventory inventory = player.getInventory();
 			int heldItemSlot = event.getPlayer().getInventory().getHeldItemSlot();
@@ -58,7 +54,6 @@ public class ItemRemove implements BlockListener {
 			event.getItemDrop().remove();
 
 			player.removeMetadata(Actions.set_distance.name(), plugin);
-			//BlockMirror.runTaskLater(20, () -> new ModifyContinerData.AlterContainerDataMenu(playerMetadata).menuOpen(player), false);
 		}
 	}
 }

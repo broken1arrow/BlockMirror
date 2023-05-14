@@ -145,7 +145,7 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 	}
 
 	@Override
-	public void addPatter(PatternData pattern) {
+	public void addPatterns(PatternData pattern) {
 		if (this.getPatternCache() == null) {
 			return;
 		}

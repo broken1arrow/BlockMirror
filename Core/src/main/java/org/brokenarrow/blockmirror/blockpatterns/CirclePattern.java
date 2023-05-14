@@ -24,6 +24,7 @@ public class CirclePattern implements PatternData {
 	@Override
 	public List<Location> whenPlace(final PlayerBuilder data, final Player player, final Location centerLocation, final Location blockplacedLoc, final int radius) {
 		BlockPatterns blockPatterns = settings.getSettingsData() != null ? settings.getSettingsData().getBlockPatterns() : null;
+		//if it shall fill all blocks inside the circle
 		boolean fillAllBlocks = false;
 		if (blockPatterns != null) {
 			fillAllBlocks = blockPatterns.getCirclePattern().isFillBlocks();
