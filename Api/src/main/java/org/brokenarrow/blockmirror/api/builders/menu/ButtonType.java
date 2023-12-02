@@ -25,7 +25,8 @@ public enum ButtonType {
 	rotateCounterClockWise_90(""),
 	rotate_180(""),
 	block_face(""),
-	;
+	block_replace_block(""),
+	opposite_face_of_block("");
 	private final String type;
 
 	ButtonType(String type) {

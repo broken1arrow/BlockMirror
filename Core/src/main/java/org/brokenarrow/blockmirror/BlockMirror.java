@@ -1,6 +1,10 @@
 package org.brokenarrow.blockmirror;
 
-import org.broken.lib.rbg.TextTranslator;
+import org.broken.arrow.color.library.TextTranslator;
+import org.broken.arrow.itemcreator.library.ItemCreator;
+import org.broken.arrow.menu.library.RegisterMenuAPI;
+import org.broken.arrow.nbt.library.RegisterNbtAPI;
+import org.broken.arrow.visualization.library.BlockVisualize;
 import org.brokenarrow.blockmirror.api.BlockMirrorAPI;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
@@ -31,8 +35,6 @@ import org.brokenarrow.blockmirror.settings.MenusCache;
 import org.brokenarrow.blockmirror.settings.Settings;
 import org.brokenarrow.blockmirror.tasks.RunTasks;
 import org.brokenarrow.blockmirror.utily.TextConvertPlaceholders;
-import org.brokenarrow.menu.library.RegisterMenuAPI;
-import org.brokenarrow.menu.library.dependencies.nbt.nbtapi.metodes.RegisterNbtAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -52,6 +54,9 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 	private LanguageCache languageCache;
 	private PatternCache patternCache;
 	private Settings settings;
+	private BlockVisualize blockVisualize;
+	private RegisterMenuAPI menu;
+	private ItemCreator itemCreator;
 
 	@Override
 	public void onLoad() {
@@ -62,11 +67,12 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 	@Override
 	public void onEnable() {
 		plugin = this;
-		new RegisterMenuAPI(this);
+		this.menu = new RegisterMenuAPI(this);
 		this.playerCache = new PlayerCache();
 		this.menusCache = new MenusCache(this);
 		this.languageCache = new LanguageCache(this);
-
+		this.blockVisualize = new BlockVisualize(this);
+		this.itemCreator = new ItemCreator(this);
 		this.menusCache.reload();
 		this.languageCache.reload();
 
@@ -99,6 +105,16 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 	}
 
 	@Override
+	public ItemCreator getItemCreator() {
+		return itemCreator;
+	}
+
+	@Override
+	public BlockVisualize getBlockVisualize() {
+		return blockVisualize;
+	}
+
+	@Override
 	public PlayerCache getPlayerCache() {
 		return playerCache;
 	}
@@ -108,7 +124,7 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 	}
 
 	public RegisterNbtAPI getNbt() {
-		return RegisterMenuAPI.getNbtApi();
+		return menu.getNbtApi();
 	}
 
 	public MenusCache getMenusCache() {

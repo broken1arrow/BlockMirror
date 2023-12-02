@@ -1,10 +1,7 @@
 package org.brokenarrow.blockmirror.api.utility.blockdrops;
 
 
-import org.brokenarrow.blockmirror.api.utility.Pair;
 import org.brokenarrow.blockmirror.api.utility.RandomUntility;
-import org.brokenarrow.menu.library.utility.Item.CreateItemStack;
-import org.brokenarrow.menu.library.utility.ServerVersion;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -24,8 +21,8 @@ public class RandomDrops {
 	private static final RandomUntility randomUntility = new RandomUntility();
 
 	private final Map<Material, LootDropsData> lootDropsDataMap = new HashMap<Material, LootDropsData>() {{
-		// Add data for Weeping Vines
-		if (ServerVersion.atLeast(ServerVersion.v1_16)) {
+/*		// Add data for Weeping Vines
+		if (ServerVersion.atLeast(ServerVersion.V1_16)) {
 			LootDropsData weepingVinesData = new LootDropsData()
 					.setLootDrop(Material.WEEPING_VINES, new DropData(33).setChanceForLevels(new Pair<>(1, 55.0), new Pair<>(2, 77.0), new Pair<>(3, 100.0))
 							.customDropChance((toolLevel, tool, mainedBlock) -> {
@@ -47,7 +44,7 @@ public class RandomDrops {
 		// Add data for Birch Leaves
 		Material birchSapling;
 		Material birchLeaves;
-		if (ServerVersion.atLeast(ServerVersion.v1_13)) {
+		if (ServerVersion.atLeast(ServerVersion.V1_13)) {
 			birchSapling = Material.OAK_SAPLING;
 			birchLeaves = Material.OAK_LEAVES;
 		} else {
@@ -65,7 +62,7 @@ public class RandomDrops {
 
 		Material acaciaSapling;
 		Material acaciaLeaves;
-		if (ServerVersion.atLeast(ServerVersion.v1_13)) {
+		if (ServerVersion.atLeast(ServerVersion.V1_13)) {
 			acaciaSapling = Material.OAK_SAPLING;
 			acaciaLeaves = Material.OAK_LEAVES;
 		} else {
@@ -83,7 +80,7 @@ public class RandomDrops {
 
 		Material oakSapling;
 		Material oakLeaves;
-		if (ServerVersion.atLeast(ServerVersion.v1_13)) {
+		if (ServerVersion.atLeast(ServerVersion.V1_13)) {
 			oakSapling = Material.OAK_SAPLING;
 			oakLeaves = Material.OAK_LEAVES;
 		} else {
@@ -100,7 +97,7 @@ public class RandomDrops {
 
 		Material darkOakSapling;
 		Material darkOakLeaves;
-		if (ServerVersion.atLeast(ServerVersion.v1_13)) {
+		if (ServerVersion.atLeast(ServerVersion.V1_13)) {
 			darkOakSapling = Material.OAK_SAPLING;
 			darkOakLeaves = Material.OAK_LEAVES;
 		} else {
@@ -117,7 +114,7 @@ public class RandomDrops {
 
 		Material jungleSapling;
 		Material jungleLeaves;
-		if (ServerVersion.atLeast(ServerVersion.v1_13)) {
+		if (ServerVersion.atLeast(ServerVersion.V1_13)) {
 			jungleSapling = Material.OAK_SAPLING;
 			jungleLeaves = Material.OAK_LEAVES;
 		} else {
@@ -157,7 +154,7 @@ public class RandomDrops {
 					.setLootDrop(Material.STICK, new DropData(2.0).setChanceForLevels(new Pair<>(1, 5.5), new Pair<>(2, 6.25), new Pair<>(3, 8.325))
 							.alterAmount((randomUntility, toolLevel, tool, mainedBlock) -> randomUntility.chance(50) ? 2 : 1));
 			this.put(mangroveLeaves, mangroveLeavesData);
-		}
+		}*/
 	}};
 
 

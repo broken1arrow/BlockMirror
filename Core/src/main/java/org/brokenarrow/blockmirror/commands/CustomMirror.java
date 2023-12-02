@@ -1,5 +1,6 @@
 package org.brokenarrow.blockmirror.commands;
 
+import org.broken.arrow.itemcreator.library.ItemCreator;
 import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.api.builders.BlockRotation;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
@@ -10,7 +11,6 @@ import org.brokenarrow.blockmirror.api.builders.language.Language;
 import org.brokenarrow.blockmirror.api.commands.CommandHolder;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.brokenarrow.blockmirror.utily.InventoyUtility;
-import org.brokenarrow.menu.library.utility.Item.CreateItemStack;
 import org.bukkit.block.BlockFace;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -24,6 +24,7 @@ import java.util.List;
 
 
 public class CustomMirror extends CommandHolder {
+	private ItemCreator itemCreator = BlockMirror.getInstance().getItemCreator();
 
 	public CustomMirror() {
 		super("custom");
@@ -45,7 +46,7 @@ public class CustomMirror extends CommandHolder {
 				ItemStack itemStack = null;
 				if (settingsData != null && settingsData.getTools() != null) {
 					ItemWrapper markertool = settingsData.getTools().getMarkertool();
-					itemStack = CreateItemStack.of(markertool.getMaterial(), markertool.getDisplayName(), markertool.getLore())
+					itemStack = itemCreator.of(markertool.getMaterial(), markertool.getDisplayName(), markertool.getLore())
 							.setItemMetaData(Actions.set_distance.name(), Actions.set_distance.name()).makeItemStack();
 				}
 				if (itemStack != null)
@@ -73,7 +74,7 @@ public class CustomMirror extends CommandHolder {
 				SettingsData settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
 				if (settingsData != null && settingsData.getTools() != null) {
 					ItemWrapper markertool = settingsData.getTools().getMarkertool();
-					ItemStack itemStack = CreateItemStack.of(markertool.getMaterial(), markertool.getDisplayName(), markertool.getLore())
+					ItemStack itemStack = itemCreator.of(markertool.getMaterial(), markertool.getDisplayName(), markertool.getLore())
 							.setItemMetaData(Actions.set_distance.name(), Actions.set_distance.name()).makeItemStack();
 					InventoyUtility.removeCustomItemFromInventory(player, itemStack, Actions.set_distance.name());
 				}

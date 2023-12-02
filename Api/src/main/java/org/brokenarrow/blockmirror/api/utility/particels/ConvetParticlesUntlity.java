@@ -1,9 +1,9 @@
 package org.brokenarrow.blockmirror.api.utility.particels;
 
 import com.google.common.base.Enums;
+import org.broken.arrow.menu.library.utility.ServerVersion;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
 import org.brokenarrow.blockmirror.api.utility.Pair;
-import org.brokenarrow.menu.library.utility.ServerVersion;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -81,7 +81,7 @@ public class ConvetParticlesUntlity {
 	public static ParticleEffect getParticleOrEffect(final Object particle, final String firstColor, final String secondColor, final float flot) {
 		if (particle == null) return null;
 		Object partc;
-		if (ServerVersion.olderThan(ServerVersion.v1_9)) {
+		if (ServerVersion.olderThan(ServerVersion.V1_9)) {
 			partc = getEffect(String.valueOf(particle));
 		} else {
 			partc = getParticle(String.valueOf(particle));
@@ -91,7 +91,7 @@ public class ConvetParticlesUntlity {
 		}
 
 		final ParticleEffect.Builder builder = new ParticleEffect.Builder();
-		if (ServerVersion.atLeast(ServerVersion.v1_9)) {
+		if (ServerVersion.atLeast(ServerVersion.V1_9)) {
 			if (partc instanceof Particle) {
 				final Particle part = (Particle) partc;
 				builder.setParticle(part).setDataType(part.getDataType());
@@ -130,7 +130,7 @@ public class ConvetParticlesUntlity {
 					return true;
 				}
 			}
-			if (ServerVersion.olderThan(ServerVersion.v1_9)) {
+			if (ServerVersion.olderThan(ServerVersion.V1_9)) {
 				final Effect effect = getEffect(String.valueOf(particle));
 				if (effect != null)
 					if (obj == effect.getData()) {
@@ -179,7 +179,7 @@ public class ConvetParticlesUntlity {
 
 	public static String replaceOldParticle(final String particle) {
 
-		if (ServerVersion.atLeast(ServerVersion.v1_17))
+		if (ServerVersion.atLeast(ServerVersion.V1_17))
 			if (particle.equals("BARRIER"))
 				return "BLOCK_MARKER";
 		return particle;
@@ -187,7 +187,7 @@ public class ConvetParticlesUntlity {
 
 	public static Effect checkParticleOld(final String particle) {
 
-		if (ServerVersion.olderThan(ServerVersion.v1_9)) {
+		if (ServerVersion.olderThan(ServerVersion.V1_9)) {
 			if (particle != null && Enums.getIfPresent(Effect.class, particle).orNull() != null)
 				return Effect.valueOf(particle);
 		} else

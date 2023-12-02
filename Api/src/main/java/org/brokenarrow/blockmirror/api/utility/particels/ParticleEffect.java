@@ -1,7 +1,7 @@
 package org.brokenarrow.blockmirror.api.utility.particels;
 
 
-import org.brokenarrow.menu.library.utility.ServerVersion;
+import org.broken.arrow.menu.library.utility.ServerVersion;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -144,7 +144,7 @@ public final class ParticleEffect implements ConfigurationSerializable, Particle
 		particleData.put("Data", this.data);
 		final ParticleDustOptions dustOptions = this.particleDustOptions;
 		if (dustOptions != null) {
-			if (ServerVersion.newerThan(ServerVersion.v1_16) && dustOptions.getToColor() != null) {
+			if (ServerVersion.newerThan(ServerVersion.V1_16) && dustOptions.getToColor() != null) {
 				particleData.put("Transition", new ParticleDustOptions(dustOptions.getFromColor(), dustOptions.getToColor(), dustOptions.getSize()));
 			} else {
 				particleData.put("DustOptions", new ParticleDustOptions(dustOptions.getFromColor(), dustOptions.getSize()));

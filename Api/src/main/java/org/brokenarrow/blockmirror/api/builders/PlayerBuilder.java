@@ -1,5 +1,6 @@
 package org.brokenarrow.blockmirror.api.builders;
 
+import org.brokenarrow.blockmirror.api.utility.OppositeFacing;
 import org.bukkit.Location;
 
 import javax.annotation.Nullable;
@@ -11,8 +12,9 @@ public class PlayerBuilder {
 	private final List<Distance> distances;
 	private final BlockRotation blockRotation;
 	private final MirrorLoc mirrorLoc;
+	private final OppositeFacing flipFacing;
 	private final int effectID;
-	private final boolean patternFill;
+	private final boolean replaceBlock;
 	private final Builder builder;
 
 	private PlayerBuilder(final Builder builder) {
@@ -21,8 +23,9 @@ public class PlayerBuilder {
 		this.blockRotation = builder.blockRotation;
 		this.mirrorLoc = builder.mirrorLoc;
 		this.effectID = builder.effectID;
-		this.patternFill = builder.patternFill;
-
+		this.replaceBlock = builder.replaceBlock;
+		this.flipFacing = builder.flipFacing;
+		
 		this.builder = builder;
 	}
 
@@ -39,6 +42,14 @@ public class PlayerBuilder {
 		return blockRotation;
 	}
 
+	public boolean isReplaceBlock() {
+		return replaceBlock;
+	}
+
+	public OppositeFacing isFlipFacing() {
+		return flipFacing;
+	}
+
 	public MirrorLoc getMirrorLoc() {
 		return mirrorLoc;
 	}
@@ -52,13 +63,13 @@ public class PlayerBuilder {
 	}
 
 	public static class Builder {
-
 		private List<Distance> distances;
 		private BlockRotation blockRotation;
 		public MirrorLoc mirrorLoc;
 		private Location centerLocation;
 		private int effectID;
-		public boolean patternFill;
+		public boolean replaceBlock;
+		private OppositeFacing flipFacing = OppositeFacing.NONE;
 
 		public Builder setDistances(final List<Distance> distances) {
 			this.distances = distances;
@@ -86,9 +97,13 @@ public class PlayerBuilder {
 			return this;
 		}
 
-		public Builder setPatternFill(final boolean patternFill) {
-			this.patternFill = patternFill;
+		public Builder setReplaceBlock(final boolean replaceBlock) {
+			this.replaceBlock = replaceBlock;
 			return this;
+		}
+
+		public void setFlipFacing(final OppositeFacing flipFacing) {
+			this.flipFacing = flipFacing;
 		}
 
 		public PlayerBuilder build() {

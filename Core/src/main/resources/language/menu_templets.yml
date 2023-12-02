@@ -1,7 +1,7 @@
 Menus:
   Auction_selector:
     menu_settings:
-      name: "Auction selector"
+      name: "Mirror blocks"
       sound: null
       size: 54
     buttons:
@@ -156,6 +156,46 @@ Menus:
           name: "&aActivated"
           lore:
             - "&fClick here for deactivate"
+          glow: true
+      "7":
+        buttonType: block_replace_block
+        passive:
+          material: RED_WOOL
+          name: "&aActivate Block replace"
+          lore:
+            - "&fSet this to true to replace"
+            - "&falredy placed blocks."
+          glow: false
+        active:
+          material: GREEN_WOOL
+          name: "&aActivated block replace"
+          lore:
+            - "&fSet this to true to replace"
+            - "&falredy placed blocks."
+          glow: true
+      "24":
+        buttonType: opposite_face_of_block
+        passive:
+          material: RED_WOOL
+          name: "&aActivate flip"
+          lore:
+            - "&fFlip the placement when activate"
+            - "&fthis. It will flip the placement"
+            - "&fso it blocks on opiside side will face"
+            - "&ftowards or away."
+            - ""
+            - "&fCurrently set:&6 {2}"
+          glow: false
+        active:
+          material: GREEN_WOOL
+          name: "&aActivated flip"
+          lore:
+            - "&fFlip the placement when activate"
+            - "&fthis. It will flip the placement"
+            - "&fso it blocks on opiside side will face"
+            - "&ftowards or away."
+            - ""
+            - "&fCurrently set:&6 {2}"
           glow: true
       "36-44,0,8-9,17-18,26-27,35-36":
         material: BLACK_STAINED_GLASS_PANE

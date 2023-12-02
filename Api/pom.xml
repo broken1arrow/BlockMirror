@@ -33,8 +33,13 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.broken1arrow</groupId>
-            <artifactId>MenuLibrary</artifactId>
+            <groupId>com.github.broken1arrow.Utility-Library</groupId>
+            <artifactId>Menu_Library</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.broken1arrow.Utility-Library</groupId>
+            <artifactId>Block-Visualization</artifactId>
         </dependency>
 
         <!--        <dependency>

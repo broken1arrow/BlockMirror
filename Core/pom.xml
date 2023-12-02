@@ -47,11 +47,6 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.github.broken1arrow</groupId>
-            <artifactId>MenuLibrary</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-bukkit</artifactId>
             <scope>provided</scope>
@@ -66,10 +61,6 @@
             <systemPath>H:/PluginsJarUseForAPI/CMILib-0.0.20.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>com.github.broken1arrow</groupId>
-            <artifactId>RBG-Gradients</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.mojang</groupId>
             <artifactId>authlib</artifactId>
         </dependency>
@@ -80,10 +71,6 @@
         <dependency>
             <groupId>com.bgsoftware</groupId>
             <artifactId>WildStackerAPI</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.broken1arrow</groupId>
-            <artifactId>Item-NBT-API</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.angeschossen</groupId>
@@ -100,6 +87,36 @@
         <dependency>
             <groupId>org.brokenarrow</groupId>
             <artifactId>BlockMirror-Api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.broken1arrow.Utility-Library</groupId>
+            <artifactId>Block-Visualization</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.broken1arrow.Utility-Library</groupId>
+            <artifactId>Menu_Library</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.broken1arrow.Utility-Library</groupId>
+            <artifactId>Title-Update</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.broken1arrow.Utility-Library</groupId>
+            <artifactId>Color_Conversion</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.broken1arrow.Utility-Library</groupId>
+            <artifactId>NBT</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.broken1arrow.Utility-Library</groupId>
+            <artifactId>Item_Creator</artifactId>
             <scope>compile</scope>
         </dependency>
     </dependencies>

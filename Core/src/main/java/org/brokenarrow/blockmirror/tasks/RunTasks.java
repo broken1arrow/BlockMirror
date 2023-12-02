@@ -26,9 +26,9 @@ public class RunTasks extends BukkitRunnable {
 	public RunTasks(boolean async) {
 		this.async = async;
 		if (async)
-			taskIDNumber = runTaskTimerAsynchronously(BlockMirror.getPlugin(), 0L, 40L).getTaskId();
+			taskIDNumber = runTaskTimerAsynchronously(BlockMirror.getPlugin(), 0L, 20L * 3).getTaskId();
 		else
-			taskIDNumber = runTaskTimer(BlockMirror.getPlugin(), 0L, 10L).getTaskId();
+			taskIDNumber = runTaskTimer(BlockMirror.getPlugin(), 0L, 20L).getTaskId();
 	}
 
 	public void start() {

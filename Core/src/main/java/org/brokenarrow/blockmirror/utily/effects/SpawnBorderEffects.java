@@ -1,10 +1,10 @@
 package org.brokenarrow.blockmirror.utily.effects;
 
+import org.broken.arrow.menu.library.utility.ServerVersion;
 import org.brokenarrow.blockmirror.api.utility.particels.CreateParticle;
 import org.brokenarrow.blockmirror.api.utility.particels.ParticleDustOptions;
 import org.brokenarrow.blockmirror.api.utility.particels.ParticleEffect;
 import org.brokenarrow.blockmirror.api.utility.particels.ParticleEffectApi;
-import org.brokenarrow.menu.library.utility.ServerVersion;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -39,7 +39,7 @@ public class SpawnBorderEffects implements HeavyLoad {
 		for (final Location location : this.location) {
 			if (this.player != null) {
 				ParticleEffectApi effect;
-				if (ServerVersion.atLeast(ServerVersion.v1_13))
+				if (ServerVersion.atLeast(ServerVersion.V1_13))
 					effect = new ParticleEffect.Builder().setParticle(Particle.REDSTONE).setDustOptions(new ParticleDustOptions("0,0,0", 1)).build();
 				else
 					effect = new ParticleEffect.Builder().setEffect(Effect.valueOf("COLOURED_DUST")).build();
@@ -71,8 +71,11 @@ public class SpawnBorderEffects implements HeavyLoad {
 	public boolean reschedule() {
 		if (rescheduleMaxRunTime() == -1)
 			return true;
-		else
+		else {
+			if (rescheduleMaxRunTime() == -2)
+				return false;
 			return System.currentTimeMillis() <= rescheduleMaxRunTime();
+		}
 	}
 
 	@Override

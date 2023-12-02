@@ -1,6 +1,11 @@
 package org.brokenarrow.blockmirror.menus;
 
+import org.broken.arrow.itemcreator.library.ItemCreator;
+import org.broken.arrow.menu.library.button.MenuButton;
+import org.broken.arrow.menu.library.button.MenuButtonI;
+import org.broken.arrow.menu.library.holder.MenuHolder;
 import org.brokenarrow.blockmirror.BlockMirror;
+import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSettingsWrapperApi;
 import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
@@ -10,9 +15,6 @@ import org.brokenarrow.blockmirror.api.builders.menu.MenuButtonData;
 import org.brokenarrow.blockmirror.api.builders.menu.MenuTemplate;
 import org.brokenarrow.blockmirror.api.filemanger.SerializeingLocation;
 import org.brokenarrow.blockmirror.utily.TextConvertPlaceholders;
-import org.brokenarrow.menu.library.MenuButton;
-import org.brokenarrow.menu.library.MenuHolder;
-import org.brokenarrow.menu.library.utility.Item.CreateItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
@@ -27,6 +29,7 @@ public class PatternSettings extends MenuHolder {
 	private final PatternData patternData;
 	private PlayerBuilder data;
 	private final BlockMirror plugin = BlockMirror.getPlugin();
+	private ItemCreator itemCreator = BlockMirrorUtillity.getInstance().getItemCreator();
 
 	public PatternSettings(Player player, String menuName, @Nonnull PatternData patternData) {
 		super(patternData.getPatternSettingsWrapers());
@@ -42,7 +45,7 @@ public class PatternSettings extends MenuHolder {
 
 
 	@Override
-	public MenuButton getFillButtonAt(@Nonnull final Object object) {
+	public MenuButtonI<Object> getFillButtonAt(@Nonnull final Object object) {
 		return registerFillButtons();
 	}
 
@@ -98,7 +101,7 @@ public class PatternSettings extends MenuHolder {
 					List<String> lore = TextConvertPlaceholders.translatePlaceholdersList(
 							menuLore,
 							pattern.displayName(getViewer(), isSettingSet), pattern.lore(getViewer(), isSettingSet));
-					return CreateItemStack.of(pattern.icon(getViewer(), isSettingSet), text, lore).setGlow(glow).makeItemStack();
+					return itemCreator.of(pattern.icon(getViewer(), isSettingSet), text, lore).setGlow(glow).makeItemStack();
 
 				}
 				return null;

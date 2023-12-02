@@ -49,10 +49,18 @@ public class ClassicPlacement implements BlockListener {
 			PreBlockPlaceClassic preBlockPlaceClassic = new PreBlockPlaceClassic(player, data, locations, hasNeededItems);
 
 			if (hasNeededItems && !preBlockPlaceClassic.isCancelled()) {
+				int amountToTake = 0;
 				for (Location location : locations) {
-					BlockPlacements.setDirection(data, location.getBlock(), block);
+					Block mirroredBlock = location.getBlock();
+					if (!data.isReplaceBlock() && mirroredBlock.getType() != Material.AIR)
+						continue;
+					if (mirroredBlock.getType() == block.getType())
+						continue;
+					amountToTake++;
+					BlockPlacements.setDirection(data, mirroredBlock, block);
 				}
-				Bukkit.getScheduler().runTaskLater(getPlugin(), () -> InventoyUtility.removeItemFromInventory(player, event.getItemInHand(), locations.size()), 1);
+				final int finalAmountToTake = amountToTake;
+				Bukkit.getScheduler().runTaskLater(getPlugin(), () -> InventoyUtility.removeItemFromInventory(player, event.getItemInHand(), finalAmountToTake), 1);
 				if (data.getBlockRotation() != null) {
 					BlockPlacements.setDirection(data, block, block);
 				}
@@ -200,102 +208,6 @@ public class ClassicPlacement implements BlockListener {
 
 		return new Location(centerLoc.getWorld(), mirroredX, mirroredY, mirroredZ);
 	}
-
-	/*	public List<Location> getMirrrorLoc(PlayerBuilder data, Location placedLoc) {
-	 *//*	if (mirrorLoc.isRotateClockWise_90()) {
-			int temp = x;
-			x = -z;
-			z = temp;
-		}
-		if (mirrorLoc.isRotateCounterClockWise_90()) {
-			int temp = x;
-			x = z;
-			z = -temp;
-		}*//*
-		MirrorLoc mirrorLoc = data.getMirrorLoc();
-		if (mirrorLoc == null) return null;
-		List<Location> locations = new ArrayList<>();
-		int centerX = data.getCenterLocation().getBlockX();
-		int centerY = data.getCenterLocation().getBlockY();
-		int centerZ = data.getCenterLocation().getBlockZ();
-		if (mirrorLoc.isMirrorX()) {
-			Location location = new Location(placedLoc.getWorld(), centerX, placedLoc.getY(), centerZ);
-			location.add(centerX - placedLoc.getBlockX(), 0, 0);
-			location.subtract(0, 0, centerZ - placedLoc.getBlockZ());
-
-			locations.add(location);
-
-			if (mirrorLoc.isMirrorY()) {
-				Location locationY = new Location(placedLoc.getWorld(), centerX, centerY, centerZ);
-				locationY.add(0, centerY - placedLoc.getY(), 0);
-				locationY.subtract(centerX - location.getBlockX(), 0, centerZ - location.getBlockZ());
-				locations.add(locationY);
-			}
-			if (mirrorLoc.isMirrorZ()) {
-				Location locationZ = new Location(placedLoc.getWorld(), centerX, placedLoc.getY(), centerZ);
-				locationZ.add(0, 0, centerZ - location.getZ());
-				locationZ.subtract(centerX - location.getBlockX(), 0, 0);
-				locations.add(locationZ);
-				if (mirrorLoc.isMirrorY()) {
-					Location locationY = new Location(placedLoc.getWorld(), centerX, centerY, centerZ);
-					locationY.add(0, centerY - placedLoc.getY(), 0);
-					locationY.subtract(centerX - locationZ.getBlockX(), 0, centerZ - locationZ.getBlockZ());
-					locations.add(locationY);
-				}
-			}
-
-		}
-		if (mirrorLoc.isMirrorY()) {
-			Location location = new Location(placedLoc.getWorld(), centerX, centerY, centerZ);
-			location.add(0, centerY - placedLoc.getY(), 0);
-			location.subtract(centerX - placedLoc.getBlockX(), 0, centerZ - placedLoc.getBlockZ());
-
-			locations.add(location);
-		}
-		if (mirrorLoc.isMirrorZ()) {
-			Location location = new Location(placedLoc.getWorld(), centerX, placedLoc.getY(), centerZ);
-			location.add(0, 0, centerZ - placedLoc.getZ());
-			location.subtract(centerX - placedLoc.getBlockX(), 0, 0);
-			locations.add(location);
-			if (mirrorLoc.isMirrorY()) {
-				Location locationY = new Location(placedLoc.getWorld(), centerX, centerY, centerZ);
-				locationY.add(0, centerY - placedLoc.getY(), 0);
-				locationY.subtract(centerX - location.getBlockX(), 0, centerZ - location.getBlockZ());
-				locations.add(locationY);
-			}
-		}
-		if (mirrorLoc.isMirrorXY()) {
-			Location location = new Location(placedLoc.getWorld(), centerX, placedLoc.getBlockY(), centerZ);
-			location.add(0, placedLoc.getBlockY() - centerY, 0);
-			location.add(centerX - placedLoc.getBlockX(), 0, centerZ - placedLoc.getBlockZ());
-
-			locations.add(location);
-		}
-		if (mirrorLoc.isMirrorZY()) {
-			Location location = new Location(placedLoc.getWorld(), centerX, placedLoc.getBlockY(), centerZ);
-			location.add(0, placedLoc.getBlockY() - centerY, 0);
-			location.add(0, 0, placedLoc.getBlockZ() - centerZ);
-
-			locations.add(location);
-		}
-		if (mirrorLoc.isMirrorXZ()) {
-			Location location = new Location(placedLoc.getWorld(), centerX, placedLoc.getBlockY(), centerZ);
-			location.add(placedLoc.getBlockZ() - centerZ, 0, placedLoc.getBlockX() - centerX);
-
-			locations.add(location);
-		}
-		if (mirrorLoc.isMirrorZX()) {
-			Location location = new Location(placedLoc.getWorld(), centerX, placedLoc.getBlockY(), centerZ);
-			location.subtract(placedLoc.getBlockZ() - centerZ, 0, placedLoc.getBlockX() - centerX);
-
-			locations.add(location);
-		}
-		if (mirrorLoc.isRotateClockWise_90()) {
-		}
-		if (mirrorLoc.isRotateCounterClockWise_90()) {
-		}
-		return locations;
-	}*/
 
 	public Distance calcualateDistance(Location nextLocation, Location centerLocation) {
 		int distanceZ = nextLocation.getBlockZ() - centerLocation.getBlockZ();

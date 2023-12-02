@@ -1,0 +1,39 @@
+Facing:
+  up:
+    matrial: STONE
+  down:
+    matrial: STONE
+  west:
+    matrial: STONE
+  east:
+    matrial: STONE
+  south:
+    matrial: STONE
+  north:
+    matrial: STONE
+  north_east:
+    matrial: STONE
+  north_west:
+    matrial: STONE
+  south_east:
+    matrial: STONE
+  south_west:
+    matrial: STONE
+  west_north_west:
+    matrial: STONE
+  north_north_west:
+    matrial: STONE
+  north_north_east:
+    matrial: STONE
+  east_north_east:
+    matrial: STONE
+  east_south_east:
+    matrial: STONE
+  south_south_east:
+    matrial: STONE
+  south_south_west:
+    matrial: STONE
+  west_south_west:
+    matrial: STONE
+  self:
+    matrial: STONE

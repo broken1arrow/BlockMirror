@@ -1,7 +1,7 @@
 package org.brokenarrow.blockmirror.api.utility.particels;
 
 
-import org.brokenarrow.menu.library.utility.ServerVersion;
+import org.broken.arrow.menu.library.utility.ServerVersion;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -100,7 +100,7 @@ public class CreateParticle {
 	public boolean create() {
 		final ParticleDustOptionsApi particleDustOptions = this.particleDustOptions;
 		if (particleDustOptions != null) {
-			if (ServerVersion.newerThan(ServerVersion.v1_16) && particleDustOptions.getToColor() != null)
+			if (ServerVersion.newerThan(ServerVersion.V1_16) && particleDustOptions.getToColor() != null)
 				spawnDustTransitionParticle(new Particle.DustTransition(particleDustOptions.getFromColor(), particleDustOptions.getToColor(), particleDustOptions.getSize()));
 			else
 				spawnDustOptionsParticle(new Particle.DustOptions(particleDustOptions.getFromColor(), particleDustOptions.getSize()));

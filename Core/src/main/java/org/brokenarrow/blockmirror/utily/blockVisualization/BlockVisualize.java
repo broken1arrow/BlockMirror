@@ -1,57 +1,35 @@
 package org.brokenarrow.blockmirror.utily.blockVisualization;
 
-import org.brokenarrow.menu.library.utility.Item.CreateItemStack;
-import org.brokenarrow.menu.library.utility.ServerVersion;
+import org.broken.arrow.itemcreator.library.ItemCreator;
+import org.broken.arrow.menu.library.utility.ServerVersion;
+import org.broken.arrow.visualization.library.builders.VisualizeData;
+import org.brokenarrow.blockmirror.BlockMirror;
+import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class BlockVisualize {
-	private static BlockVisualizerCache blockVisualizerCache;
+
+	private static final BlockMirror plugin = BlockMirror.getPlugin();
+	private static final org.broken.arrow.visualization.library.BlockVisualize visualize = plugin.getBlockVisualize();
 
 	public static void visulizeBlock(final Block block, final Location location, final boolean shallBeVisualize) {
 		visulizeBlock(null, block, location, shallBeVisualize);
 	}
 
 	public static void visulizeBlock(final Player player, final Block block, final Location location, final boolean shallBeVisualize) {
-		if (blockVisualizerCache == null)
-			blockVisualizerCache = new BlockVisualizerCache();
-		if (!blockVisualizerCache.isVisualized(block) && shallBeVisualize)
-			blockVisualizerCache.visualize(player, block,
-					getMaterial(), getText());
-
-		else if (blockVisualizerCache.isVisualized(block) && shallBeVisualize) {
-			blockVisualizerCache.stopVisualizing(block);
-			blockVisualizerCache.visualize(player, block,
-					getMaterial(), getText());
-
-		} else if (blockVisualizerCache.isVisualized(block)) {
-			blockVisualizerCache.stopVisualizing(block);
-		}
-		blockVisualizerCache.getVisualTask().start();
-	}
-
-	public static boolean stopVisualizing(final Block block) {
-		if (blockVisualizerCache.isVisualized(block)) {
-			blockVisualizerCache.stopVisualizing(block);
-			return true;
-		}
-		return false;
+		org.broken.arrow.visualization.library.builders.VisualizeData visualizeData = new VisualizeData(player, "", getMaterial());
+		visualize.visualizeBlock(player, block, () -> visualizeData, shallBeVisualize);
 	}
 
 	public static Material getMaterial() {
-
+		ItemCreator itemCreator = BlockMirrorUtillity.getInstance().getItemCreator();
 		Material material = null;
-		if (ServerVersion.olderThan(ServerVersion.v1_13))
+		if (ServerVersion.olderThan(ServerVersion.V1_13))
 			material = Material.matchMaterial("STONE");
-		return material != null ? material : CreateItemStack.of("BONE_BLOCK").makeItemStack().getType();
+		return material != null ? material : itemCreator.of("BONE_BLOCK").makeItemStack().getType();
 	}
 
-	public static String getText() {
-		String message = "";
-		if (message != null && !message.equals(""))
-			return message;
-		return "";
-	}
 }

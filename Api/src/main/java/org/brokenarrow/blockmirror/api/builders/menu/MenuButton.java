@@ -1,7 +1,8 @@
 package org.brokenarrow.blockmirror.api.builders.menu;
 
+import org.broken.arrow.itemcreator.library.ItemCreator;
+import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
 import org.brokenarrow.blockmirror.api.filemanger.ConfigurationSerializeUtility;
-import org.brokenarrow.menu.library.utility.Item.CreateItemStack;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -124,6 +125,7 @@ public class MenuButton implements ConfigurationSerializeUtility {
 	}
 
 	public static MenuButton deserialize(final Map<String, Object> map) {
+		ItemCreator itemCreator = BlockMirrorUtillity.getInstance().getItemCreator();
 		final String color = (String) map.get("color");
 		final String material = (String) map.get("material");
 		final String displayName = (String) map.get("name");
@@ -132,9 +134,9 @@ public class MenuButton implements ConfigurationSerializeUtility {
 		final String buttonType = (String) map.get("buttonType");
 		ItemStack itemStack;
 		if (color != null)
-			itemStack = CreateItemStack.of(material, color, displayName, lore).setGlow(glow).makeItemStack();
+			itemStack = itemCreator.of(material, displayName, lore).setGlow(glow).makeItemStack();
 		else
-			itemStack = CreateItemStack.of(material, displayName, lore).setGlow(glow).makeItemStack();
+			itemStack = itemCreator.of(material, displayName, lore).setGlow(glow).makeItemStack();
 
 		final Builder builder = new Builder();
 		builder.setButtonType(ButtonType.valueOfType(buttonType))

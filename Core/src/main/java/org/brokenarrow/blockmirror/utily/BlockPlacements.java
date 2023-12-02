@@ -1,20 +1,23 @@
 package org.brokenarrow.blockmirror.utily;
 
+import org.broken.arrow.menu.library.utility.ServerVersion;
 import org.brokenarrow.blockmirror.api.builders.BlockRotation;
 import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
-import org.brokenarrow.menu.library.utility.ServerVersion;
+import org.brokenarrow.blockmirror.api.utility.OppositeFacing;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.Orientable;
 import org.bukkit.block.data.Rotatable;
+import org.bukkit.block.data.type.Slab;
 
 public class BlockPlacements {
 
-	
 	public static void setDirection(PlayerBuilder data, final Block blockToPlace, final Block placedBlock) {
-		if (ServerVersion.atLeast(ServerVersion.v1_12)) {
+		if (ServerVersion.atLeast(ServerVersion.V1_12)) {
 			new BlockPlace(data).setDirection(blockToPlace, placedBlock);
 		} else {
 			byte bytes = data.getBlockRotation() != null ? data.getBlockRotation().convertRotation(placedBlock.getType()) : placedBlock.getData();
@@ -40,11 +43,27 @@ public class BlockPlacements {
 
 		public void setDirection(final Block blockToPlace, final Block placedBlock) {
 			BlockData blockData = placedBlock.getBlockData();
+			Location loc = blockToPlace.getLocation();
+			Location locPlace = placedBlock.getLocation();
 			if (blockData instanceof Directional) {
 				Directional directional = (Directional) blockData;
 				BlockRotation convertRotation = data.getBlockRotation() != null ? data.getBlockRotation().convertRotation(false) : null;
-				directional.setFacing(convertRotation != null ? convertRotation.getBlockFace() : ((Directional) blockData).getFacing());
+				BlockFace facing = convertRotation != null ? convertRotation.getBlockFace() : ((Directional) blockData).getFacing();
 
+				/*		if (data.isFlipPlacement())*/
+				// x direction.
+				if (data.isFlipFacing() == OppositeFacing.X_DIRECTION || data.isFlipFacing() == OppositeFacing.BOTH_DIRECTIONS) {
+					if (loc.getBlockZ() == locPlace.getBlockZ() && loc.getBlockX() != locPlace.getBlockX()) //||(loc.getBlockZ() != locPlace.getBlockZ() && loc.getBlockX() != locPlace.getBlockX()))
+						facing = facing.getOppositeFace();
+				}
+				// z direction.
+				if (data.isFlipFacing() == OppositeFacing.Z_DIRECTION || data.isFlipFacing() == OppositeFacing.BOTH_DIRECTIONS) {
+					if (loc.getBlockZ() != locPlace.getBlockZ() && loc.getBlockX() != locPlace.getBlockX())
+						/*	if ((loc.getBlockZ() != locPlace.getBlockZ() && loc.getBlockX() == locPlace.getBlockX()) || (loc.getBlockZ() != locPlace.getBlockZ() && loc.getBlockX() != locPlace.getBlockX()))*/
+						facing = facing.getOppositeFace();
+				}
+
+				directional.setFacing(facing);
 				setBlock(placedBlock, blockToPlace, directional);
 			} else if (blockData instanceof Orientable) {
 				Orientable directional = (Orientable) blockData;
@@ -58,6 +77,12 @@ public class BlockPlacements {
 				directional.setRotation(convertRotation != null ? convertRotation.getBlockFace() : ((Rotatable) blockData).getRotation());
 
 				setBlock(placedBlock, blockToPlace, directional);
+			} else if (blockData instanceof Slab) {
+				Slab slabData = (Slab) blockData;
+				BlockRotation convertRotation = data.getBlockRotation() != null ? data.getBlockRotation().convertRotation(false, true) : null;
+				slabData.setType(convertRotation != null ? convertRotation.getHalfBlockHight() : ((Slab) placedBlock.getBlockData()).getType());
+
+				setBlock(placedBlock, blockToPlace, slabData);
 			} else {
 				blockToPlace.setType(placedBlock.getType());
 			}

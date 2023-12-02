@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.broken.lib.rbg.TextTranslator.toSpigotFormat;
+import static org.broken.arrow.color.library.TextTranslator.toSpigotFormat;
+
 
 public class CommandsUtility extends Command {
 

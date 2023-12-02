@@ -1,6 +1,11 @@
 package org.brokenarrow.blockmirror.menus;
 
+import org.broken.arrow.itemcreator.library.ItemCreator;
+import org.broken.arrow.menu.library.button.MenuButton;
+import org.broken.arrow.menu.library.button.MenuButtonI;
+import org.broken.arrow.menu.library.holder.MenuHolder;
 import org.brokenarrow.blockmirror.BlockMirror;
+import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.builders.BlockRotation;
 import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
@@ -12,9 +17,6 @@ import org.brokenarrow.blockmirror.api.builders.menu.MenuTemplate;
 import org.brokenarrow.blockmirror.api.filemanger.SerializeingLocation;
 import org.brokenarrow.blockmirror.menus.type.MenuType;
 import org.brokenarrow.blockmirror.utily.TextConvertPlaceholders;
-import org.brokenarrow.menu.library.MenuButton;
-import org.brokenarrow.menu.library.MenuHolder;
-import org.brokenarrow.menu.library.utility.Item.CreateItemStack;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -33,6 +35,7 @@ public class SetBlockFace extends MenuHolder {
 	private final PatternData patternData;
 	private PlayerBuilder data;
 	private final BlockMirror plugin = BlockMirror.getPlugin();
+	private final ItemCreator itemCreator = BlockMirrorUtillity.getInstance().getItemCreator();
 
 	public SetBlockFace(PlayerBuilder data, PatternData patternData, MenuType menuType, String menuName) {
 		super(Arrays.asList(BlockFace.values()));
@@ -49,7 +52,7 @@ public class SetBlockFace extends MenuHolder {
 	}
 
 	@Override
-	public MenuButton getFillButtonAt(@Nonnull final Object object) {
+	public MenuButtonI<Object> getFillButtonAt(@Nonnull final Object object) {
 		return registerFillButtons(object);
 	}
 
@@ -96,7 +99,7 @@ public class SetBlockFace extends MenuHolder {
 						glow = menuButton.getActive().isGlow();
 					}
 
-					return CreateItemStack.of("CRACKED_STONE_BRICKS", text, lore)
+					return itemCreator.of("CRACKED_STONE_BRICKS", text, lore)
 							.setGlow(glow && data.getBlockRotation() != null).makeItemStack();
 				}
 				return null;
@@ -122,7 +125,7 @@ public class SetBlockFace extends MenuHolder {
 			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
 				if (run(value, menu, player, click)) {
 					data = BlockMirror.getPlugin().getPlayerCache().getData(player.getUniqueId());
-					SetBlockFace.super.updateButton(this);
+					updateButton(this);
 				}
 			}
 

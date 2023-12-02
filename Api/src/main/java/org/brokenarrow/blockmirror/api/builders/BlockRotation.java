@@ -4,6 +4,7 @@ import org.brokenarrow.blockmirror.api.utility.Rotation;
 import org.bukkit.Axis;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.type.Slab.Type;
 
 import javax.annotation.Nonnull;
 
@@ -12,9 +13,22 @@ public class BlockRotation {
 	private final String rotation;
 	private Axis axis;
 	private BlockFace blockFace;
+	private Type blockType;
 
 	public BlockRotation(@Nonnull final String rotation) {
 		this.rotation = rotation.toUpperCase();
+	}
+
+	public static BlockRotation of(final Axis axis) {
+		BlockRotation rotation = new BlockRotation(axis.name());
+		rotation.axis = axis;
+		return rotation;
+	}
+
+	public static BlockRotation of(final BlockFace faceing) {
+		BlockRotation blockRotation = new BlockRotation(faceing.name());
+		blockRotation.blockFace = faceing;
+		return blockRotation;
 	}
 
 	public String getRotation() {
@@ -29,8 +43,15 @@ public class BlockRotation {
 		return blockFace;
 	}
 
-	public BlockRotation convertRotation(boolean useAxis) {
+	public Type getHalfBlockHight() {
+		return blockType;
+	}
 
+	public BlockRotation convertRotation(boolean useAxis) {
+		return convertRotation(useAxis, false);
+	}
+
+	public BlockRotation convertRotation(boolean useAxis, boolean isSlab) {
 		if (useAxis) {
 			Rotation rotation = Rotation.getType(this.getRotation());
 			switch (rotation) {
@@ -49,15 +70,38 @@ public class BlockRotation {
 					break;
 			}
 		} else {
-			BlockFace[] blockFaces = BlockFace.values();
-			for (BlockFace blockFace : blockFaces) {
-				if (this.getRotation().equals(blockFace.name())) {
-					this.blockFace = blockFace;
+			if (isSlab) {
+				convertSlabRotation();
+			} else {
+				BlockFace[] blockFaces = BlockFace.values();
+				for (BlockFace blockFace : blockFaces) {
+					if (this.getRotation().equals(blockFace.name())) {
+						this.blockFace = blockFace;
+					}
 				}
 			}
 		}
 		return this;
 	}
+
+	public BlockRotation convertSlabRotation() {
+		Rotation rotation = Rotation.getType(this.getRotation());
+		switch (rotation) {
+			case DOWN:
+				this.blockType = Type.BOTTOM;
+				break;
+			case WEST:
+			case EAST:
+			case NORTH:
+			case SOUTH:
+			case UP:
+			default:
+				this.blockType = Type.TOP;
+				break;
+		}
+		return this;
+	}
+
 	//dropper down 0
 	//dropper up 1
 	//dropper north 2
