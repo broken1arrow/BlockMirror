@@ -60,7 +60,7 @@ public class PatternSettings extends MenuHolder {
 					patternSettings.leftClick(patternData, player);
 				else
 					patternSettings.rightClick(patternData, player);
-				PatternSettings.super.updateButton(this);
+				updateButton(this);
 			}
 
 			@Override

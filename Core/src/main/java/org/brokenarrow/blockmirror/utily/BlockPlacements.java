@@ -48,7 +48,7 @@ public class BlockPlacements {
 			if (blockData instanceof Directional) {
 				Directional directional = (Directional) blockData;
 				BlockRotation convertRotation = data.getBlockRotation() != null ? data.getBlockRotation().convertRotation(false) : null;
-				BlockFace facing = convertRotation != null ? convertRotation.getBlockFace() : ((Directional) blockData).getFacing();
+				BlockFace facing = convertRotation != null ? convertRotation.getBlockFace() : directional.getFacing();
 
 				/*		if (data.isFlipPlacement())*/
 				// x direction.
@@ -68,20 +68,19 @@ public class BlockPlacements {
 			} else if (blockData instanceof Orientable) {
 				Orientable directional = (Orientable) blockData;
 				BlockRotation convertRotation = data.getBlockRotation() != null ? data.getBlockRotation().convertRotation(true) : null;
-				directional.setAxis(convertRotation != null ? convertRotation.getAxis() : ((Orientable) blockData).getAxis());
+				directional.setAxis(convertRotation != null ? convertRotation.getAxis() : directional.getAxis());
 
 				setBlock(placedBlock, blockToPlace, directional);
 			} else if (blockData instanceof Rotatable) {
-				Rotatable directional = (Rotatable) blockData;
+				Rotatable rotatable = (Rotatable) blockData;
 				BlockRotation convertRotation = data.getBlockRotation() != null ? data.getBlockRotation().convertRotation(false) : null;
-				directional.setRotation(convertRotation != null ? convertRotation.getBlockFace() : ((Rotatable) blockData).getRotation());
+				rotatable.setRotation(convertRotation != null ? convertRotation.getBlockFace() : rotatable.getRotation());
 
-				setBlock(placedBlock, blockToPlace, directional);
+				setBlock(placedBlock, blockToPlace, rotatable);
 			} else if (blockData instanceof Slab) {
 				Slab slabData = (Slab) blockData;
 				BlockRotation convertRotation = data.getBlockRotation() != null ? data.getBlockRotation().convertRotation(false, true) : null;
-				slabData.setType(convertRotation != null ? convertRotation.getHalfBlockHight() : ((Slab) placedBlock.getBlockData()).getType());
-
+				slabData.setType(convertRotation != null ? convertRotation.getHalfBlockHight() : slabData.getType());
 				setBlock(placedBlock, blockToPlace, slabData);
 			} else {
 				blockToPlace.setType(placedBlock.getType());

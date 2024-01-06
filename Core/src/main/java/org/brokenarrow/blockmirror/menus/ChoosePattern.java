@@ -63,7 +63,7 @@ public class ChoosePattern extends MenuHolder {
 					player.setMetadata(Actions.pattern.name(), new FixedMetadataValue(BlockMirror.getPlugin(), object));
 				else
 					player.setMetadata(Actions.pattern.name(), new FixedMetadataValue(BlockMirror.getPlugin(), null));
-				ChoosePattern.super.updateButton(this);
+				updateButton(this);
 			}
 
 			@Override
@@ -84,6 +84,7 @@ public class ChoosePattern extends MenuHolder {
 					}
 					String menudisplayName = "";
 					List<String> menuLore = null;
+					String loc = isSame ? SerializeingLocation.serializeLoc(player.getLocation()) : "";
 					if (!isSame && menuButton.getPassive() != null) {
 						menudisplayName = menuButton.getPassive().getDisplayName();
 						menuLore = menuButton.getPassive().getLore();
@@ -106,11 +107,11 @@ public class ChoosePattern extends MenuHolder {
 					}
 					String text = TextConvertPlaceholders.translatePlaceholders(
 							menudisplayName,
-							pattern.displayName(isSame), pattern.lore(isSame));
+							pattern.displayName(isSame), pattern.lore(isSame), loc);
 
 					List<String> lore = TextConvertPlaceholders.translatePlaceholdersList(
 							menuLore,
-							pattern.displayName(isSame), pattern.lore(isSame));
+							pattern.displayName(isSame), pattern.lore(isSame), loc);
 					return itemCreator.of(pattern.icon(isSame), text, lore).setGlow(glow).makeItemStack();
 
 				}

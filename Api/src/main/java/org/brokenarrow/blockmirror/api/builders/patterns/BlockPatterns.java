@@ -41,6 +41,13 @@ public class BlockPatterns implements ConfigurationSerializeUtility {
 		public BlockPatterns build() {
 			return new BlockPatterns(this);
 		}
+
+		@Override
+		public String toString() {
+			return "Builder{" +
+					"circlePattern=" + circlePattern +
+					'}';
+		}
 	}
 
 	@Nonnull

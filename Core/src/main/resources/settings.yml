@@ -56,11 +56,11 @@ Patterns:
       Matrial: OAK_SIGN
       Display_name: "&fCircle pattern"
       Lore:
-        - "&aLeftclick to set this pattern"
+        - "&aLeft-click to set this pattern"
       Glow: true
     Active:
       Matrial: DARK_OAK_SIGN
       Display_name: "&fCircle pattern"
       Lore:
-        - "&aRightclick to unset this pattern"
+        - "&aRight-click to unset this pattern"
       Glow: false
