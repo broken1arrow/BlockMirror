@@ -17,44 +17,36 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CirclePattern implements PatternData {
-
+public class SquarePattern implements PatternData {
 	private final Settings settings = BlockMirror.getPlugin().getSettings();
 
 	@Nonnull
 	@Override
 	public List<Location> whenPlace(final PlayerBuilder data, final Player player, final Location centerLocation, final Location blockplacedLoc, final int radius) {
 		BlockPatterns blockPatterns = settings.getSettingsData() != null ? settings.getSettingsData().getBlockPatterns() : null;
-		//if it shall fill all blocks inside the circle
+		//if it shall fill all blocks inside the square
 		boolean fillAllBlocks = false;
 		if (blockPatterns != null) {
-			fillAllBlocks = blockPatterns.getCirclePattern().isFillBlocks();
+			fillAllBlocks = blockPatterns.getSquarePattern().isFillBlocks();
 		}
-		// Determine the center of the circle
+		List<Location> locations = new ArrayList<>();
+
 		int centerX = centerLocation.getBlockX();
 		int centerY = centerLocation.getBlockZ();
-		List<Location> locations = new ArrayList<>();
-		// Iterate over the locations surrounding the center location
+
 		for (int x = centerX - radius; x <= centerX + radius; x++) {
 			for (int z = centerY - radius; z <= centerY + radius; z++) {
-				// Calculate the distance between this cell and the center location
-				double distance = Math.sqrt((x - centerX) * (x - centerX) + (z - centerY) * (z - centerY));
-				Location location = null;
-				// If the distance is less than or equal to the radius, mark this cell as inside the circle
-				if (fillAllBlocks && distance <= radius) {
-					location = new Location(centerLocation.getWorld(), x, blockplacedLoc.getBlockY(), z);
+				// Check if the current position is on the border of the square
+				boolean isOnBorder = x == centerX - radius || x == centerX + radius || z == centerY - radius || z == centerY + radius;
+				Location location = new Location(centerLocation.getWorld(), x, blockplacedLoc.getBlockY(), z);
+				// Add the location to the list if it's either on the border or it's set to fill all blocks
+				if (isOnBorder || fillAllBlocks) {
+					locations.add(location);
 				}
-				// Check whether this is on the edge of the circle or not.
-				if (Math.abs(distance - radius) < 0.5) {
-					// Set the location on the edge the circle.
-					location = new Location(centerLocation.getWorld(), x, blockplacedLoc.getBlockY(), z);
-				}
-				if (location != null && !location.equals(blockplacedLoc)) locations.add(location);
 			}
 		}
 		return locations;
 	}
-
 
 	@Nonnull
 	@Override
@@ -78,7 +70,7 @@ public class CirclePattern implements PatternData {
 		List<PatternSettingsWrapperApi> patternSettingsWrapers = new ArrayList<>();
 		BlockPatterns blockPatterns = this.getBlockPatterns();
 		if (blockPatterns != null) {
-			patternSettingsWrapers.addAll(blockPatterns.getCirclePattern().getPatternSettingsWrapperApi());
+			patternSettingsWrapers.addAll(blockPatterns.getSquarePattern().getPatternSettingsWrapperApi());
 		}
 		return patternSettingsWrapers;
 	}
@@ -88,7 +80,7 @@ public class CirclePattern implements PatternData {
 	public Material icon(boolean active) {
 		BlockPatterns blockPatterns = this.getBlockPatterns();
 		if (blockPatterns != null) {
-			ItemWrapper itemWrapper = blockPatterns.getCirclePattern().getItemWrapper(active);
+			ItemWrapper itemWrapper = blockPatterns.getSquarePattern().getItemWrapper(active);
 			if (itemWrapper != null) {
 				return itemWrapper.getMaterial();
 			}
@@ -101,7 +93,7 @@ public class CirclePattern implements PatternData {
 	public String displayName(boolean active) {
 		BlockPatterns blockPatterns = this.getBlockPatterns();
 		if (blockPatterns != null) {
-			ItemWrapper itemWrapper = blockPatterns.getCirclePattern().getItemWrapper(active);
+			ItemWrapper itemWrapper = blockPatterns.getSquarePattern().getItemWrapper(active);
 			if (itemWrapper != null) {
 				return itemWrapper.getDisplayName();
 			}
@@ -109,13 +101,12 @@ public class CirclePattern implements PatternData {
 		return "";
 	}
 
-
 	@Nonnull
 	@Override
 	public List<String> lore(boolean active) {
 		BlockPatterns blockPatterns = this.getBlockPatterns();
 		if (blockPatterns != null) {
-			ItemWrapper itemWrapper = blockPatterns.getCirclePattern().getItemWrapper(active);
+			ItemWrapper itemWrapper = blockPatterns.getSquarePattern().getItemWrapper(active);
 			if (itemWrapper != null) {
 				return itemWrapper.getLore();
 			}
@@ -125,14 +116,14 @@ public class CirclePattern implements PatternData {
 
 	@Override
 	public void leftClickMenu() {
-		PatternWrapperApi circlePattern = this.getBlockPatterns().getCirclePattern();
-		circlePattern.setFillBlocks(!circlePattern.isFillBlocks());
+		PatternWrapperApi squarePattern = this.getBlockPatterns().getSquarePattern();
+		squarePattern.setFillBlocks(!squarePattern.isFillBlocks());
 	}
 
 	@Override
 	public void rightClickMenu() {
-		PatternWrapperApi circlePattern = this.getBlockPatterns().getCirclePattern();
-		circlePattern.setFillBlocks(!circlePattern.isFillBlocks());
+		PatternWrapperApi squarePattern = this.getBlockPatterns().getSquarePattern();
+		squarePattern.setFillBlocks(!squarePattern.isFillBlocks());
 	}
 
 	public BlockPatterns getBlockPatterns() {
@@ -143,7 +134,7 @@ public class CirclePattern implements PatternData {
 	public boolean equals(final Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		final CirclePattern that = (CirclePattern) o;
+		final SquarePattern that = (SquarePattern) o;
 		return Objects.equals(settings, that.settings);
 	}
 }

@@ -36,7 +36,7 @@ public class SetFillBlocksInPattern implements PatternSettingsWrapperApi {
 		BlockPatterns blockPatterns = this.getBlockPatterns();
 		if (blockPatterns != null) {
 			if (this.hasPermission(player)) {
-				blockPatterns.getCirclePattern().setFillBlocks(!blockPatterns.getCirclePattern().isFillBlocks());
+				patternData.leftClickMenu();
 			}
 		}
 	}
@@ -46,7 +46,7 @@ public class SetFillBlocksInPattern implements PatternSettingsWrapperApi {
 		BlockPatterns blockPatterns = this.getBlockPatterns();
 		if (blockPatterns != null) {
 			if (this.hasPermission(player)) {
-				blockPatterns.getCirclePattern().setFillBlocks(!blockPatterns.getCirclePattern().isFillBlocks());
+				patternData.rightClickMenu();
 			}
 		}
 	}

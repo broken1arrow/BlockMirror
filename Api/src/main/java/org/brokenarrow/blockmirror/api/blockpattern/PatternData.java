@@ -95,6 +95,10 @@ public interface PatternData {
 	@Nullable
 	List<String> lore(final boolean active);
 
+	void leftClickMenu();
+
+	void rightClickMenu();
+
 	/**
 	 * To check if the class match.
 	 *

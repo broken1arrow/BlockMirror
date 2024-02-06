@@ -16,6 +16,7 @@ import org.brokenarrow.blockmirror.api.builders.language.PluginMessages;
 import org.brokenarrow.blockmirror.api.builders.patterns.PatternWrapperApi;
 import org.brokenarrow.blockmirror.api.commands.CommandBuilder;
 import org.brokenarrow.blockmirror.blockpatterns.CirclePattern;
+import org.brokenarrow.blockmirror.blockpatterns.SquarePattern;
 import org.brokenarrow.blockmirror.blockpatterns.cache.PatternCache;
 import org.brokenarrow.blockmirror.blockpatterns.utily.ChangeFacingToPattern;
 import org.brokenarrow.blockmirror.blockpatterns.utily.PatternWrapper;
@@ -85,6 +86,7 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 		registerListeners();
 
 		this.patternCache.addPattern(new CirclePattern());
+		this.patternCache.addPattern(new SquarePattern());
 		registerCommands();
 	}
 
