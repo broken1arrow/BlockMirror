@@ -2,8 +2,9 @@ package org.brokenarrow.blockmirror.menus;
 
 import org.broken.arrow.itemcreator.library.ItemCreator;
 import org.broken.arrow.menu.library.button.MenuButton;
-import org.broken.arrow.menu.library.button.MenuButtonI;
-import org.broken.arrow.menu.library.holder.MenuHolder;
+import org.broken.arrow.menu.library.button.logic.ButtonUpdateAction;
+import org.broken.arrow.menu.library.button.logic.FillMenuButton;
+import org.broken.arrow.menu.library.holder.MenuHolderPage;
 import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SetBlockFace extends MenuHolder {
+public class SetBlockFace extends MenuHolderPage<BlockFace> {
 
 	private final MenuTemplate menuTemplate;
 	private final MenuType menuType;
@@ -51,66 +52,6 @@ public class SetBlockFace extends MenuHolder {
 		setMenuOpenSound(menuTemplate.getSound());
 	}
 
-	@Override
-	public MenuButtonI<Object> getFillButtonAt(@Nonnull final Object object) {
-		return registerFillButtons(object);
-	}
-
-
-	private MenuButton registerFillButtons(Object object) {
-		MenuButtonData menuButton = menuTemplate.getMenuButton(-1);
-		return new MenuButton() {
-			@Override
-			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
-				Builder builder = data.getBuilder();
-				if (builder != null) {
-					if (click.isRightClick())
-						builder.setBlockRotation(null);
-					else
-						builder.setBlockRotation(new BlockRotation(((BlockFace) object).name()));
-					BlockMirror.getPlugin().getPlayerCache().setPlayerData(player.getUniqueId(), builder.build());
-					new SetBlockFace(BlockMirror.getPlugin().getPlayerCache().getData(player.getUniqueId()), patternData, menuType, "set_blockface").menuOpen(player);
-				}
-			}
-
-			@Override
-			public ItemStack getItem(@Nonnull final Object object) {
-				if (menuButton != null) {
-					String text = ((BlockFace) object).name();
-					List<String> lore = new ArrayList<>();
-					boolean glow = false;
-					PlaceholderText placeholderText = plugin.getLanguageCache().getLanguage().getPlaceholderText();
-					String blockFaceNotSet = placeholderText != null ? placeholderText.getBlockFaceNotSet() : "";
-					if (menuButton.getPassive() != null) {
-						text = TextConvertPlaceholders.translatePlaceholders(
-								menuButton.getPassive().getDisplayName(),
-								((BlockFace) object).name(), data.getBlockRotation() != null);
-						lore = TextConvertPlaceholders.translatePlaceholders(
-								menuButton.getPassive().getLore(),
-								((BlockFace) object).name(), data.getBlockRotation() != null, data.getBlockRotation() != null ? data.getBlockRotation().getRotation() : blockFaceNotSet);
-						glow = menuButton.getPassive().isGlow();
-					} else if (menuButton.getActive() != null) {
-						text = TextConvertPlaceholders.translatePlaceholders(
-								menuButton.getActive().getDisplayName(),
-								((BlockFace) object).name(), data.getBlockRotation() != null);
-						lore = TextConvertPlaceholders.translatePlaceholders(
-								menuButton.getActive().getLore(),
-								((BlockFace) object).name(), data.getBlockRotation() != null, data.getBlockRotation() != null ? data.getBlockRotation().getRotation() : blockFaceNotSet);
-						glow = menuButton.getActive().isGlow();
-					}
-
-					return itemCreator.of("CRACKED_STONE_BRICKS", text, lore)
-							.setGlow(glow && data.getBlockRotation() != null).makeItemStack();
-				}
-				return null;
-			}
-
-			@Override
-			public ItemStack getItem() {
-				return null;
-			}
-		};
-	}
 
 	@Override
 	public MenuButton getButtonAt(final int slot) {
@@ -122,7 +63,7 @@ public class SetBlockFace extends MenuHolder {
 		if (value == null) return null;
 		return new MenuButton() {
 			@Override
-			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
+			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem) {
 				if (run(value, menu, player, click)) {
 					data = BlockMirror.getPlugin().getPlayerCache().getData(player.getUniqueId());
 					updateButton(this);
@@ -164,5 +105,53 @@ public class SetBlockFace extends MenuHolder {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public FillMenuButton<BlockFace> createFillMenuButton() {
+		return new FillMenuButton<>((player1, inventory, clickType, itemStack, blockFace) -> {
+			Builder builder = data.getBuilder();
+			if (builder != null) {
+				if (clickType.isRightClick())
+					builder.setBlockRotation(null);
+				else
+					builder.setBlockRotation(blockFace == null ? null : new BlockRotation(blockFace.name()));
+				BlockMirror.getPlugin().getPlayerCache().setPlayerData(player.getUniqueId(), builder.build());
+				new SetBlockFace(BlockMirror.getPlugin().getPlayerCache().getData(player.getUniqueId()), patternData, menuType, "set_blockface").menuOpen(player);
+			}
+            return ButtonUpdateAction.THIS;
+        }, (integer, blockFace) -> {
+			MenuButtonData menuButton = menuTemplate.getMenuButton(-1);
+			if (menuButton != null && blockFace != null) {
+				String text = blockFace.name();
+
+				List<String> lore = new ArrayList<>();
+				boolean glow = false;
+				PlaceholderText placeholderText = plugin.getLanguageCache().getLanguage().getPlaceholderText();
+				String blockFaceNotSet = placeholderText != null ? placeholderText.getBlockFaceNotSet() : "";
+
+				if (menuButton.getPassive() != null) {
+					text = TextConvertPlaceholders.translatePlaceholders(
+							menuButton.getPassive().getDisplayName(),
+							blockFace.name(), data.getBlockRotation() != null);
+					lore = TextConvertPlaceholders.translatePlaceholders(
+							menuButton.getPassive().getLore(),
+							blockFace.name(), data.getBlockRotation() != null, data.getBlockRotation() != null ? data.getBlockRotation().getRotation() : blockFaceNotSet);
+					glow = menuButton.getPassive().isGlow();
+				} else if (menuButton.getActive() != null) {
+					text = TextConvertPlaceholders.translatePlaceholders(
+							menuButton.getActive().getDisplayName(),
+							blockFace.name(), data.getBlockRotation() != null);
+					lore = TextConvertPlaceholders.translatePlaceholders(
+							menuButton.getActive().getLore(),
+							blockFace.name(), data.getBlockRotation() != null, data.getBlockRotation() != null ? data.getBlockRotation().getRotation() : blockFaceNotSet);
+					glow = menuButton.getActive().isGlow();
+				}
+
+				return itemCreator.of("CRACKED_STONE_BRICKS", text, lore)
+						.setGlow(glow && data.getBlockRotation() != null).makeItemStack();
+			}
+			return null;
+				});
 	}
 }

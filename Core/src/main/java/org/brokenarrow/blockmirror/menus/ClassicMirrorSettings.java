@@ -53,25 +53,6 @@ public class ClassicMirrorSettings extends MenuHolder {
 		}
 	}
 
-	@Override
-	public MenuButton getFillButtonAt(@Nonnull final Object object) {
-		return null;
-	}
-
-
-	private MenuButton registerFillButtons() {
-		return new MenuButton() {
-			@Override
-			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
-
-			}
-
-			@Override
-			public ItemStack getItem() {
-				return null;
-			}
-		};
-	}
 
 	@Override
 	public MenuButton getButtonAt(final int slot) {
@@ -83,7 +64,7 @@ public class ClassicMirrorSettings extends MenuHolder {
 		if (value == null) return null;
 		return new MenuButton() {
 			@Override
-			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
+			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem) {
 				if (run(value, menu, player, click)) {
 					data = BlockMirror.getPlugin().getPlayerCache().getData(player.getUniqueId());
 					ClassicMirrorSettings.super.updateButton(this);

@@ -2,8 +2,9 @@ package org.brokenarrow.blockmirror.menus;
 
 import org.broken.arrow.itemcreator.library.ItemCreator;
 import org.broken.arrow.menu.library.button.MenuButton;
-import org.broken.arrow.menu.library.button.MenuButtonI;
-import org.broken.arrow.menu.library.holder.MenuHolder;
+import org.broken.arrow.menu.library.button.logic.ButtonUpdateAction;
+import org.broken.arrow.menu.library.button.logic.FillMenuButton;
+import org.broken.arrow.menu.library.holder.MenuHolderPage;
 import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
@@ -23,7 +24,7 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class PatternSettings extends MenuHolder {
+public class PatternSettings extends MenuHolderPage<PatternSettingsWrapperApi> {
 
 	private final MenuTemplate menuTemplate;
 	private final PatternData patternData;
@@ -45,77 +46,6 @@ public class PatternSettings extends MenuHolder {
 
 
 	@Override
-	public MenuButtonI<Object> getFillButtonAt(@Nonnull final Object object) {
-		return registerFillButtons();
-	}
-
-
-	private MenuButton registerFillButtons() {
-		MenuButtonData menuButton = menuTemplate.getMenuButton(-1);
-		return new MenuButton() {
-			@Override
-			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
-				PatternSettingsWrapperApi patternSettings = (PatternSettingsWrapperApi) object;
-				if (click.isLeftClick())
-					patternSettings.leftClick(patternData, player);
-				else
-					patternSettings.rightClick(patternData, player);
-				updateButton(this);
-			}
-
-			@Override
-			public ItemStack getItem(@Nonnull final Object object) {
-				if (menuButton != null) {
-					PatternSettingsWrapperApi pattern = (PatternSettingsWrapperApi) object;
-
-
-					boolean glow = false;
-					boolean isSettingSet = pattern.isSettingSet(player);
-
-					String menudisplayName = "";
-					List<String> menuLore = null;
-					if (!isSettingSet && menuButton.getPassive() != null) {
-						menudisplayName = menuButton.getPassive().getDisplayName();
-						menuLore = menuButton.getPassive().getLore();
-
-						glow = menuButton.getPassive().isGlow();
-					} else if (isSettingSet) {
-						if (menuButton.getActive() != null) {
-							menudisplayName = menuButton.getActive().getDisplayName();
-							menuLore = menuButton.getActive().getLore();
-
-							glow = menuButton.getActive().isGlow();
-						} else {
-							if (menuButton.getPassive() != null) {
-								menudisplayName = menuButton.getPassive().getDisplayName();
-								menuLore = menuButton.getPassive().getLore();
-
-								glow = menuButton.getPassive().isGlow();
-							}
-						}
-					}
-					String text = TextConvertPlaceholders.translatePlaceholders(
-							menudisplayName,
-							pattern.displayName(getViewer(), isSettingSet), pattern.lore(getViewer(), isSettingSet));
-
-					List<String> lore = TextConvertPlaceholders.translatePlaceholdersList(
-							menuLore,
-							pattern.displayName(getViewer(), isSettingSet), pattern.lore(getViewer(), isSettingSet));
-					return itemCreator.of(pattern.icon(getViewer(), isSettingSet), text, lore).setGlow(glow).makeItemStack();
-
-				}
-				return null;
-			}
-
-			@Override
-			public ItemStack getItem() {
-				return null;
-			}
-		};
-	}
-
-
-	@Override
 	public MenuButton getButtonAt(final int slot) {
 		if (this.menuTemplate == null) return null;
 		return registerButtons(menuTemplate.getMenuButton(slot));
@@ -125,7 +55,7 @@ public class PatternSettings extends MenuHolder {
 		if (value == null) return null;
 		return new MenuButton() {
 			@Override
-			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem, final Object object) {
+			public void onClickInsideMenu(@Nonnull final Player player, @Nonnull final Inventory menu, @Nonnull final ClickType click, @Nonnull final ItemStack clickedItem) {
 				if (run(value, menu, player, click)) {
 					data = BlockMirror.getPlugin().getPlayerCache().getData(player.getUniqueId());
 					PatternSettings.super.updateButton(this);
@@ -176,4 +106,56 @@ public class PatternSettings extends MenuHolder {
 	}
 
 
+    @Override
+    public FillMenuButton<PatternSettingsWrapperApi> createFillMenuButton() {
+        return new FillMenuButton<>((player1, inventory, clickType, itemStack, patternSettings) -> {
+            if (patternSettings != null) {
+                if (clickType.isLeftClick())
+                    patternSettings.leftClick(patternData, player);
+                else
+                    patternSettings.rightClick(patternData, player);
+            }
+            return ButtonUpdateAction.THIS;
+        }, (slot, pattern) -> {
+            MenuButtonData menuButton = menuTemplate.getMenuButton(-1);
+            if (menuButton != null && pattern != null) {
+
+                boolean glow = false;
+                boolean isSettingSet = pattern.isSettingSet(player);
+
+                String menudisplayName = "";
+                List<String> menuLore = null;
+                if (!isSettingSet && menuButton.getPassive() != null) {
+                    menudisplayName = menuButton.getPassive().getDisplayName();
+                    menuLore = menuButton.getPassive().getLore();
+
+                    glow = menuButton.getPassive().isGlow();
+                } else if (isSettingSet) {
+                    if (menuButton.getActive() != null) {
+                        menudisplayName = menuButton.getActive().getDisplayName();
+                        menuLore = menuButton.getActive().getLore();
+
+                        glow = menuButton.getActive().isGlow();
+                    } else {
+                        if (menuButton.getPassive() != null) {
+                            menudisplayName = menuButton.getPassive().getDisplayName();
+                            menuLore = menuButton.getPassive().getLore();
+
+                            glow = menuButton.getPassive().isGlow();
+                        }
+                    }
+                }
+                String text = TextConvertPlaceholders.translatePlaceholders(
+                        menudisplayName,
+                        pattern.displayName(getViewer(), isSettingSet), pattern.lore(getViewer(), isSettingSet));
+
+                List<String> lore = TextConvertPlaceholders.translatePlaceholdersList(
+                        menuLore,
+                        pattern.displayName(getViewer(), isSettingSet), pattern.lore(getViewer(), isSettingSet));
+                return itemCreator.of(pattern.icon(getViewer(), isSettingSet), text, lore).setGlow(glow).makeItemStack();
+
+            }
+            return null;
+        });
+    }
 }
