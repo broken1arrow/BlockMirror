@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Core</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -58,7 +58,7 @@
         <dependency>
             <groupId>CMILib</groupId>
             <artifactId>CMILib</artifactId>
-            <systemPath>H:/PluginsJarUseForAPI/CMILib-0.0.20.jar</systemPath>
+            <systemPath>D:/PluginsJarUseForAPI/CMILib-0.0.20.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.mojang</groupId>
@@ -90,33 +90,33 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.broken1arrow.Utility-Library</groupId>
-            <artifactId>Block-Visualization</artifactId>
+            <groupId>org.broken.arrow.library.block.visualization</groupId>
+            <artifactId>block-visualization</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.broken1arrow.Utility-Library</groupId>
-            <artifactId>Menu_Library</artifactId>
+            <groupId>org.broken.arrow.library.menu.library</groupId>
+            <artifactId>menu-library</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.broken1arrow.Utility-Library</groupId>
-            <artifactId>Title-Update</artifactId>
+            <groupId>org.broken.arrow.library.title.update</groupId>
+            <artifactId>title-update</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.broken1arrow.Utility-Library</groupId>
-            <artifactId>Color_Conversion</artifactId>
+            <groupId>org.broken.arrow.library.color</groupId>
+            <artifactId>color-conversion</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.broken1arrow.Utility-Library</groupId>
-            <artifactId>NBT</artifactId>
+            <groupId>org.broken.arrow.library.nbt</groupId>
+            <artifactId>nbt</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.broken1arrow.Utility-Library</groupId>
-            <artifactId>Item_Creator</artifactId>
+            <groupId>org.broken.arrow.library.item.creator</groupId>
+            <artifactId>item-creator</artifactId>
             <scope>compile</scope>
         </dependency>
     </dependencies>

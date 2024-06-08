@@ -126,7 +126,7 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 	}
 
 	public RegisterNbtAPI getNbt() {
-		return menu.getNbtApi();
+		return this.itemCreator.getNbtApi();
 	}
 
 	public MenusCache getMenusCache() {

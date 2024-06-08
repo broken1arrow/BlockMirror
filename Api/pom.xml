@@ -16,30 +16,23 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-    <dependencies>
-        <!--
-           Import the Spigot API since it's necessary for our plugin
 
-           Make sure you change the version to the latest version you want to use for your plugin.
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-       -->
+    <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <!-- Change this to the latest version to stay up to date
-            <version>1.16.5-R0.1-SNAPSHOT</version>
-            -->
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.broken.arrow.library.menu.library</groupId>
+            <artifactId>menu-library</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.broken1arrow.Utility-Library</groupId>
-            <artifactId>Menu_Library</artifactId>
+            <groupId>org.broken.arrow.library.block.visualization</groupId>
+            <artifactId>block-visualization</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.broken1arrow.Utility-Library</groupId>
-            <artifactId>Block-Visualization</artifactId>
         </dependency>
 
         <!--        <dependency>

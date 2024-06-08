@@ -24,13 +24,19 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <utility-library>0.72</utility-library>
+        <utility-library>0.107</utility-library>
     </properties>
 
     <repositories>
+
         <repository>
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.io/repository/maven-public/</url>
+            <layout>default</layout>
         </repository>
         <repository>
             <id>jitpack.io</id>
@@ -74,38 +80,24 @@
             <url>https://libraries.minecraft.net/</url>
         </repository>
 
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/broken1arrow/Utility-Library</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
     </repositories>
 
-    <!--
-       Configure what other libraries or plugins are we going to use in this plugin.
-
-       As a starting point, we are importing the Spigot API and Foundation.
-   -->
     <dependencyManagement>
         <dependencies>
-            <!--
-               Import the Spigot API since it's necessary for our plugin
-
-               Make sure you change the version to the latest version you want to use for your plugin.
-                <groupId>org.spigotmc</groupId>
-                <artifactId>spigot-api</artifactId>
-           -->
             <dependency>
                 <groupId>org.spigotmc</groupId>
                 <artifactId>spigot-api</artifactId>
-                <!-- Change this to the latest version to stay up to date
-                <version>1.16.5-R0.1-SNAPSHOT</version>
-                -->
                 <version>1.19.3-R0.1-SNAPSHOT</version>
-                <!--       <version>1.8.8-R0.1-SNAPSHOT</version> -->
-                <!--
-                   The scope indicates if this library should be packaged together with our plugin
-                   when we want to publish it.
-
-                   Set this to "compile" if you want all classes from this library to be copied
-                   to your plugin's jar, otherwise set this to "provided".
-                   <scope>provided</scope>
-               -->
                 <scope>provided</scope>
             </dependency>
             <!--     <dependency>
@@ -153,7 +145,7 @@
                 <groupId>CMILib</groupId>
                 <artifactId>CMILib</artifactId>
                 <scope>system</scope>
-                <systemPath>H:/PluginsJarUseForAPI/CMILib-0.0.20.jar</systemPath>
+                <systemPath>D:/PluginsJarUseForAPI/CMILib-0.0.20.jar</systemPath>
                 <version>3.3.1</version>
             </dependency>
             <dependency>
@@ -198,6 +190,11 @@
                 <version>20.1.0</version>
             </dependency>
             <dependency>
+                <groupId>de.tr7zw</groupId>
+                <artifactId>item-nbt-api</artifactId>
+                <version>2.12.4</version>
+            </dependency>
+            <dependency>
                 <groupId>org.brokenarrow</groupId>
                 <artifactId>BlockMirror-Api</artifactId>
                 <version>1.0-SNAPSHOT</version>
@@ -210,38 +207,38 @@
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.github.broken1arrow.Utility-Library</groupId>
-                <artifactId>Block-Visualization</artifactId>
+                <groupId>org.broken.arrow.library.block.visualization</groupId>
+                <artifactId>block-visualization</artifactId>
                 <version>${utility-library}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.github.broken1arrow.Utility-Library</groupId>
-                <artifactId>Menu_Library</artifactId>
+                <groupId>org.broken.arrow.library.menu.library</groupId>
+                <artifactId>menu-library</artifactId>
                 <version>${utility-library}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.github.broken1arrow.Utility-Library</groupId>
-                <artifactId>Title-Update</artifactId>
+                <groupId>org.broken.arrow.library.title.update</groupId>
+                <artifactId>title-update</artifactId>
                 <version>${utility-library}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.github.broken1arrow.Utility-Library</groupId>
-                <artifactId>Color_Conversion</artifactId>
+                <groupId>org.broken.arrow.library.color</groupId>
+                <artifactId>color-conversion</artifactId>
                 <version>${utility-library}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.github.broken1arrow.Utility-Library</groupId>
-                <artifactId>NBT</artifactId>
+                <groupId>org.broken.arrow.library.nbt</groupId>
+                <artifactId>nbt</artifactId>
                 <version>${utility-library}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.github.broken1arrow.Utility-Library</groupId>
-                <artifactId>Item_Creator</artifactId>
+                <groupId>org.broken.arrow.library.item.creator</groupId>
+                <artifactId>item-creator</artifactId>
                 <version>${utility-library}</version>
                 <scope>compile</scope>
             </dependency>
@@ -304,13 +301,19 @@
                             <shadedClassifierName>all</shadedClassifierName>
                             <artifactSet>
                                 <includes>
-                                    <include>com.github.broken1arrow:MenuLibrary*</include>
+                                    <include>org.broken.arrow.library:Menu_Library:*</include>
                                     <include>broken_MenuAPI:*</include>
                                     <exclude>net.kyori:*</exclude>
-                                    <include>org.brokenarrow:BlockMirror-Api</include>
-                                    <include>com.github.broken1arrow:RBG-Gradients</include>
-                                    <include>com.github.broken1arrow.Item-NBT-API:item-nbt-api:*</include>
-                                    <include>com.github.broken1arrow.Utility-Library:*</include>
+                                    <include>org.brokenarrow:BlockMirror-Api:*</include>
+                                    <include>org.broken.arrow.library:Block-Visualization:*</include>
+                                    <include>org.broken.arrow.library:color_conversion:*</include>
+                                    <include>org.broken.arrow.library:nbt:*</include>
+                                    <include>org.broken.arrow.library:title-update:*</include>
+                                    <include>org.broken.arrow.library:log_and_validate:*</include>
+                                    <include>org.broken.arrow.Utility-Library</include>
+                                    <include>org.broken.arrow.**</include>
+                                    <include>de.tr7zw:item-nbt-api:*</include>
+                                    <include>org.broken.arrow.library:item_creator:*</include>
                                 </includes>
                                 <excludes>
                                     <exclude>net.kyori:adventure-platform-bukkit*</exclude>
