@@ -17,6 +17,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Bisected;
+import org.bukkit.block.data.type.Door;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -90,9 +93,26 @@ public class ClassicPlacement implements BlockListener {
 		for (Location location : locations) {
 			Block locationBlock = location.getBlock();
 			if (locationBlock.getType() != material) continue;
-			ItemStack[] items = validTool.validateItem(silkTouch, player.getItemInHand(), block);
+			Block relativeBlock = block;
+			boolean isDoor = false;
+			if (block.getBlockData() instanceof Door) {
+				if (((Door)block.getBlockData()).getHalf() == Bisected.Half.TOP) {
+					relativeBlock = block.getRelative(BlockFace.DOWN);
+					if (block.isEmpty()) {
+						relativeBlock = block;
+					} else {
+						isDoor = true;
+					}
+				}
+			}
+
+			ItemStack[] items = validTool.validateItem(silkTouch, player.getItemInHand(), relativeBlock);
 			InventoyUtility.collectItems(itemStacks, items);
-			locationBlock.setType(Material.AIR);
+			if (isDoor) {
+				locationBlock.getRelative(BlockFace.DOWN).setType(Material.AIR);
+			} else {
+				locationBlock.setType(Material.AIR);
+			}
 		}
 		InventoyUtility.giveBackItems(player, itemStacks);
 	}

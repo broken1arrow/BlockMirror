@@ -8,10 +8,13 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.data.Bisected;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.Orientable;
 import org.bukkit.block.data.Rotatable;
+import org.bukkit.block.data.type.Door;
+import org.bukkit.block.data.type.Leaves;
 import org.bukkit.block.data.type.Slab;
 
 public class BlockPlacements {
@@ -42,26 +45,13 @@ public class BlockPlacements {
 		}
 
 		public void setDirection(final Block blockToPlace, final Block placedBlock) {
-			BlockData blockData = placedBlock.getBlockData();
-			Location loc = blockToPlace.getLocation();
+			final BlockData blockData = placedBlock.getBlockData();
+			Location toPlaceLocation = blockToPlace.getLocation();
 			Location locPlace = placedBlock.getLocation();
-			if (blockData instanceof Directional) {
-				Directional directional = (Directional) blockData;
-				BlockRotation convertRotation = data.getBlockRotation() != null ? data.getBlockRotation().convertRotation(false) : null;
-				BlockFace facing = convertRotation != null ? convertRotation.getBlockFace() : directional.getFacing();
 
-				/*		if (data.isFlipPlacement())*/
-				// x direction.
-				if (data.isFlipFacing() == OppositeFacing.X_DIRECTION || data.isFlipFacing() == OppositeFacing.BOTH_DIRECTIONS) {
-					if (loc.getBlockZ() == locPlace.getBlockZ() && loc.getBlockX() != locPlace.getBlockX()) //||(loc.getBlockZ() != locPlace.getBlockZ() && loc.getBlockX() != locPlace.getBlockX()))
-						facing = facing.getOppositeFace();
-				}
-				// z direction.
-				if (data.isFlipFacing() == OppositeFacing.Z_DIRECTION || data.isFlipFacing() == OppositeFacing.BOTH_DIRECTIONS) {
-					if (loc.getBlockZ() != locPlace.getBlockZ() && loc.getBlockX() != locPlace.getBlockX())
-						/*	if ((loc.getBlockZ() != locPlace.getBlockZ() && loc.getBlockX() == locPlace.getBlockX()) || (loc.getBlockZ() != locPlace.getBlockZ() && loc.getBlockX() != locPlace.getBlockX()))*/
-						facing = facing.getOppositeFace();
-				}
+			if (blockData instanceof Directional && !(blockData instanceof Door)) {
+				Directional directional = (Directional) blockData;
+				BlockFace facing = getBlockFace(directional.getFacing(), toPlaceLocation, locPlace);
 
 				directional.setFacing(facing);
 				setBlock(placedBlock, blockToPlace, directional);
@@ -82,9 +72,51 @@ public class BlockPlacements {
 				BlockRotation convertRotation = data.getBlockRotation() != null ? data.getBlockRotation().convertRotation(false, true) : null;
 				slabData.setType(convertRotation != null ? convertRotation.getHalfBlockHight() : slabData.getType());
 				setBlock(placedBlock, blockToPlace, slabData);
+			} else if (blockData instanceof Leaves) {
+				((Leaves)blockData).setPersistent(true);
+				setBlock(placedBlock, blockToPlace, blockData);
+			} else if (blockData instanceof Door) {
+				blockToPlace.setType(placedBlock.getType(),false);
+				Door door = (Door)blockToPlace.getBlockData();
+				door.setHalf(Bisected.Half.BOTTOM);
+
+				BlockFace facing = getBlockFace( ((Door) blockData).getFacing(), toPlaceLocation, locPlace);
+				door.setFacing(facing);
+
+				Block top = blockToPlace.getRelative(BlockFace.UP);
+				if (top.isEmpty()){
+					top.setType(placedBlock.getType(),false);
+
+					final BlockData blockDataTop = top.getBlockData();
+					if (blockDataTop instanceof Door){
+						Door doorTop = (Door)blockDataTop;
+						doorTop.setFacing(facing);
+						doorTop.setHalf(Bisected.Half.TOP);
+						top.setBlockData(doorTop,false);
+					}
+				}
+				setBlock(placedBlock, blockToPlace, door);
 			} else {
 				blockToPlace.setType(placedBlock.getType());
 			}
+		}
+
+		private BlockFace getBlockFace(BlockFace blockFace, Location toPlaceLocation, Location locPlace) {
+			BlockRotation convertRotation = data.getBlockRotation() != null ? data.getBlockRotation().convertRotation(false) : null;
+			BlockFace facing = convertRotation != null ? convertRotation.getBlockFace() : blockFace;
+			boolean flipingFacing = data.isFlipFacing() == OppositeFacing.BOTH_DIRECTIONS;
+			if (flipingFacing){
+					return facing.getOppositeFace();
+			}
+			if (data.isFlipFacing() == OppositeFacing.X_DIRECTION) {
+                if (toPlaceLocation.getBlockZ() != locPlace.getBlockZ())
+                    facing = facing.getOppositeFace();
+			}
+			if (data.isFlipFacing() == OppositeFacing.Z_DIRECTION) {
+                if (toPlaceLocation.getBlockX() != locPlace.getBlockX())
+                    facing = facing.getOppositeFace();
+			}
+			return facing;
 		}
 	}
 
