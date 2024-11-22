@@ -57,6 +57,7 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 	private Settings settings;
 	private BlockVisualize blockVisualize;
 	private RegisterMenuAPI menu;
+	private RegisterNbtAPI 	nbt;
 	private ItemCreator itemCreator;
 
 	@Override
@@ -72,8 +73,9 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 		this.playerCache = new PlayerCache();
 		this.menusCache = new MenusCache(this);
 		this.languageCache = new LanguageCache(this);
-		this.blockVisualize = new BlockVisualize(this);
+		this.blockVisualize = null;//new BlockVisualize(this);
 		this.itemCreator = new ItemCreator(this);
+		this.nbt = new RegisterNbtAPI(this,false);
 		this.menusCache.reload();
 		this.languageCache.reload();
 
@@ -107,12 +109,12 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 	}
 
 	@Override
-	public ItemCreator getItemCreator() {
+	public org.broken.arrow.itemcreator.library.ItemCreator getItemCreator() {
 		return itemCreator;
 	}
 
 	@Override
-	public BlockVisualize getBlockVisualize() {
+	public org.broken.arrow.visualization.library.BlockVisualize getBlockVisualize() {
 		return blockVisualize;
 	}
 
@@ -126,7 +128,7 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 	}
 
 	public RegisterNbtAPI getNbt() {
-		return this.itemCreator.getNbtApi();
+		return this.nbt;
 	}
 
 	public MenusCache getMenusCache() {

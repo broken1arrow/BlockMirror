@@ -42,6 +42,7 @@ public class ChoosePattern extends MenuHolderPage<PatternData> {
         setFillSpace(menuTemplate.getFillSlots());
         setTitle(menuTemplate.getMenuTitel());
         setMenuOpenSound(menuTemplate.getSound());
+        setIgnoreItemCheck(true);
     }
 
     @Override

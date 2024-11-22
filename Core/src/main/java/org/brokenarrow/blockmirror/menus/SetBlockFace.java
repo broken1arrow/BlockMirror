@@ -50,6 +50,7 @@ public class SetBlockFace extends MenuHolderPage<BlockFace> {
 		setFillSpace(menuTemplate.getFillSlots());
 		setTitle(menuTemplate.getMenuTitel());
 		setMenuOpenSound(menuTemplate.getSound());
+		setIgnoreItemCheck(true);
 	}
 
 

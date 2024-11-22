@@ -1,5 +1,6 @@
 package org.brokenarrow.blockmirror.utily.blockVisualization;
 
+
 import org.broken.arrow.itemcreator.library.ItemCreator;
 import org.broken.arrow.menu.library.utility.ServerVersion;
 import org.broken.arrow.visualization.library.builders.VisualizeData;
@@ -20,7 +21,7 @@ public class BlockVisualize {
 	}
 
 	public static void visulizeBlock(final Player player, final Block block, final Location location, final boolean shallBeVisualize) {
-		org.broken.arrow.visualization.library.builders.VisualizeData visualizeData = new VisualizeData(player, "", getMaterial());
+		VisualizeData visualizeData = new VisualizeData(player, "", getMaterial());
 		visualize.visualizeBlock(player, block, () -> visualizeData, shallBeVisualize);
 	}
 

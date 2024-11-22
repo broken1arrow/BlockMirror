@@ -42,6 +42,7 @@ public class ClassicMirrorSettings extends MenuHolder {
 		setFillSpace(menuTemplate.getFillSlots());
 		setTitle(menuTemplate.getMenuTitel());
 		setMenuOpenSound(menuTemplate.getSound());
+		setIgnoreItemCheck(true);
 		if (data != null && data.getCenterLocation() != null) {
 			Builder builder = data.getBuilder();
 			BlockMirror.getPlugin().getRunTask().setQueueTime(data.getEffectID(), -2);

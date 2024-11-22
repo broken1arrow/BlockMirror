@@ -42,6 +42,7 @@ public class PatternSettings extends MenuHolderPage<PatternSettingsWrapperApi> {
 		setFillSpace(menuTemplate.getFillSlots());
 		setTitle(menuTemplate.getMenuTitel());
 		setMenuOpenSound(menuTemplate.getSound());
+		setIgnoreItemCheck(true);
 	}
 
 

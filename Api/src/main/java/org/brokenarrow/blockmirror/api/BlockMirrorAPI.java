@@ -1,7 +1,8 @@
 package org.brokenarrow.blockmirror.api;
 
-import org.broken.arrow.itemcreator.library.ItemCreator;
-import org.broken.arrow.visualization.library.BlockVisualize;
+
+
+
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSettingsWrapperApi;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
@@ -26,9 +27,9 @@ public interface BlockMirrorAPI {
 	 */
 	boolean hasPermission(@Nonnull final Player player, @Nonnull final String permission);
 
-	BlockVisualize getBlockVisualize();
+	org.broken.arrow.visualization.library.BlockVisualize getBlockVisualize();
 
-	ItemCreator getItemCreator();
+	org.broken.arrow.itemcreator.library.ItemCreator getItemCreator();
 
 	String getPluginName();
 

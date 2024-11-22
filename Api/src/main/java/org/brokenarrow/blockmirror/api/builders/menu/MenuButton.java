@@ -1,5 +1,6 @@
 package org.brokenarrow.blockmirror.api.builders.menu;
 
+
 import org.broken.arrow.itemcreator.library.ItemCreator;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
 import org.brokenarrow.blockmirror.api.filemanger.ConfigurationSerializeUtility;
@@ -132,7 +133,7 @@ public class MenuButton implements ConfigurationSerializeUtility {
 		final List<String> lore = (List<String>) map.get("lore");
 		final boolean glow = (boolean) map.getOrDefault("glow", false);
 		final String buttonType = (String) map.get("buttonType");
-		ItemStack itemStack;
+		ItemStack itemStack = null;
 		if (color != null)
 			itemStack = itemCreator.of(material, displayName, lore).setGlow(glow).makeItemStack();
 		else
