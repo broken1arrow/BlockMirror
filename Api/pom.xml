@@ -38,7 +38,16 @@
             <groupId>com.github.broken1arrow.Utility-Library</groupId>
             <artifactId>item-creator</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.github.broken1arrow.Utility-Library</groupId>
+            <artifactId>block-visualization</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.broken1arrow.Utility-Library</groupId>
+            <artifactId>block-visualization</artifactId>
+            <version>0.125</version>
+            <scope>compile</scope>
+        </dependency>
         <!--        <dependency>
                     <groupId>com.github.broken1arrow</groupId>
                     <artifactId>MenuLibrary</artifactId>

@@ -1,10 +1,10 @@
-package org.brokenarrow.blockmirror.utily.blockVisualization;
+package org.brokenarrow.blockmirror.api.utility;
 
 
-import org.broken.arrow.itemcreator.library.ItemCreator;
-import org.broken.arrow.menu.library.utility.ServerVersion;
-import org.broken.arrow.visualization.library.builders.VisualizeData;
-import org.brokenarrow.blockmirror.BlockMirror;
+import org.broken.arrow.library.itemcreator.ItemCreator;
+import org.broken.arrow.library.menu.utility.ServerVersion;
+import org.broken.arrow.library.visualization.builders.VisualizeData;
+import org.brokenarrow.blockmirror.api.BlockMirrorAPI;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -12,17 +12,15 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class BlockVisualize {
-
-	private static final BlockMirror plugin = BlockMirror.getPlugin();
-	private static final org.broken.arrow.visualization.library.BlockVisualize visualize = plugin.getBlockVisualize();
-
+	private static final BlockMirrorAPI plugin = BlockMirrorUtillity.getInstance();
+	private static final org.broken.arrow.library.visualization.BlockVisualize blockVisualize = BlockMirrorUtillity.getBlockVisualizeAPI();
 	public static void visulizeBlock(final Block block, final Location location, final boolean shallBeVisualize) {
 		visulizeBlock(null, block, location, shallBeVisualize);
 	}
 
 	public static void visulizeBlock(final Player player, final Block block, final Location location, final boolean shallBeVisualize) {
 		VisualizeData visualizeData = new VisualizeData(player, "", getMaterial());
-		visualize.visualizeBlock(player, block, () -> visualizeData, shallBeVisualize);
+		blockVisualize.visualizeBlock(player, block, () -> visualizeData, shallBeVisualize);
 	}
 
 	public static Material getMaterial() {

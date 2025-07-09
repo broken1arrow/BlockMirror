@@ -1,10 +1,9 @@
 package org.brokenarrow.blockmirror;
 
 import org.broken.arrow.color.library.TextTranslator;
-import org.broken.arrow.itemcreator.library.ItemCreator;
-import org.broken.arrow.menu.library.RegisterMenuAPI;
-import org.broken.arrow.nbt.library.RegisterNbtAPI;
-import org.broken.arrow.visualization.library.BlockVisualize;
+import org.broken.arrow.library.itemcreator.ItemCreator;
+import org.broken.arrow.library.menu.RegisterMenuAPI;
+import org.broken.arrow.library.nbt.RegisterNbtAPI;
 import org.brokenarrow.blockmirror.api.BlockMirrorAPI;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
@@ -15,6 +14,7 @@ import org.brokenarrow.blockmirror.api.builders.language.Language;
 import org.brokenarrow.blockmirror.api.builders.language.PluginMessages;
 import org.brokenarrow.blockmirror.api.builders.patterns.PatternWrapperApi;
 import org.brokenarrow.blockmirror.api.commands.CommandBuilder;
+import org.brokenarrow.blockmirror.api.utility.BlockVisualize;
 import org.brokenarrow.blockmirror.blockpatterns.CirclePattern;
 import org.brokenarrow.blockmirror.blockpatterns.SquarePattern;
 import org.brokenarrow.blockmirror.blockpatterns.cache.PatternCache;
@@ -109,12 +109,12 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 	}
 
 	@Override
-	public org.broken.arrow.itemcreator.library.ItemCreator getItemCreator() {
+	public ItemCreator getItemCreator() {
 		return itemCreator;
 	}
 
 	@Override
-	public org.broken.arrow.visualization.library.BlockVisualize getBlockVisualize() {
+	public org.brokenarrow.blockmirror.api.utility.BlockVisualize getBlockVisualize() {
 		return blockVisualize;
 	}
 

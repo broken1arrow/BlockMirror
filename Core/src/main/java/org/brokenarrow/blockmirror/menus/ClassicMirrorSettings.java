@@ -1,8 +1,8 @@
 package org.brokenarrow.blockmirror.menus;
 
-import org.broken.arrow.itemcreator.library.SkullCreator;
-import org.broken.arrow.menu.library.button.MenuButton;
-import org.broken.arrow.menu.library.holder.MenuHolder;
+import org.broken.arrow.library.itemcreator.SkullCreator;
+import org.broken.arrow.library.menu.button.MenuButton;
+import org.broken.arrow.library.menu.holder.MenuHolder;
 import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.api.builders.MirrorLoc;
 import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
@@ -15,7 +15,7 @@ import org.brokenarrow.blockmirror.api.filemanger.SerializeingLocation;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.brokenarrow.blockmirror.api.utility.OppositeFacing;
 import org.brokenarrow.blockmirror.utily.TextConvertPlaceholders;
-import org.brokenarrow.blockmirror.utily.blockVisualization.BlockVisualize;
+import org.brokenarrow.blockmirror.api.utility.BlockVisualize;
 import org.brokenarrow.blockmirror.utily.effects.SpawnBorderEffects;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;

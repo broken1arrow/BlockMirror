@@ -1,10 +1,10 @@
 package org.brokenarrow.blockmirror.menus;
 
-import org.broken.arrow.itemcreator.library.ItemCreator;
-import org.broken.arrow.menu.library.button.MenuButton;
-import org.broken.arrow.menu.library.button.logic.ButtonUpdateAction;
-import org.broken.arrow.menu.library.button.logic.FillMenuButton;
-import org.broken.arrow.menu.library.holder.MenuHolderPage;
+import org.broken.arrow.library.itemcreator.ItemCreator;
+import org.broken.arrow.library.menu.button.MenuButton;
+import org.broken.arrow.library.menu.button.logic.ButtonUpdateAction;
+import org.broken.arrow.library.menu.button.logic.FillMenuButton;
+import org.broken.arrow.library.menu.holder.MenuHolderPage;
 import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;

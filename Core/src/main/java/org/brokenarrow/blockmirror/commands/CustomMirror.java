@@ -1,6 +1,6 @@
 package org.brokenarrow.blockmirror.commands;
 
-import org.broken.arrow.itemcreator.library.ItemCreator;
+import org.broken.arrow.library.itemcreator.ItemCreator;
 import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.api.builders.BlockRotation;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;

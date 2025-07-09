@@ -1,14 +1,12 @@
 package org.brokenarrow.blockmirror.api;
 
-
-
-
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSettingsWrapperApi;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
 import org.brokenarrow.blockmirror.api.builders.patterns.PatternWrapperApi;
 import org.brokenarrow.blockmirror.api.settings.LanguageCacheApi;
 import org.brokenarrow.blockmirror.api.settings.SettingsApi;
+import org.brokenarrow.blockmirror.api.utility.BlockVisualize;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -27,9 +25,9 @@ public interface BlockMirrorAPI {
 	 */
 	boolean hasPermission(@Nonnull final Player player, @Nonnull final String permission);
 
-	org.broken.arrow.visualization.library.BlockVisualize getBlockVisualize();
+	BlockVisualize getBlockVisualize();
 
-	org.broken.arrow.itemcreator.library.ItemCreator getItemCreator();
+	org.broken.arrow.library.itemcreator.ItemCreator getItemCreator();
 
 	String getPluginName();
 
