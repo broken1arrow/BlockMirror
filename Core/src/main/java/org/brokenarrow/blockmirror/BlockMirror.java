@@ -1,6 +1,6 @@
 package org.brokenarrow.blockmirror;
 
-import org.broken.arrow.color.library.TextTranslator;
+import org.broken.arrow.library.color.TextTranslator;
 import org.broken.arrow.library.itemcreator.ItemCreator;
 import org.broken.arrow.library.menu.RegisterMenuAPI;
 import org.broken.arrow.library.nbt.RegisterNbtAPI;
