@@ -6,7 +6,7 @@ import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
 import org.brokenarrow.blockmirror.api.builders.patterns.PatternWrapperApi;
 import org.brokenarrow.blockmirror.api.settings.LanguageCacheApi;
 import org.brokenarrow.blockmirror.api.settings.SettingsApi;
-import org.brokenarrow.blockmirror.api.utility.BlockVisualize;
+import org.brokenarrow.blockmirror.api.utility.BlockVisualizeAPI;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -25,7 +25,7 @@ public interface BlockMirrorAPI {
 	 */
 	boolean hasPermission(@Nonnull final Player player, @Nonnull final String permission);
 
-	BlockVisualize getBlockVisualize();
+	BlockVisualizeAPI getBlockVisualize();
 
 	org.broken.arrow.library.itemcreator.ItemCreator getItemCreator();
 

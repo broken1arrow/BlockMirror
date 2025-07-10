@@ -1,29 +1,37 @@
-package org.brokenarrow.blockmirror.api.utility;
+package org.brokenarrow.blockmirror.utily;
 
 
 import org.broken.arrow.library.itemcreator.ItemCreator;
 import org.broken.arrow.library.menu.utility.ServerVersion;
 import org.broken.arrow.library.visualization.builders.VisualizeData;
-import org.brokenarrow.blockmirror.api.BlockMirrorAPI;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
+import org.brokenarrow.blockmirror.api.utility.BlockVisualizeAPI;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
-public class BlockVisualize {
-	private static final BlockMirrorAPI plugin = BlockMirrorUtillity.getInstance();
-	private static final org.broken.arrow.library.visualization.BlockVisualize blockVisualize = BlockMirrorUtillity.getBlockVisualizeAPI();
-	public static void visulizeBlock(final Block block, final Location location, final boolean shallBeVisualize) {
+public class BlockVisualize implements BlockVisualizeAPI {
+	private final org.broken.arrow.library.visualization.BlockVisualize blockVisualize;
+
+	public BlockVisualize(Plugin plugin) {
+		blockVisualize = new org.broken.arrow.library.visualization.BlockVisualize(plugin);
+	}
+
+	@Override
+  public void visulizeBlock(final Block block, final Location location, final boolean shallBeVisualize) {
 		visulizeBlock(null, block, location, shallBeVisualize);
 	}
 
-	public static void visulizeBlock(final Player player, final Block block, final Location location, final boolean shallBeVisualize) {
-		VisualizeData visualizeData = new VisualizeData(player, "", getMaterial());
+	@Override
+  public void visulizeBlock(final Player player, final Block block, final Location location, final boolean shallBeVisualize) {
+		VisualizeData visualizeData = new VisualizeData(player ,"", getMaterial());
 		blockVisualize.visualizeBlock(player, block, () -> visualizeData, shallBeVisualize);
 	}
 
-	public static Material getMaterial() {
+	@Override
+  public Material getMaterial() {
 		ItemCreator itemCreator = BlockMirrorUtillity.getInstance().getItemCreator();
 		Material material = null;
 		if (ServerVersion.olderThan(ServerVersion.V1_13))

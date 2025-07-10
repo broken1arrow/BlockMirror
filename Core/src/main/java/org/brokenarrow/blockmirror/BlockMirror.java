@@ -14,7 +14,7 @@ import org.brokenarrow.blockmirror.api.builders.language.Language;
 import org.brokenarrow.blockmirror.api.builders.language.PluginMessages;
 import org.brokenarrow.blockmirror.api.builders.patterns.PatternWrapperApi;
 import org.brokenarrow.blockmirror.api.commands.CommandBuilder;
-import org.brokenarrow.blockmirror.api.utility.BlockVisualize;
+import org.brokenarrow.blockmirror.api.utility.BlockVisualizeAPI;
 import org.brokenarrow.blockmirror.blockpatterns.CirclePattern;
 import org.brokenarrow.blockmirror.blockpatterns.SquarePattern;
 import org.brokenarrow.blockmirror.blockpatterns.cache.PatternCache;
@@ -35,6 +35,7 @@ import org.brokenarrow.blockmirror.settings.LanguageCache;
 import org.brokenarrow.blockmirror.settings.MenusCache;
 import org.brokenarrow.blockmirror.settings.Settings;
 import org.brokenarrow.blockmirror.tasks.RunTasks;
+import org.brokenarrow.blockmirror.utily.BlockVisualize;
 import org.brokenarrow.blockmirror.utily.TextConvertPlaceholders;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -55,7 +56,7 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 	private LanguageCache languageCache;
 	private PatternCache patternCache;
 	private Settings settings;
-	private BlockVisualize blockVisualize;
+	private BlockVisualizeAPI blockVisualizeAPI;
 	private RegisterMenuAPI menu;
 	private RegisterNbtAPI 	nbt;
 	private ItemCreator itemCreator;
@@ -73,7 +74,7 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 		this.playerCache = new PlayerCache();
 		this.menusCache = new MenusCache(this);
 		this.languageCache = new LanguageCache(this);
-		this.blockVisualize = null;//new BlockVisualize(this);
+		this.blockVisualizeAPI = new BlockVisualize(this);
 		this.itemCreator = new ItemCreator(this);
 		this.nbt = new RegisterNbtAPI(this,false);
 		this.menusCache.reload();
@@ -114,8 +115,8 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 	}
 
 	@Override
-	public org.brokenarrow.blockmirror.api.utility.BlockVisualize getBlockVisualize() {
-		return blockVisualize;
+	public BlockVisualizeAPI getBlockVisualize() {
+		return blockVisualizeAPI;
 	}
 
 	@Override
