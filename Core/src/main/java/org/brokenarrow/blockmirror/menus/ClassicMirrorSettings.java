@@ -47,7 +47,7 @@ public class ClassicMirrorSettings extends MenuHolder {
       if (data != null && data.getCenterLocation() != null) {
          Builder builder = data.getBuilder();
          blockMirror.getRunTask().setQueueTime(data.getEffectID(), -2);
-         blockMirror.getBlockVisualize().visulizeBlock(player, data.getCenterLocation().getBlock(), data.getCenterLocation(), true);
+         blockMirror.getBlockVisualize().visulizeBlock(player, data.getCenterLocation().getBlock(), true);
          SpawnBorderEffects spawnBorderEffects = new SpawnBorderEffects(null, player, data.getCenterLocation(), -1, 2.5);
          builder.setEffectID(spawnBorderEffects.getID());
          blockMirror.getRunTask().addTask(spawnBorderEffects);
@@ -168,14 +168,14 @@ public class ClassicMirrorSettings extends MenuHolder {
             player.removeMetadata(Actions.classic_set_block.name(), BlockMirror.getPlugin());
             BlockMirror.getPlugin().getRunTask().setQueueTime(data.getEffectID(), -2);
             if (data.getCenterLocation() != null)
-               blockVisualize.visulizeBlock(player, data.getCenterLocation().getBlock(), data.getCenterLocation(), false);
+               blockVisualize.visulizeBlock(player, data.getCenterLocation().getBlock(),  false);
             else
-               blockVisualize.visulizeBlock(player, player.getLocation().getBlock(), player.getLocation(), false);
+               blockVisualize.visulizeBlock(player, player.getLocation().getBlock(),  false);
          } else {
             player.setMetadata(Actions.classic_set_block.name(), new FixedMetadataValue(BlockMirror.getPlugin(), Actions.classic_set_block));
             if (data.getCenterLocation() != null) {
                BlockMirror.getPlugin().getRunTask().setQueueTime(data.getEffectID(), -2);
-               blockVisualize.visulizeBlock(player, data.getCenterLocation().getBlock(), data.getCenterLocation(), true);
+               blockVisualize.visulizeBlock(player, data.getCenterLocation().getBlock(),  true);
                SpawnBorderEffects spawnBorderEffects = new SpawnBorderEffects(null, player, data.getCenterLocation(), -1, 2.5);
                builder.setEffectID(spawnBorderEffects.getID());
                BlockMirror.getPlugin().getRunTask().addTask(spawnBorderEffects);
@@ -186,16 +186,16 @@ public class ClassicMirrorSettings extends MenuHolder {
          if (click.isLeftClick()) {
             if (data.getCenterLocation() != null) {
                BlockMirror.getPlugin().getRunTask().setQueueTime(data.getEffectID(), -2);
-               blockVisualize.visulizeBlock(player, data.getCenterLocation().getBlock(), data.getCenterLocation(), false);
+               blockVisualize.visulizeBlock(player, data.getCenterLocation().getBlock(),  false);
             }
             builder.setCenterLocation(player.getLocation());
             SpawnBorderEffects spawnBorderEffects = new SpawnBorderEffects(null, player, player.getLocation(), -1, 2.5);
             builder.setEffectID(spawnBorderEffects.getID());
             BlockMirror.getPlugin().getRunTask().addTask(spawnBorderEffects);
-            blockVisualize.visulizeBlock(player, player.getLocation().getBlock(), player.getLocation(), true);
+            blockVisualize.visulizeBlock(player, player.getLocation().getBlock(),  true);
          } else {
             if (data.getEffectID() > 0 && data.getCenterLocation() != null) {
-               blockVisualize.visulizeBlock(player, data.getCenterLocation().getBlock(), data.getCenterLocation(), false);
+               blockVisualize.visulizeBlock(player, data.getCenterLocation().getBlock(), false);
                builder.setCenterLocation(null);
                BlockMirror.getPlugin().getRunTask().setQueueTime(data.getEffectID(), -2);
                //BlockVisualizeAPI.visulizeBlock(player.getLocation().getBlock(), player.getLocation(), false);

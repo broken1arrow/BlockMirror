@@ -6,11 +6,14 @@ import org.broken.arrow.library.menu.utility.ServerVersion;
 import org.broken.arrow.library.visualization.builders.VisualizeData;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
 import org.brokenarrow.blockmirror.api.utility.BlockVisualizeAPI;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+
+import javax.annotation.Nonnull;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BlockVisualize implements BlockVisualizeAPI {
 	private final org.broken.arrow.library.visualization.BlockVisualize blockVisualize;
@@ -20,13 +23,18 @@ public class BlockVisualize implements BlockVisualizeAPI {
 	}
 
 	@Override
-  public void visulizeBlock(final Block block, final Location location, final boolean shallBeVisualize) {
-		visulizeBlock(null, block, location, shallBeVisualize);
+  public void visulizeBlock(@Nonnull final Set<Player> playersAllowed, final Block block, final boolean shallBeVisualize) {
+		visulizeBlock(null,playersAllowed, block,  shallBeVisualize);
 	}
 
 	@Override
-  public void visulizeBlock(final Player player, final Block block, final Location location, final boolean shallBeVisualize) {
-		VisualizeData visualizeData = new VisualizeData(player ,"", getMaterial());
+  public void visulizeBlock(@Nonnull final Player player, final Block block, final boolean shallBeVisualize) {
+		visulizeBlock(player,new HashSet<>(), block,  shallBeVisualize);
+	}
+
+
+	public void visulizeBlock(final Player player, final Set<Player> playersAllowed, final Block block,  final boolean shallBeVisualize) {
+		VisualizeData visualizeData = new VisualizeData(player ,playersAllowed,"", getMaterial());
 		blockVisualize.visualizeBlock(player, block, () -> visualizeData, shallBeVisualize);
 	}
 
