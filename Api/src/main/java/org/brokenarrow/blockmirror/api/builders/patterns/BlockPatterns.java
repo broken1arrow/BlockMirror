@@ -14,144 +14,147 @@ import java.util.Map;
 public class BlockPatterns implements ConfigurationSerializeUtility {
 
 
-	private final PatternWrapperApi circlePattern;
-	private final PatternWrapperApi squarePattern;
-	private final Builder builder;
+    private final PatternDisplayItem circlePattern;
+    private final PatternDisplayItem squarePattern;
+    private final Builder builder;
 
-	private BlockPatterns(Builder builder) {
-		this.circlePattern = builder.circlePattern;
-		this.squarePattern = builder.squarePattern;
-		this.builder = builder;
-	}
+    private BlockPatterns(Builder builder) {
+        this.circlePattern = builder.circlePattern;
+        this.squarePattern = builder.squarePattern;
+        this.builder = builder;
+    }
 
-	public PatternWrapperApi getCirclePattern() {
-		return circlePattern;
-	}
+    public static BlockPatterns deserialize(Map<String, Object> map) {
+        BlockMirrorAPI blockMirror = BlockMirrorUtillity.getInstance();
+        Builder builder = new Builder();
+        String patternKey = "Patterns.";
+        String circle = "Circle.";
+        String square = "Square.";
+        getCircle(map, blockMirror, builder, patternKey, circle);
+        getSquare(map, blockMirror, builder, patternKey, square);
 
-	public PatternWrapperApi getSquarePattern() {
-		return squarePattern;
-	}
+        return new BlockPatterns(builder);
+    }
 
-	public Builder getBuilder() {
-		return builder;
-	}
+    private static void getCircle(final Map<String, Object> map, final BlockMirrorAPI blockMirror, final Builder builder, final String patternKey, final String pattenType) {
+        String fillBlocks = pattenType + "Settings.Fill_blocks.";
+        String changeFacing = pattenType + "Settings.Change_facing.";
+        ItemWrapper circlePassive = getDeserialize(map, patternKey, pattenType, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
+        ItemWrapper circleActive = getDeserialize(map, patternKey, pattenType, "Active.Display_name", "Active.Matrial", "Active.Lore");
 
-	public static class Builder {
-		private PatternWrapperApi circlePattern;
-		private PatternWrapperApi squarePattern;
+        ItemWrapper fillBlocksInPatternPassive = getDeserialize(map, patternKey, fillBlocks, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
+        ItemWrapper fillBlocksInPatternActive = getDeserialize(map, patternKey, fillBlocks, "Active.Display_name", "Active.Matrial", "Active.Lore");
 
-		public Builder setCirclePattern(final PatternWrapperApi circlePattern) {
-			this.circlePattern = circlePattern;
-			return this;
-		}
+        ItemWrapper changeFacingToPatternPassive = getDeserialize(map, patternKey, changeFacing, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
+        ItemWrapper changeFacingToPatternActive = getDeserialize(map, patternKey, changeFacing, "Active.Display_name", "Active.Matrial", "Active.Lore");
 
-		public Builder setSquarePattern(final PatternWrapperApi squarePattern) {
-			this.squarePattern = squarePattern;
-			return this;
-		}
+        if (fillBlocksInPatternPassive.getDisplayName() == null || fillBlocksInPatternPassive.getDisplayName().isEmpty())
+            fillBlocksInPatternPassive = getDeserialize(map, patternKey, fillBlocks, "Display_name", "Matrial", "Lore");
+        if (fillBlocksInPatternActive.getDisplayName() == null || fillBlocksInPatternActive.getDisplayName().isEmpty())
+            fillBlocksInPatternActive = null;
 
-		public BlockPatterns build() {
-			return new BlockPatterns(this);
-		}
+        boolean fillAllBlocks = (boolean) map.getOrDefault(patternKey + pattenType + "Fill_all_blocks", false);
 
-		@Override
-		public String toString() {
-			return "Builder{" +
-					"circlePattern=" + circlePattern +
-					'}';
-		}
-	}
+        builder.setCirclePattern(blockMirror.createPatternWrapperApi(circlePassive, circleActive)
+                .fillAllBlocks(fillAllBlocks)
+                .setPatternSettingsWraper(
+                        blockMirror.createSetFillBlocksInPattern("blockmirror.change.circle_pattern", fillBlocksInPatternPassive, fillBlocksInPatternActive)
+                        , blockMirror.createChangeFacingToPattern("blockmirror.change.circle_pattern", changeFacingToPatternPassive, changeFacingToPatternActive))
+        );
+    }
 
-	@Nonnull
-	@Override
-	public Map<String, Object> serialize() {
-		Map<String, Object> map = new LinkedHashMap<>();
-		map.put("Circle", circlePattern);
-		map.put("Square", squarePattern);
-		return map;
-	}
+    private static void getSquare(final Map<String, Object> map, final BlockMirrorAPI blockMirror, final Builder builder, final String patternKey, final String pattenType) {
+        String fillBlocks = pattenType + "Settings.Fill_blocks.";
+        String changeFacing = pattenType + "Settings.Change_facing.";
+        ItemWrapper squarePassive = getDeserialize(map, patternKey, pattenType, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
+        ItemWrapper squareActive = getDeserialize(map, patternKey, pattenType, "Active.Display_name", "Active.Matrial", "Active.Lore");
 
-	public static BlockPatterns deserialize(Map<String, Object> map) {
-		BlockMirrorAPI blockMirror = BlockMirrorUtillity.getInstance();
-		Builder builder = new Builder();
-		String patternKey = "Patterns.";
-		String circle = "Circle.";
-		String square = "Square.";
-		getCircle(map, blockMirror, builder, patternKey, circle);
-		getSquare(map, blockMirror, builder, patternKey, square);
+        ItemWrapper fillBlocksInPatternPassive = getDeserialize(map, patternKey, fillBlocks, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
+        ItemWrapper fillBlocksInPatternActive = getDeserialize(map, patternKey, fillBlocks, "Active.Display_name", "Active.Matrial", "Active.Lore");
 
-		return new BlockPatterns(builder);
-	}
+        ItemWrapper changeFacingToPatternPassive = getDeserialize(map, patternKey, changeFacing, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
+        ItemWrapper changeFacingToPatternActive = getDeserialize(map, patternKey, changeFacing, "Active.Display_name", "Active.Matrial", "Active.Lore");
 
-	private static void getCircle(final Map<String, Object> map, final BlockMirrorAPI blockMirror, final Builder builder, final String patternKey, final String circle) {
-		String fillBlocks = circle + "Settings.Fill_blocks.";
-		String changeFacing = circle + "Settings.Change_facing.";
-		ItemWrapper circlePassive = getDeserialize(map, patternKey, circle, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
-		ItemWrapper circleActive = getDeserialize(map, patternKey, circle, "Active.Display_name", "Active.Matrial", "Active.Lore");
+        if (fillBlocksInPatternPassive.getDisplayName() == null || fillBlocksInPatternPassive.getDisplayName().isEmpty())
+            fillBlocksInPatternPassive = getDeserialize(map, patternKey, fillBlocks, "Display_name", "Matrial", "Lore");
+        if (fillBlocksInPatternActive.getDisplayName() == null || fillBlocksInPatternActive.getDisplayName().isEmpty())
+            fillBlocksInPatternActive = null;
 
-		ItemWrapper fillBlocksInPatternPassive = getDeserialize(map, patternKey, fillBlocks, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
-		ItemWrapper fillBlocksInPatternActive = getDeserialize(map, patternKey, fillBlocks, "Active.Display_name", "Active.Matrial", "Active.Lore");
+        boolean fillAllBlocks = (boolean) map.getOrDefault(patternKey + pattenType + "Fill_all_blocks", false);
 
-		ItemWrapper changeFacingToPatternPassive = getDeserialize(map, patternKey, changeFacing, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
-		ItemWrapper changeFacingToPatternActive = getDeserialize(map, patternKey, changeFacing, "Active.Display_name", "Active.Matrial", "Active.Lore");
+        builder.setSquarePattern(blockMirror.createPatternWrapperApi(squarePassive, squareActive)
+                .fillAllBlocks(fillAllBlocks)
+                .setPatternSettingsWraper(
+                        blockMirror.createSetFillBlocksInPattern("blockmirror.change.square_pattern", fillBlocksInPatternPassive, fillBlocksInPatternActive)
+                        , blockMirror.createChangeFacingToPattern("blockmirror.change.square_pattern", changeFacingToPatternPassive, changeFacingToPatternActive)));
+    }
 
-		if (fillBlocksInPatternPassive.getDisplayName() == null || fillBlocksInPatternPassive.getDisplayName().isEmpty())
-			fillBlocksInPatternPassive = getDeserialize(map, patternKey, fillBlocks, "Display_name", "Matrial", "Lore");
-		if (fillBlocksInPatternActive.getDisplayName() == null || fillBlocksInPatternActive.getDisplayName().isEmpty())
-			fillBlocksInPatternActive = null;
+    private static ItemWrapper getDeserialize(final Map<String, Object> map, final String patternKey, final String subKey, final String displayName, final String matrial, final String lore) {
+        return ItemWrapper.deserialize(deserializeData(
+                new Pair<>("Display_name", map.get(patternKey + subKey + displayName)),
+                new Pair<>("Material", map.get(patternKey + subKey + matrial)),
+                new Pair<>("Lore", map.get(patternKey + subKey + lore))));
+    }
 
-		boolean fillAllBlocks = (boolean) map.getOrDefault(patternKey + circle + "Fill_all_blocks", false);
+    @SafeVarargs
+    public static Map<String, Object> deserializeData(Pair<String, Object>... objects) {
+        Map<String, Object> tools = new LinkedHashMap<>();
+        if (objects == null) return tools;
+        for (Pair<String, Object> object : objects) {
+            tools.put(object.getFirst(), object.getSecond());
+        }
+        return tools;
+    }
 
-		builder.setCirclePattern(blockMirror.createPatternWrapperApi(circlePassive, circleActive).setFillBlocks(fillAllBlocks)
-				.setPatternSettingsWraperApi(
-						blockMirror.createSetFillBlocksInPattern(fillBlocksInPatternPassive, fillBlocksInPatternActive)
-						, blockMirror.createChangeFacingToPattern(changeFacingToPatternPassive, changeFacingToPatternActive)));
-	}
+    public PatternDisplayItem getCirclePattern() {
+        return circlePattern;
+    }
 
-	private static void getSquare(final Map<String, Object> map, final BlockMirrorAPI blockMirror, final Builder builder, final String patternKey, final String circle) {
-		String fillBlocks = circle + "Settings.Fill_blocks.";
-		String changeFacing = circle + "Settings.Change_facing.";
-		ItemWrapper circlePassive = getDeserialize(map, patternKey, circle, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
-		ItemWrapper circleActive = getDeserialize(map, patternKey, circle, "Active.Display_name", "Active.Matrial", "Active.Lore");
+    public PatternDisplayItem getSquarePattern() {
+        return squarePattern;
+    }
 
-		ItemWrapper fillBlocksInPatternPassive = getDeserialize(map, patternKey, fillBlocks, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
-		ItemWrapper fillBlocksInPatternActive = getDeserialize(map, patternKey, fillBlocks, "Active.Display_name", "Active.Matrial", "Active.Lore");
+    public Builder getBuilder() {
+        return builder;
+    }
 
-		ItemWrapper changeFacingToPatternPassive = getDeserialize(map, patternKey, changeFacing, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
-		ItemWrapper changeFacingToPatternActive = getDeserialize(map, patternKey, changeFacing, "Active.Display_name", "Active.Matrial", "Active.Lore");
+    @Nonnull
+    @Override
+    public Map<String, Object> serialize() {
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("Circle", circlePattern);
+        map.put("Square", squarePattern);
+        return map;
+    }
 
-		if (fillBlocksInPatternPassive.getDisplayName() == null || fillBlocksInPatternPassive.getDisplayName().isEmpty())
-			fillBlocksInPatternPassive = getDeserialize(map, patternKey, fillBlocks, "Display_name", "Matrial", "Lore");
-		if (fillBlocksInPatternActive.getDisplayName() == null || fillBlocksInPatternActive.getDisplayName().isEmpty())
-			fillBlocksInPatternActive = null;
+    @Override
+    public String toString() {
+        return "BlockPatterns{" + "circlePattern=" + circlePattern + ", builder=" + builder + '}';
+    }
 
-		boolean fillAllBlocks = (boolean) map.getOrDefault(patternKey + circle + "Fill_all_blocks", false);
+    public static class Builder {
+        private PatternDisplayItem circlePattern;
+        private PatternDisplayItem squarePattern;
 
-		builder.setSquarePattern(blockMirror.createPatternWrapperApi(circlePassive, circleActive).setFillBlocks(fillAllBlocks)
-				.setPatternSettingsWraperApi(
-						blockMirror.createSetFillBlocksInPattern(fillBlocksInPatternPassive, fillBlocksInPatternActive)
-						, blockMirror.createChangeFacingToPattern(changeFacingToPatternPassive, changeFacingToPatternActive)));
-	}
+        public Builder setCirclePattern(final PatternDisplayItem circlePattern) {
+            this.circlePattern = circlePattern;
+            return this;
+        }
 
-	private static ItemWrapper getDeserialize(final Map<String, Object> map, final String patternKey, final String circle, final String x, final String x1, final String x2) {
-		return ItemWrapper.deserialize(deserializeData(
-				new Pair<>("Display_name", map.get(patternKey + circle + x)),
-				new Pair<>("Material", map.get(patternKey + circle + x1)),
-				new Pair<>("Lore", map.get(patternKey + circle + x2))));
-	}
+        public Builder setSquarePattern(final PatternDisplayItem squarePattern) {
+            this.squarePattern = squarePattern;
+            return this;
+        }
 
-	@SafeVarargs
-	public static Map<String, Object> deserializeData(Pair<String, Object>... objects) {
-		Map<String, Object> tools = new LinkedHashMap<>();
-		if (objects == null) return tools;
-		for (Pair<String, Object> object : objects) {
-			tools.put(object.getFirst(), object.getSecond());
-		}
-		return tools;
-	}
+        public BlockPatterns build() {
+            return new BlockPatterns(this);
+        }
 
-	@Override
-	public String toString() {
-		return "BlockPatterns{" + "circlePattern=" + circlePattern + ", builder=" + builder + '}';
-	}
+        @Override
+        public String toString() {
+            return "Builder{" +
+                    "circlePattern=" + circlePattern +
+                    '}';
+        }
+    }
 }

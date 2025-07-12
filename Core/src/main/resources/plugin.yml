@@ -18,6 +18,12 @@ permissions:
   blockmirror.admin.command.reload:
     description: Reload the plugin.
     default: false
+  blockmirror.change.circle_pattern:
+    description:  Allow players to use circle pattern.
+    default: true
+  blockmirror.change.square_pattern:
+    description: Allow players to use square pattern.
+    default: true
   blockmirror.admin.*:
     description: Give you acces to all commands.
     default: false
@@ -26,3 +32,5 @@ permissions:
       blockmirror.command.classic_mirror: true
       blockmirror.command.patterns_command: true
       blockmirror.admin.command.reload: true
+      blockmirror.change.circle_pattern: true
+      blockmirror.change.square_pattern: true

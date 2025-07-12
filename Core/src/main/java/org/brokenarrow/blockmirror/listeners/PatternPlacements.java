@@ -39,14 +39,21 @@ public class PatternPlacements implements BlockListener {
 		Material material = block.getType();
 		if (player.hasMetadata(Actions.pattern.name()) && material != Material.AIR) {
 			List<MetadataValue> metadata = player.getMetadata(Actions.pattern.name());
-			if (metadata.size() < 1) return;
+			if (metadata.isEmpty()) return;
 			Object value = metadata.get(0).value();
 			if (!(value instanceof PatternData)) return;
 			PatternData patternData = (PatternData) value;
 			PlayerBuilder data = playerCache.getOrCreateData(player.getUniqueId());
 			if (data.getCenterLocation() == null) return;
+			if (!patternData.hasPermission(player)) return;
 
 			int distance = calcualateDistance(block.getLocation(), data.getCenterLocation());
+			double maxDistance = patternData.reachMaxDistance(player, distance);
+			if (maxDistance < distance) {
+				BlockMirror.getPlugin().sendMessage(player, "Reach_max_distance", distance, maxDistance );
+				return;
+			}
+
 			List<Location> locations = patternData.whenPlace(data, player, data.getCenterLocation(), block.getLocation(), distance);
 
 			int amountOfItems = InventoyUtility.getAmountOfItems(player, block.getType(), locations.size() + 1);
@@ -86,8 +93,15 @@ public class PatternPlacements implements BlockListener {
 			PatternData patternData = (PatternData) value;
 			PlayerBuilder data = playerCache.getOrCreateData(player.getUniqueId());
 			if (data.getCenterLocation() == null) return;
+			if (!patternData.hasPermission(player)) return;
 
 			int distance = calcualateDistance(block.getLocation(), data.getCenterLocation());
+			double maxDistance = patternData.reachMaxDistance(player, distance);
+			if (maxDistance < distance) {
+				BlockMirror.getPlugin().sendMessage(player, "Reach_max_distance", distance, maxDistance );
+				return;
+			}
+
 			List<Location> locations = patternData.whenBreak(data, player, data.getCenterLocation(), block.getLocation(), distance);
 			Material material = block.getType();
 			Map<Material, ItemStack> itemStacks = new HashMap<>();

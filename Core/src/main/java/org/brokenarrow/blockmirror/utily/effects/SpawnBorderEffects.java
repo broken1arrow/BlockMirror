@@ -12,6 +12,8 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
+import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
 
 public class SpawnBorderEffects implements HeavyLoad {
@@ -194,4 +196,22 @@ public class SpawnBorderEffects implements HeavyLoad {
 		return location.clone().add(((location.getChunk().getX() * 16) - location.getBlockX()) + (offCenter ? 7.5 : 8), yloc != null ? yloc : -0.5, ((location.getChunk().getZ() * 16) - location.getBlockZ()) + (offCenter ? 7.5 : 8));
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o == null || getClass() != o.getClass()) return false;
+
+		SpawnBorderEffects that = (SpawnBorderEffects) o;
+		return time == that.time && Double.compare(milliPerTick, that.milliPerTick) == 0 && Objects.equals(location, that.location) && Objects.equals(containerLocation, that.containerLocation) && Objects.equals(player, that.player);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = Objects.hashCode(location);
+		result = 31 * result + Objects.hashCode(containerLocation);
+		result = 31 * result + Objects.hashCode(player);
+		result = 31 * result + Long.hashCode(time);
+		result = 31 * result + Double.hashCode(milliPerTick);
+		result = 31 * result + new Random().nextInt(Integer.MAX_VALUE - 7000);
+		return result;
+	}
 }

@@ -11,101 +11,115 @@ import java.util.Map;
 public class SettingsData implements ConfigurationSerializeUtility {
 
 
-	private final Tools tools;
-	private final BlockPatterns blockPatterns;
-	private final String mainCommand;
-	private final boolean silkTouch;
-	private final Builder builder;
+    private final Tools tools;
+    private final BlockPatterns blockPatterns;
+    private final int classicBlockPlaceDistance;
+    private final String mainCommand;
+    private final boolean silkTouch;
+    private final Builder builder;
 
-	private SettingsData(Builder builder) {
-		this.tools = builder.tools;
-		this.blockPatterns = builder.blockPatterns;
-		this.mainCommand = builder.mainCommand;
-		this.silkTouch = builder.silkTouch;
-		this.builder = builder;
-	}
+    private SettingsData(Builder builder) {
+        this.tools = builder.tools;
+        this.blockPatterns = builder.blockPatterns;
+        this.mainCommand = builder.mainCommand;
+        this.silkTouch = builder.silkTouch;
+        this.classicBlockPlaceDistance = builder.classicBlockPlaceDistance;
+        this.builder = builder;
+    }
 
-	public Tools getTools() {
-		return tools;
-	}
+    public static SettingsData deserialize(Map<String, Object> map) {
 
-	public BlockPatterns getBlockPatterns() {
-		return blockPatterns;
-	}
+        Builder builder = new Builder()
+                .setMainCommand((String) map.getOrDefault("Main_command", "blockmirror|mirror"))
+                .setTools(Tools.deserialize(map))
+                .setBlockPatterns(BlockPatterns.deserialize(map))
+                .setSilkTouch((Boolean) map.getOrDefault("Silk_touch", false))
+                .setClassicBlockPlaceDistance((Integer) map.getOrDefault("Classic_block_place_distance", -1));
 
-	public String getMainCommand() {
-		return mainCommand;
-	}
 
-	public boolean isSilkTouch() {
-		return silkTouch;
-	}
+        return new SettingsData(builder);
+    }
 
-	public Builder getBuilder() {
-		return builder;
-	}
+    public Tools getTools() {
+        return tools;
+    }
 
-	public static class Builder {
+    public BlockPatterns getBlockPatterns() {
+        return blockPatterns;
+    }
 
-		private Tools tools;
-		private BlockPatterns blockPatterns;
-		private String mainCommand;
-		public boolean silkTouch;
+    public String getMainCommand() {
+        return mainCommand;
+    }
 
-		public Builder setTools(final Tools tools) {
-			this.tools = tools;
-			return this;
-		}
+    public boolean isSilkTouch() {
+        return silkTouch;
+    }
 
-		public Builder setSilkTouch(final boolean silkTouch) {
-			this.silkTouch = silkTouch;
-			return this;
-		}
+    public int getClassicBlockPlaceDistance() {
+        return classicBlockPlaceDistance;
+    }
 
-		public Builder setBlockPatterns(final BlockPatterns blockPatterns) {
-			this.blockPatterns = blockPatterns;
-			return this;
-		}
+    public Builder getBuilder() {
+        return builder;
+    }
 
-		public Builder setMainCommand(final String mainCommand) {
-			this.mainCommand = mainCommand;
-			return this;
-		}
+    @Nonnull
+    @Override
+    public Map<String, Object> serialize() {
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("Tools", tools);
+        map.put("Patterns", tools);
+        map.put("Main_command", mainCommand);
+        map.put("Silk_touch", silkTouch);
+        return map;
+    }
 
-		public SettingsData build() {
-			return new SettingsData(this);
-		}
-	}
+    @Override
+    public String toString() {
+        return "SettingsData{" +
+                "tools=" + tools +
+                ", blockPatterns=" + blockPatterns +
+                ", mainCommand='" + mainCommand + '\'' +
+                ", builder=" + builder +
+                '}';
+    }
 
-	@Nonnull
-	@Override
-	public Map<String, Object> serialize() {
-		Map<String, Object> map = new LinkedHashMap<>();
-		map.put("Tools", tools);
-		map.put("Patterns", tools);
-		map.put("Main_command", mainCommand);
-		map.put("Silk_touch", silkTouch);
-		return map;
-	}
+    public static class Builder {
 
-	public static SettingsData deserialize(Map<String, Object> map) {
+        public boolean silkTouch;
+        public int classicBlockPlaceDistance;
+        private Tools tools;
+        private BlockPatterns blockPatterns;
+        private String mainCommand;
 
-		Builder builder = new Builder()
-				.setMainCommand((String) map.getOrDefault("Main_command", "blockmirror|mirror"))
-				.setTools(Tools.deserialize(map))
-				.setBlockPatterns(BlockPatterns.deserialize(map))
-				.setSilkTouch((Boolean) map.getOrDefault("Silk_touch", false));
+        public Builder setTools(final Tools tools) {
+            this.tools = tools;
+            return this;
+        }
 
-		return new SettingsData(builder);
-	}
+        public Builder setSilkTouch(final boolean silkTouch) {
+            this.silkTouch = silkTouch;
+            return this;
+        }
 
-	@Override
-	public String toString() {
-		return "SettingsData{" +
-				"tools=" + tools +
-				", blockPatterns=" + blockPatterns +
-				", mainCommand='" + mainCommand + '\'' +
-				", builder=" + builder +
-				'}';
-	}
+        public Builder setBlockPatterns(final BlockPatterns blockPatterns) {
+            this.blockPatterns = blockPatterns;
+            return this;
+        }
+
+        public Builder setMainCommand(final String mainCommand) {
+            this.mainCommand = mainCommand;
+            return this;
+        }
+
+        public Builder setClassicBlockPlaceDistance(int classicBlockPlaceDistance) {
+            this.classicBlockPlaceDistance = classicBlockPlaceDistance;
+            return this;
+        }
+
+        public SettingsData build() {
+            return new SettingsData(this);
+        }
+    }
 }

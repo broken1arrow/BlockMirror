@@ -91,8 +91,12 @@ public class RunTasks extends BukkitRunnable {
 		if (task != null) {
 			if (task.reschedule()) {
 				Long newTime = changeQueueTime.get(task.getID());
-				if (newTime != null)
+				if (newTime != null) {
 					task.setTime(newTime);
+				}
+				if(task.getTime() < 0)
+					return false;
+
 				addTask(task);
 				if (firstReschudleElement == null) {
 					firstReschudleElement = task;
@@ -100,7 +104,6 @@ public class RunTasks extends BukkitRunnable {
 					return firstReschudleElement != task;
 				}
 			}
-			return true;
 		}
 		return false;
 	}

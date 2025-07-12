@@ -14,6 +14,8 @@ public interface BlockVisualizeAPI {
 
     void visulizeBlock(@Nonnull final Player player, final Block block, final boolean shallBeVisualize);
 
+    void stopVisualizing(Block block);
+
     Material getMaterial();
 
 }

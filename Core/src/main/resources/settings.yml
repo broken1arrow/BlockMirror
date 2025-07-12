@@ -4,6 +4,7 @@ Main_command: "blockmirror|mirror"
 # If you want player get for example always grasblock
 #, no matter what tool he use.
 Silk_touch: false
+Classic_block_place_distance: 40
 Tools:
   Marker_tool:
     Matrial: STICK
@@ -26,6 +27,8 @@ Patterns:
             - "&aClick to activate if"
             - "&ayou want to fill all"
             - "&ablocks, in the pattern."
+            - " "
+            - "&aCurrent set:&6 {0}"
         Active:
           Matrial: POLISHED_ANDESITE
           Display_name: "&fFill blocks"
@@ -33,6 +36,8 @@ Patterns:
             - "&aClick to deactivate if"
             - "&ayou not want to fill all"
             - "&ablocks, in the pattern."
+            - " "
+            - "&aCurrent set:&6 {0}"
       Change_facing:
         Passive:
           Matrial: OAK_SAPLING
@@ -56,12 +61,40 @@ Patterns:
       Matrial: OAK_SIGN
       Display_name: "&fCircle pattern"
       Lore:
+        - "&f"
+        - "&fClick to use this pattern. If center"
+        - "&floction is not set, it will be set"
+        - "&fautomaticly where you are standing."
+        - "&f"
+        - "&fIf you want to change center click"
+        - "&fon the button between the arrows."
+        - "&f"
+        - "&fShift and click for get"
+        - "&fsettings for this pattern."
+        - "&f"
+        - "&fPlayer loc: {0}"
+        - "&f"
+        - "&fCenter location set: &6{1}"
         - "&aLeft-click to set this pattern"
       Glow: true
     Active:
       Matrial: DARK_OAK_SIGN
       Display_name: "&fCircle pattern"
       Lore:
+        - "&f"
+        - "&fClick to unset this pattern. If center"
+        - "&floction is not set, it will be set"
+        - "&fautomaticly where you are standing."
+        - "&f"
+        - "&fIf you want to change center click"
+        - "&fon the button between the arrows."
+        - "&f"
+        - "&fShift and click for get"
+        - "&fsettings for this pattern."
+        - "&f"
+        - "&fPlayer loc: {0}"
+        - "&f"
+        - "&fCenter location set: &6{1}"
         - "&aRight-click to unset this pattern"
       Glow: false
   Square:
@@ -76,6 +109,8 @@ Patterns:
             - "&aClick to activate if"
             - "&ayou want to fill all"
             - "&ablocks, in the pattern."
+            - " "
+            - "&aCurrent set:&6 {0}"
         Active:
           Matrial: POLISHED_ANDESITE
           Display_name: "&fFill blocks"
@@ -83,6 +118,8 @@ Patterns:
             - "&aClick to deactivate if"
             - "&ayou not want to fill all"
             - "&ablocks, in the pattern."
+            - " "
+            - "&aCurrent set:&6 {0}"
       Change_facing:
         Passive:
           Matrial: OAK_SAPLING
@@ -106,11 +143,39 @@ Patterns:
       Matrial: STONE
       Display_name: "&fSquare pattern"
       Lore:
+        - "&f"
+        - "&fClick to use this pattern. If center"
+        - "&floction is not set, it will be set"
+        - "&fautomaticly where you are standing."
+        - "&f"
+        - "&fIf you want to change center click"
+        - "&fon the button between the arrows."
+        - "&f"
+        - "&fShift and click for get"
+        - "&fsettings for this pattern."
+        - "&f"
+        - "&fPlayer loc: {0}"
+        - "&f"
+        - "&fCenter location set: &6{1}"
         - "&aLeft-click to set this pattern"
       Glow: true
     Active:
       Matrial: STONE_BRICKS
       Display_name: "&fSquare pattern"
       Lore:
+        - "&f"
+        - "&fClick to unset this pattern. If center"
+        - "&floction is not set, it will be set"
+        - "&fautomaticly where you are standing."
+        - "&f"
+        - "&fIf you want to change center click"
+        - "&fon the button between the arrows."
+        - "&f"
+        - "&fShift and click for get"
+        - "&fsettings for this pattern."
+        - "&f"
+        - "&fPlayer loc: {0}"
+        - "&f"
+        - "&fCenter location set: &6{1}"
         - "&aRight-click to unset this pattern"
       Glow: false

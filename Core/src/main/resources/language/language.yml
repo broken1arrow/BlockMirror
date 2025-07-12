@@ -6,9 +6,13 @@ Suffix_decor: "---------------> {0} <--------------"
 
 Placeholders:
   Block_face_set: "Not set"
+  Center_location_not_set: "Not set"
   Booleans_rename:
     True: "true"
     False: "false"
+  Player_location: "Player location:&6 {0}"
+  Fill_blocks_set: "Set"
+  Fill_blocks_not_set: "Not set"
 Messages:
   Classic_command_clear: "&fHas cleared all set data"
   Custom_command_clear: "&fHas cleared all set data"
@@ -26,4 +30,7 @@ Messages:
   Not_enough_blocks:
     - "&fYou have only&6 {0} and need {1} blocks more."
     - "&fTotaly you need {2}"
-  
+  Mode_set_block_dublicated: "You must turn of 'set block' mirror mode before using this command."
+  Mode_classic_set_block_dublicated: "You must turn of 'classic set block' mirror mode before using this command."
+  Reach_max_distance: "You have reach max distance {0} of max {1} distance for this pattern."
+  Reach_max_distance_classic: "You have reach max distance {0} of max {1} distance."

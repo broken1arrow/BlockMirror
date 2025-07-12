@@ -1,20 +1,20 @@
 package org.brokenarrow.blockmirror.api.builders.patterns;
 
-import org.brokenarrow.blockmirror.api.blockpattern.PatternSettingsWrapperApi;
+import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public interface PatternWrapperApi {
+public interface PatternDisplayItem {
 
 
 	/**
 	 * Get the settings for the pattern.
 	 *
-	 * @return the settings wrapper.
+	 * @return the settings for the pattern.
 	 */
-	List<PatternSettingsWrapperApi> getPatternSettingsWrapperApi();
+	List<PatternSetting> getPatternSettings();
 
 	/**
 	 * Try get either the active or passive item wrapper.
@@ -43,21 +43,17 @@ public interface PatternWrapperApi {
 	@Nullable
 	ItemWrapper getActive();
 
-	/**
-	 * Check if it shall set border only or
-	 * fill also all blocks inside border.
-	 *
-	 * @return true if it shall fill all blocks.
-	 */
-	boolean isFillBlocks();
+	boolean isFillAllBlocks();
 
 	/**
-	 * Set if it shall fill in all blocks inside the pattern.
+	 * Get from settings if it shall fill all blocks.
 	 *
-	 * @param fillBlocks
-	 * @return this class.
+	 * @param fillAllBlocks {#code true} if shall fill all blocks inside the pattern.
+	 * @return {#code true} if it shall fill the pattern.
 	 */
-	PatternWrapperApi setFillBlocks(boolean fillBlocks);
+	PatternDisplayItem  fillAllBlocks(boolean fillAllBlocks);
+
+
 
 	/**
 	 * The settings set for the build in patterns.
@@ -65,7 +61,8 @@ public interface PatternWrapperApi {
 	 * @param patternSettingsWraper
 	 * @return this class.
 	 */
-	PatternWrapperApi setPatternSettingsWraperApi(final PatternSettingsWrapperApi patternSettingsWraper);
+	PatternDisplayItem setPatternSettingsWraper(final PatternSetting patternSettingsWraper);
 
-	PatternWrapperApi setPatternSettingsWraperApi(final PatternSettingsWrapperApi... patternSettingsWraper);
+	PatternDisplayItem setPatternSettingsWraper(final PatternSetting... patternSettingsWraper);
+
 }

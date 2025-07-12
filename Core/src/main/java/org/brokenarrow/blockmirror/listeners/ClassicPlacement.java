@@ -1,8 +1,8 @@
 package org.brokenarrow.blockmirror.listeners;
 
+import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.PlayerCache;
 import org.brokenarrow.blockmirror.api.BlockListener;
-import org.brokenarrow.blockmirror.api.builders.Distance;
 import org.brokenarrow.blockmirror.api.builders.MirrorLoc;
 import org.brokenarrow.blockmirror.api.builders.MirrorOption;
 import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
@@ -46,9 +46,14 @@ public class ClassicPlacement implements BlockListener {
 			PlayerBuilder data = playerCache.getData(player.getUniqueId());
 			if (data == null) return;
 			if (data.getCenterLocation() == null) return;
-			Set<Location> locations = getMirrorLoc(data, block.getLocation());
+			final Location blockLocation = block.getLocation();
+
+			if (checkDistance(blockLocation, data, player)) return;
+
+			Set<Location> locations = getMirrorLoc(data, blockLocation);
 			if (locations == null) return;
 			boolean hasNeededItems = InventoyUtility.checkInventory(player, block.getType(), locations.size() + 1);
+
 			PreBlockPlaceClassic preBlockPlaceClassic = new PreBlockPlaceClassic(player, data, locations, hasNeededItems);
 
 			if (hasNeededItems && !preBlockPlaceClassic.isCancelled()) {
@@ -71,6 +76,18 @@ public class ClassicPlacement implements BlockListener {
 		}
 	}
 
+	private static boolean checkDistance(Location blockLocation, PlayerBuilder data, Player player) {
+		SettingsData settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
+		if (settingsData != null && settingsData.getClassicBlockPlaceDistance() > 0) {
+			double distance = blockLocation.distance(data.getCenterLocation());
+			if (distance > settingsData.getClassicBlockPlaceDistance()) {
+				BlockMirror.getPlugin().sendMessage(player, "Reach_max_distance_classic", Math.round(distance * 100.00) / 100.00, settingsData.getClassicBlockPlaceDistance());
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public void onBlockBreak(BlockBreakEvent event) {
 		Block block = event.getBlock();
@@ -82,7 +99,11 @@ public class ClassicPlacement implements BlockListener {
 		if (data == null) return;
 		if (data.getCenterLocation() == null) return;
 		Map<Material, ItemStack> itemStacks = new HashMap<>();
-		Set<Location> locations = getMirrorLoc(data, block.getLocation());
+		final Location blockLocation = block.getLocation();
+
+		if (checkDistance(blockLocation, data, player)) return;
+
+		Set<Location> locations = getMirrorLoc(data, blockLocation);
 		if (locations == null) return;
 		Material material = block.getType();
 		PreBlockBreakClassic preBlockBreakClassic = new PreBlockBreakClassic(player, data, locations);
@@ -229,11 +250,4 @@ public class ClassicPlacement implements BlockListener {
 		return new Location(centerLoc.getWorld(), mirroredX, mirroredY, mirroredZ);
 	}
 
-	public Distance calcualateDistance(Location nextLocation, Location centerLocation) {
-		int distanceZ = nextLocation.getBlockZ() - centerLocation.getBlockZ();
-		int distanceX = nextLocation.getBlockX() - centerLocation.getBlockX();
-		int distanceY = nextLocation.getBlockY() - centerLocation.getBlockY();
-
-		return new Distance(distanceZ, distanceX, distanceY);
-	}
 }

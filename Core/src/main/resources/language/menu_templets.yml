@@ -270,36 +270,12 @@ Menus:
           material: RED_WOOL
           name: "&aPattern:&6 {0}"
           lore:
-            - "&f"
-            - "&fClick to use this pattern. If center"
-            - "&floction is not set, it will be set"
-            - "&fautomaticly where you are standing."
-            - "&f"
-            - "&fIf you want to change center click"
-            - "&fon the button between the arrows."
-            - "&f"
-            - "&fShift and click for get"
-            - "&fsettings for this pattern."
-            - "&f"
-            - "&fCenter location: &6{2}"
             - "&6{1}"
           glow: false
         active:
-          material: RED_WOOL
+          material: GREEN_WOOL
           name: "&aPattern:&6 {0}"
           lore:
-            - "&f"
-            - "&fClick to unset this pattern. If center"
-            - "&floction is not set, it will be set"
-            - "&fautomaticly where you are standing."
-            - "&f"
-            - "&fIf you want to change center click"
-            - "&fon the button between the arrows."
-            - "&f"
-            - "&fShift and click for get"
-            - "&fsettings for this pattern."
-            - "&f"
-            - "&fCenter location: &6{2}"
             - "&6{1}"
           glow: true
       "27":

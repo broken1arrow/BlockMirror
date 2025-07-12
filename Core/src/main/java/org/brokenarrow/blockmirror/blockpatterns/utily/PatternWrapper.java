@@ -1,20 +1,20 @@
 package org.brokenarrow.blockmirror.blockpatterns.utily;
 
-import org.brokenarrow.blockmirror.api.blockpattern.PatternSettingsWrapperApi;
+import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
-import org.brokenarrow.blockmirror.api.builders.patterns.PatternWrapperApi;
+import org.brokenarrow.blockmirror.api.builders.patterns.PatternDisplayItem;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PatternWrapper implements PatternWrapperApi {
+public class PatternWrapper implements PatternDisplayItem {
 
 	private final ItemWrapper passive;
 	private final ItemWrapper active;
-	private List<PatternSettingsWrapperApi> patternSettingsWrapperApi = new ArrayList<>();
-	private boolean fillBlocks;
+	private final List<PatternSetting> patternSetting = new ArrayList<>();
+	private boolean fillAllBlocks;
 
 	public PatternWrapper(final ItemWrapper passive, final ItemWrapper active) {
 		this.passive = passive;
@@ -22,30 +22,19 @@ public class PatternWrapper implements PatternWrapperApi {
 	}
 
 	@Override
-	public boolean isFillBlocks() {
-		return fillBlocks;
+	public List<PatternSetting> getPatternSettings() {
+		return patternSetting;
 	}
 
 	@Override
-	public PatternWrapper setFillBlocks(final boolean fillBlocks) {
-		this.fillBlocks = fillBlocks;
+	public PatternWrapper setPatternSettingsWraper(final PatternSetting patternSetting) {
+		this.patternSetting.add(patternSetting);
 		return this;
 	}
 
 	@Override
-	public List<PatternSettingsWrapperApi> getPatternSettingsWrapperApi() {
-		return patternSettingsWrapperApi;
-	}
-
-	@Override
-	public PatternWrapper setPatternSettingsWraperApi(final PatternSettingsWrapperApi patternSettingsWrapperApi) {
-		this.patternSettingsWrapperApi.add(patternSettingsWrapperApi);
-		return this;
-	}
-
-	@Override
-	public PatternWrapper setPatternSettingsWraperApi(final PatternSettingsWrapperApi... patternSettingsWrapperApi) {
-		this.patternSettingsWrapperApi.addAll(Arrays.asList(patternSettingsWrapperApi));
+	public PatternWrapper setPatternSettingsWraper(final PatternSetting... patternSetting) {
+		this.patternSetting.addAll(Arrays.asList(patternSetting));
 		return this;
 	}
 
@@ -69,5 +58,16 @@ public class PatternWrapper implements PatternWrapperApi {
 	@Nullable
 	public ItemWrapper getActive() {
 		return active;
+	}
+
+	@Override
+	public boolean isFillAllBlocks() {
+		return fillAllBlocks;
+	}
+
+	@Override
+	public PatternDisplayItem fillAllBlocks(boolean fillAllBlocks) {
+		this.fillAllBlocks = fillAllBlocks;
+		return this;
 	}
 }

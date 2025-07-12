@@ -1,140 +1,239 @@
 package org.brokenarrow.blockmirror.blockpatterns;
 
 import org.brokenarrow.blockmirror.BlockMirror;
+import org.brokenarrow.blockmirror.api.PlayerCacheApi;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
-import org.brokenarrow.blockmirror.api.blockpattern.PatternSettingsWrapperApi;
+import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
 import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
-import org.brokenarrow.blockmirror.api.builders.patterns.BlockPatterns;
-import org.brokenarrow.blockmirror.api.builders.patterns.PatternWrapperApi;
-import org.brokenarrow.blockmirror.settings.Settings;
+import org.brokenarrow.blockmirror.api.builders.SettingsData;
+import org.brokenarrow.blockmirror.api.builders.patterns.PatternDisplayItem;
+import org.brokenarrow.blockmirror.api.utility.Actions;
+import org.brokenarrow.blockmirror.utily.EffectsActivated;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class SquarePattern implements PatternData {
-	private final Settings settings = BlockMirror.getPlugin().getSettings();
+    private PatternDisplayItem settingsSquare;
+    private boolean fillBlocks;
 
-	@Nonnull
-	@Override
-	public List<Location> whenPlace(final PlayerBuilder data, final Player player, final Location centerLocation, final Location blockplacedLoc, final int radius) {
-		BlockPatterns blockPatterns = settings.getSettingsData() != null ? settings.getSettingsData().getBlockPatterns() : null;
-		//if it shall fill all blocks inside the square
-		boolean fillAllBlocks = false;
-		if (blockPatterns != null) {
-			fillAllBlocks = blockPatterns.getSquarePattern().isFillBlocks();
-		}
-		List<Location> locations = new ArrayList<>();
+    public SquarePattern() {
+        final SettingsData settings = BlockMirror.getPlugin().getSettings().getSettingsData();
+        if (settings != null)
+            this.settingsSquare = settings.getBlockPatterns().getSquarePattern();
+        if (this.settingsSquare != null)
+            this.fillBlocks = this.settingsSquare.isFillAllBlocks();
+    }
 
-		int centerX = centerLocation.getBlockX();
-		int centerY = centerLocation.getBlockZ();
+    @Nonnull
+    @Override
+    public List<Location> whenPlace(final PlayerBuilder data, final Player player, final Location centerLocation, final Location blockplacedLoc, final int radius) {
+        if (true) {
+            return rectanglePlacement(data, player, centerLocation, blockplacedLoc, radius);
+        }
 
-		for (int x = centerX - radius; x <= centerX + radius; x++) {
-			for (int z = centerY - radius; z <= centerY + radius; z++) {
-				// Check if the current position is on the border of the square
-				boolean isOnBorder = x == centerX - radius || x == centerX + radius || z == centerY - radius || z == centerY + radius;
-				Location location = new Location(centerLocation.getWorld(), x, blockplacedLoc.getBlockY(), z);
-				// Add the location to the list if it's either on the border or it's set to fill all blocks
-				if (isOnBorder || fillAllBlocks) {
-					locations.add(location);
-				}
-			}
-		}
-		return locations;
-	}
+        //if it shall fill all blocks inside the square
+        boolean fillAllBlocks = this.shallFillBlocks();
 
-	@Nonnull
-	@Override
-	public List<Location> whenBreak(final PlayerBuilder data, final Player player, final Location location, final Location blockplacedLoc, final int center) {
-		return this.whenPlace(data, player, location, blockplacedLoc, center);
-	}
+        List<Location> locations = new ArrayList<>();
 
-	@Override
-	public boolean allItemsOnBreak() {
-		return true;
-	}
+        int centerX = centerLocation.getBlockX();
+        int centerY = centerLocation.getBlockZ();
 
-	@Override
-	public boolean replaceOnlyAir() {
-		return true;
-	}
+        for (int x = centerX - radius; x <= centerX + radius; x++) {
+            for (int z = centerY - radius; z <= centerY + radius; z++) {
+                // Check if the current position is on the border of the square
+                boolean isOnBorder = x == centerX - radius || x == centerX + radius || z == centerY - radius || z == centerY + radius;
+                Location location = new Location(centerLocation.getWorld(), x, blockplacedLoc.getBlockY(), z);
+                // Add the location to the list if it's either on the border or it's set to fill all blocks
+                if (isOnBorder || fillAllBlocks) {
+                    locations.add(location);
+                }
+            }
+        }
+        return locations;
+    }
 
-	@Nonnull
-	@Override
-	public List<PatternSettingsWrapperApi> getPatternSettingsWrapers() {
-		List<PatternSettingsWrapperApi> patternSettingsWrapers = new ArrayList<>();
-		BlockPatterns blockPatterns = this.getBlockPatterns();
-		if (blockPatterns != null) {
-			patternSettingsWrapers.addAll(blockPatterns.getSquarePattern().getPatternSettingsWrapperApi());
-		}
-		return patternSettingsWrapers;
-	}
+    public List<Location> rectanglePlacement(final PlayerBuilder data, final Player player, final Location centerLocation, final Location blockplacedLoc, final int radius) {
+        boolean fillAllBlocks = this.shallFillBlocks();
 
-	@Nonnull
-	@Override
-	public Material icon(boolean active) {
-		BlockPatterns blockPatterns = this.getBlockPatterns();
-		if (blockPatterns != null) {
-			ItemWrapper itemWrapper = blockPatterns.getSquarePattern().getItemWrapper(active);
-			if (itemWrapper != null) {
-				return itemWrapper.getMaterial();
-			}
-		}
-		return Material.OAK_SIGN;
-	}
+        List<Location> locations = new ArrayList<>();
 
-	@Nonnull
-	@Override
-	public String displayName(boolean active) {
-		BlockPatterns blockPatterns = this.getBlockPatterns();
-		if (blockPatterns != null) {
-			ItemWrapper itemWrapper = blockPatterns.getSquarePattern().getItemWrapper(active);
-			if (itemWrapper != null) {
-				return itemWrapper.getDisplayName();
-			}
-		}
-		return "";
-	}
+        int centerX = centerLocation.getBlockX();
+        int centerZ = centerLocation.getBlockZ();
 
-	@Nonnull
-	@Override
-	public List<String> lore(boolean active) {
-		BlockPatterns blockPatterns = this.getBlockPatterns();
-		if (blockPatterns != null) {
-			ItemWrapper itemWrapper = blockPatterns.getSquarePattern().getItemWrapper(active);
-			if (itemWrapper != null) {
-				return itemWrapper.getLore();
-			}
-		}
-		return new ArrayList<>();
-	}
+        int placedX = blockplacedLoc.getBlockX();
+        int placedZ = blockplacedLoc.getBlockZ();
 
-	@Override
-	public void leftClickMenu() {
-		PatternWrapperApi squarePattern = this.getBlockPatterns().getSquarePattern();
-		squarePattern.setFillBlocks(!squarePattern.isFillBlocks());
-	}
+        int deltaX = Math.abs(placedX - centerX);
+        int deltaZ = Math.abs(placedZ - centerZ);
 
-	@Override
-	public void rightClickMenu() {
-		PatternWrapperApi squarePattern = this.getBlockPatterns().getSquarePattern();
-		squarePattern.setFillBlocks(!squarePattern.isFillBlocks());
-	}
+        int minX, maxX, minZ, maxZ;
 
-	public BlockPatterns getBlockPatterns() {
-		return settings.getSettingsData() != null ? settings.getSettingsData().getBlockPatterns() : null;
-	}
+        if (deltaX >= deltaZ) {
+            // Player is more offset in X direction → fix X to radius, adjust Z
+            minX = centerX - radius;
+            maxX = centerX + radius;
+            int halfZ = Math.abs(placedZ - centerZ);
+            minZ = centerZ - halfZ;
+            maxZ = centerZ + halfZ;
+        } else {
+            // Player is more offset in Z direction → fix Z to radius, adjust X
+            minZ = centerZ - radius;
+            maxZ = centerZ + radius;
+            int halfX = Math.abs(placedX - centerX);
+            minX = centerX - halfX;
+            maxX = centerX + halfX;
+        }
 
-	@Override
-	public boolean equals(final Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		final SquarePattern that = (SquarePattern) o;
-		return Objects.equals(settings, that.settings);
-	}
+        for (int x = minX; x <= maxX; x++) {
+            for (int z = minZ; z <= maxZ; z++) {
+                boolean isOnBorder = x == minX || x == maxX || z == minZ || z == maxZ;
+                Location location = new Location(centerLocation.getWorld(), x, blockplacedLoc.getBlockY(), z);
+                if (isOnBorder || fillAllBlocks) {
+                    locations.add(location);
+                }
+            }
+        }
+        return locations;
+    }
+
+    @Nonnull
+    @Override
+    public List<Location> whenBreak(final PlayerBuilder data, final Player player, final Location location, final Location blockplacedLoc, final int center) {
+        return this.whenPlace(data, player, location, blockplacedLoc, center);
+    }
+
+    @Override
+    public boolean allItemsOnBreak() {
+        return true;
+    }
+
+    @Override
+    public boolean replaceOnlyAir() {
+        return true;
+    }
+
+    @Override
+    public boolean shallFillBlocks() {
+        return this.fillBlocks;
+    }
+
+    @Override
+    public void setFillBlocks(boolean fillBlocks) {
+        this.fillBlocks = fillBlocks;
+    }
+
+
+    @Nonnull
+    @Override
+    public List<PatternSetting> getPatternSettings() {
+        PatternDisplayItem blockPatterns = this.getPatternGlobalSettings();
+        if (blockPatterns != null) {
+            return Collections.unmodifiableList(blockPatterns.getPatternSettings());
+        }
+        return new ArrayList<>();
+    }
+
+    @Nonnull
+    @Override
+    public Material icon(boolean active) {
+        PatternDisplayItem blockPatterns = this.getPatternGlobalSettings();
+        if (blockPatterns != null) {
+            ItemWrapper itemWrapper = blockPatterns.getItemWrapper(active);
+            if (itemWrapper != null) {
+                return itemWrapper.getMaterial();
+            }
+        }
+        return Material.OAK_SIGN;
+    }
+
+    @Nonnull
+    @Override
+    public String displayName(boolean active) {
+        PatternDisplayItem blockPatterns = this.getPatternGlobalSettings();
+        if (blockPatterns != null) {
+            ItemWrapper itemWrapper = blockPatterns.getItemWrapper(active);
+            if (itemWrapper != null) {
+                return itemWrapper.getDisplayName();
+            }
+        }
+        return "";
+    }
+
+    @Nonnull
+    @Override
+    public List<String> lore(boolean active) {
+        PatternDisplayItem blockPatterns = this.getPatternGlobalSettings();
+        if (blockPatterns != null) {
+            ItemWrapper itemWrapper = blockPatterns.getItemWrapper(active);
+            if (itemWrapper != null) {
+                return itemWrapper.getLore();
+            }
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public void clickMenu(@Nonnull final Player player, @Nonnull final ClickType click) {
+        final BlockMirror plugin = BlockMirror.getPlugin();
+        final PlayerCacheApi playerCache = plugin.getPlayerCache();
+        final PlayerBuilder data = playerCache.getOrCreateData(player.getUniqueId());
+        final PlayerBuilder.Builder builder = data.getBuilder();
+        if (click.isLeftClick()) {
+            player.setMetadata(Actions.pattern.name(), new FixedMetadataValue(BlockMirror.getPlugin(), this));
+            if (data.getCenterLocation() == null) {
+                builder.setCenterLocation(click.isLeftClick() ? player.getLocation() : null);
+                EffectsActivated.setEffect(player, data, builder);
+            }
+        } else {
+            EffectsActivated.removeEffect(player, data);
+            builder.setCenterLocation(null);
+            player.removeMetadata(Actions.pattern.name(), BlockMirror.getPlugin());
+        }
+        playerCache.setPlayerData(player.getUniqueId(), builder.build());
+    }
+
+    @Override
+    public boolean hasPermission(Player player) {
+        final BlockMirror plugin = BlockMirror.getPlugin();
+        final String pluginName = plugin.getPluginName().toLowerCase();
+
+        return plugin.hasPermission(player, pluginName + ".change.circle_pattern");
+    }
+
+    @Override
+    public double reachMaxDistance(Player player, int distance) {
+        return 30;
+    }
+
+
+    @Override
+    public PatternDisplayItem getPatternGlobalSettings() {
+        return  settingsSquare;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hashCode(settingsSquare);
+        result = 31 * result + Boolean.hashCode(fillBlocks);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SquarePattern that = (SquarePattern) o;
+        return fillBlocks == that.fillBlocks && Objects.equals(settingsSquare, that.settingsSquare);
+    }
 }

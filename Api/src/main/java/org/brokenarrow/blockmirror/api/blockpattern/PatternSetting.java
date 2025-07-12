@@ -7,7 +7,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public interface PatternSettingsWrapperApi {
+public interface PatternSetting {
+
+	/**
+	 * Get the type of setting for the pattern.
+	 * @return the type.
+	 */
+	 String getType();
 
 	/**
 	 * Check if player has the permission.
@@ -22,7 +28,7 @@ public interface PatternSettingsWrapperApi {
 	 *
 	 * @param player
 	 */
-	void leftClick(final PatternData patternData, final Player player);
+	void leftClick(final  PatternData patternData, final Player player);
 
 	/**
 	 * Unset the setting for this player.
@@ -34,10 +40,11 @@ public interface PatternSettingsWrapperApi {
 	/**
 	 * If it currently set to true or false.
 	 *
+	 * @param patternData
 	 * @param player
 	 * @return true if player set the setting.
 	 */
-	boolean isSettingSet(final Player player);
+	boolean isSettingSet(@Nonnull final PatternData patternData, @Nonnull final Player player);
 
 	/**
 	 * The icon used in the menu.
@@ -51,20 +58,22 @@ public interface PatternSettingsWrapperApi {
 	/**
 	 * The name of the item.
 	 *
-	 * @param active set to true if player has activated this function.
+	 * @param patternData
+	 * @param active      set to true if player has activated this function.
 	 * @return the name to set.
 	 */
 	@Nonnull
-	String displayName(final Player player, boolean active);
+	String displayName(	@Nonnull final PatternData patternData,	@Nonnull final Player player, boolean active);
 
 	/**
 	 * The lore on the item.
 	 *
-	 * @param active set to true if player has activated this function.
+	 * @param patternData
+	 * @param active      set to true if player has activated this function.
 	 * @return the lore to set or null if it not set.
 	 */
 	@Nullable
-	List<String> lore(final Player player, boolean active);
+	List<String> lore(@Nonnull final PatternData patternData,@Nonnull final Player player, boolean active);
 
 
 }
