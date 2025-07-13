@@ -25,6 +25,7 @@ import java.util.Objects;
 public class SquarePattern implements PatternData {
     private PatternDisplayItem settingsSquare;
     private boolean fillBlocks;
+    private boolean dynamicRectangle = true;
 
     public SquarePattern() {
         final SettingsData settings = BlockMirror.getPlugin().getSettings().getSettingsData();
@@ -37,7 +38,7 @@ public class SquarePattern implements PatternData {
     @Nonnull
     @Override
     public List<Location> whenPlace(final PlayerBuilder data, final Player player, final Location centerLocation, final Location blockplacedLoc, final int radius) {
-        if (true) {
+        if (dynamicRectangle) {
             return rectanglePlacement(data, player, centerLocation, blockplacedLoc, radius);
         }
 
@@ -55,50 +56,6 @@ public class SquarePattern implements PatternData {
                 boolean isOnBorder = x == centerX - radius || x == centerX + radius || z == centerY - radius || z == centerY + radius;
                 Location location = new Location(centerLocation.getWorld(), x, blockplacedLoc.getBlockY(), z);
                 // Add the location to the list if it's either on the border or it's set to fill all blocks
-                if (isOnBorder || fillAllBlocks) {
-                    locations.add(location);
-                }
-            }
-        }
-        return locations;
-    }
-
-    public List<Location> rectanglePlacement(final PlayerBuilder data, final Player player, final Location centerLocation, final Location blockplacedLoc, final int radius) {
-        boolean fillAllBlocks = this.shallFillBlocks();
-
-        List<Location> locations = new ArrayList<>();
-
-        int centerX = centerLocation.getBlockX();
-        int centerZ = centerLocation.getBlockZ();
-
-        int placedX = blockplacedLoc.getBlockX();
-        int placedZ = blockplacedLoc.getBlockZ();
-
-        int deltaX = Math.abs(placedX - centerX);
-        int deltaZ = Math.abs(placedZ - centerZ);
-
-        int minX, maxX, minZ, maxZ;
-
-        if (deltaX >= deltaZ) {
-            // Player is more offset in X direction → fix X to radius, adjust Z
-            minX = centerX - radius;
-            maxX = centerX + radius;
-            int halfZ = Math.abs(placedZ - centerZ);
-            minZ = centerZ - halfZ;
-            maxZ = centerZ + halfZ;
-        } else {
-            // Player is more offset in Z direction → fix Z to radius, adjust X
-            minZ = centerZ - radius;
-            maxZ = centerZ + radius;
-            int halfX = Math.abs(placedX - centerX);
-            minX = centerX - halfX;
-            maxX = centerX + halfX;
-        }
-
-        for (int x = minX; x <= maxX; x++) {
-            for (int z = minZ; z <= maxZ; z++) {
-                boolean isOnBorder = x == minX || x == maxX || z == minZ || z == maxZ;
-                Location location = new Location(centerLocation.getWorld(), x, blockplacedLoc.getBlockY(), z);
                 if (isOnBorder || fillAllBlocks) {
                     locations.add(location);
                 }
@@ -133,6 +90,14 @@ public class SquarePattern implements PatternData {
         this.fillBlocks = fillBlocks;
     }
 
+    public boolean isDynamicRectangle() {
+        return dynamicRectangle;
+    }
+
+    public SquarePattern setDynamicRectangle(boolean dynamicRectangle) {
+        this.dynamicRectangle = dynamicRectangle;
+        return this;
+    }
 
     @Nonnull
     @Override
@@ -236,4 +201,49 @@ public class SquarePattern implements PatternData {
         SquarePattern that = (SquarePattern) o;
         return fillBlocks == that.fillBlocks && Objects.equals(settingsSquare, that.settingsSquare);
     }
+
+    public List<Location> rectanglePlacement(final PlayerBuilder data, final Player player, final Location centerLocation, final Location blockplacedLoc, final int radius) {
+        boolean fillAllBlocks = this.shallFillBlocks();
+
+        List<Location> locations = new ArrayList<>();
+
+        int centerX = centerLocation.getBlockX();
+        int centerZ = centerLocation.getBlockZ();
+
+        int placedX = blockplacedLoc.getBlockX();
+        int placedZ = blockplacedLoc.getBlockZ();
+
+        int deltaX = Math.abs(placedX - centerX);
+        int deltaZ = Math.abs(placedZ - centerZ);
+
+        int minX, maxX, minZ, maxZ;
+
+        if (deltaX >= deltaZ) {
+            // Player is more offset in X direction → fix X to radius, adjust Z
+            minX = centerX - radius;
+            maxX = centerX + radius;
+            int halfZ = Math.abs(placedZ - centerZ);
+            minZ = centerZ - halfZ;
+            maxZ = centerZ + halfZ;
+        } else {
+            // Player is more offset in Z direction → fix Z to radius, adjust X
+            minZ = centerZ - radius;
+            maxZ = centerZ + radius;
+            int halfX = Math.abs(placedX - centerX);
+            minX = centerX - halfX;
+            maxX = centerX + halfX;
+        }
+
+        for (int x = minX; x <= maxX; x++) {
+            for (int z = minZ; z <= maxZ; z++) {
+                boolean isOnBorder = x == minX || x == maxX || z == minZ || z == maxZ;
+                Location location = new Location(centerLocation.getWorld(), x, blockplacedLoc.getBlockY(), z);
+                if (isOnBorder || fillAllBlocks) {
+                    locations.add(location);
+                }
+            }
+        }
+        return locations;
+    }
+
 }

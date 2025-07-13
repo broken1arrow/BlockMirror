@@ -6,7 +6,6 @@ import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
 import org.brokenarrow.blockmirror.api.builders.language.PlaceholderText;
-import org.brokenarrow.blockmirror.api.settings.SettingsApi;
 import org.brokenarrow.blockmirror.utily.TextConvertPlaceholders;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,7 +15,6 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class SetFillBlocksInPattern implements PatternSetting {
-    private final SettingsApi settings = BlockMirrorUtillity.getInstance().getSettings();
     private final BlockMirrorAPI plugin = BlockMirrorUtillity.getInstance();
     @Nullable
     private final String permission;
@@ -29,6 +27,7 @@ public class SetFillBlocksInPattern implements PatternSetting {
         this.active = active;
     }
 
+    @Nonnull
     @Override
     public String getType() {
         return "Set_fill_in_blocks";
@@ -37,7 +36,7 @@ public class SetFillBlocksInPattern implements PatternSetting {
     @Override
     public boolean hasPermission(final Player player) {
         if (permission != null && !permission.isEmpty())
-            player.hasPermission(permission);
+            return player.hasPermission(permission);
         return true;
     }
 

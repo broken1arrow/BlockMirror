@@ -13,6 +13,7 @@ public interface PatternSetting {
 	 * Get the type of setting for the pattern.
 	 * @return the type.
 	 */
+	@Nonnull
 	 String getType();
 
 	/**

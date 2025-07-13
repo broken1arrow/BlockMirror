@@ -33,6 +33,7 @@ public class ChangeFacingToPattern implements PatternSetting {
         this.active = active;
     }
 
+    @Nonnull
     @Override
     public String getType() {
         return "Change_facing";
@@ -41,7 +42,7 @@ public class ChangeFacingToPattern implements PatternSetting {
     @Override
     public boolean hasPermission(final Player player) {
         if (permission != null && !permission.isEmpty())
-            player.hasPermission(permission);
+            return player.hasPermission(permission);
         return true;
     }
 
