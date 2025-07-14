@@ -4,6 +4,7 @@ import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.PlayerCache;
 import org.brokenarrow.blockmirror.api.BlockListener;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
+import org.brokenarrow.blockmirror.api.builders.PatternTracker;
 import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
 import org.brokenarrow.blockmirror.api.builders.SettingsData;
 import org.brokenarrow.blockmirror.api.builders.language.Language;
@@ -29,6 +30,8 @@ import static org.brokenarrow.blockmirror.BlockMirror.getPlugin;
 
 public class PatternPlacements implements BlockListener {
 	private final ValidTool validTool = new ValidTool();
+	private final BlockMirror blockMirror = getPlugin();
+	private final PatternTracker pattenTracker = blockMirror.getBlockPattenTracker();
 
 	@Override
 	public void onBlockPlace(BlockPlaceEvent event) {
@@ -53,8 +56,9 @@ public class PatternPlacements implements BlockListener {
 				BlockMirror.getPlugin().sendMessage(player, "Reach_max_distance", distance, maxDistance );
 				return;
 			}
+			final List<Location> locations = patternData.whenPlace(data, player, data.getCenterLocation(), block.getLocation(), distance);
 
-			List<Location> locations = patternData.whenPlace(data, player, data.getCenterLocation(), block.getLocation(), distance);
+			this.pattenTracker.addPatterns(locations);
 
 			int amountOfItems = InventoyUtility.getAmountOfItems(player, block.getType(), locations.size() + 1);
 			int amountNeeded = checkLocations(locations, material, patternData.replaceOnlyAir());
@@ -103,6 +107,10 @@ public class PatternPlacements implements BlockListener {
 			}
 
 			List<Location> locations = patternData.whenBreak(data, player, data.getCenterLocation(), block.getLocation(), distance);
+
+			if (!pattenTracker.removePattern(locations))
+				return;
+
 			Material material = block.getType();
 			Map<Material, ItemStack> itemStacks = new HashMap<>();
 

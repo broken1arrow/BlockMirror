@@ -2,7 +2,7 @@ package org.brokenarrow.blockmirror.api.builders.menu;
 
 
 import org.broken.arrow.library.itemcreator.ItemCreator;
-import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
+import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.filemanger.ConfigurationSerializeUtility;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -126,7 +126,7 @@ public class MenuButton implements ConfigurationSerializeUtility {
 	}
 
 	public static MenuButton deserialize(final Map<String, Object> map) {
-		ItemCreator itemCreator = BlockMirrorUtillity.getInstance().getItemCreator();
+		ItemCreator itemCreator = BlockMirrorUtility.getInstance().getItemCreator();
 		final String color = (String) map.get("color");
 		final String material = (String) map.get("material");
 		final String displayName = (String) map.get("name");

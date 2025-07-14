@@ -3,7 +3,7 @@ package org.brokenarrow.blockmirror.listeners;
 import org.broken.arrow.library.itemcreator.ItemCreator;
 import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.api.BlockListener;
-import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
+import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
 import org.brokenarrow.blockmirror.api.builders.SettingsData;
 import org.brokenarrow.blockmirror.api.utility.Actions;
@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class CheckPlayerInventory implements BlockListener {
 	SettingsData settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
-	ItemCreator itemCreator = BlockMirrorUtillity.getInstance().getItemCreator();
+	ItemCreator itemCreator = BlockMirrorUtility.getInstance().getItemCreator();
 
 	@Override
 	public void onPlayerJoin(PlayerJoinEvent event) {

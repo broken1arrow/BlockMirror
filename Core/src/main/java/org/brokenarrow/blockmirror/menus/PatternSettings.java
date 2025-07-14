@@ -6,7 +6,7 @@ import org.broken.arrow.library.menu.button.logic.ButtonUpdateAction;
 import org.broken.arrow.library.menu.button.logic.FillMenuButton;
 import org.broken.arrow.library.menu.holder.MenuHolderPage;
 import org.brokenarrow.blockmirror.BlockMirror;
-import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
+import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
 import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
@@ -30,7 +30,7 @@ public class PatternSettings extends MenuHolderPage<PatternSetting> {
     private final PatternData patternData;
     private final BlockMirror plugin = BlockMirror.getPlugin();
     private PlayerBuilder data;
-    private final ItemCreator itemCreator = BlockMirrorUtillity.getInstance().getItemCreator();
+    private final ItemCreator itemCreator = BlockMirrorUtility.getInstance().getItemCreator();
 
     public PatternSettings(Player player, String menuName, @Nonnull PatternData patternData) {
         super(patternData.getPatternSettings());

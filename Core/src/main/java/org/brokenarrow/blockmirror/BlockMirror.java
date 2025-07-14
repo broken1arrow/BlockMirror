@@ -5,10 +5,11 @@ import org.broken.arrow.library.itemcreator.ItemCreator;
 import org.broken.arrow.library.menu.RegisterMenuAPI;
 import org.broken.arrow.library.nbt.RegisterNbtAPI;
 import org.brokenarrow.blockmirror.api.BlockMirrorAPI;
-import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
+import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
+import org.brokenarrow.blockmirror.api.builders.PatternTracker;
 import org.brokenarrow.blockmirror.api.builders.SettingsData;
 import org.brokenarrow.blockmirror.api.builders.language.Language;
 import org.brokenarrow.blockmirror.api.builders.language.PlaceholderText;
@@ -19,6 +20,7 @@ import org.brokenarrow.blockmirror.api.utility.BlockVisualizeAPI;
 import org.brokenarrow.blockmirror.api.utility.BossBarAPI;
 import org.brokenarrow.blockmirror.blockpatterns.CirclePattern;
 import org.brokenarrow.blockmirror.blockpatterns.SquarePattern;
+import org.brokenarrow.blockmirror.blockpatterns.cache.BlockPattenTracker;
 import org.brokenarrow.blockmirror.blockpatterns.cache.PatternCache;
 import org.brokenarrow.blockmirror.blockpatterns.utily.ChangeFacingToPattern;
 import org.brokenarrow.blockmirror.blockpatterns.utily.PatternWrapper;
@@ -50,7 +52,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.logging.Level;
 
-public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
+public class BlockMirror extends BlockMirrorUtility implements BlockMirrorAPI {
 
     private PlayerCache playerCache;
 
@@ -65,6 +67,7 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
     private RegisterNbtAPI nbt;
     private ItemCreator itemCreator;
     private BossBar bar;
+    private PatternTracker blockPattenTracker;
 
     public static BlockMirror getPlugin() {
         return (BlockMirror) plugin;
@@ -94,6 +97,7 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
     public void onEnable() {
         plugin = this;
         this.menu = new RegisterMenuAPI(this);
+        this.blockPattenTracker = new BlockPattenTracker();
         this.playerCache = new PlayerCache();
         this.menusCache = new MenusCache(this);
         this.languageCache = new LanguageCache(this);
@@ -164,6 +168,11 @@ public class BlockMirror extends BlockMirrorUtillity implements BlockMirrorAPI {
 
     public PatternCache getPatternCache() {
         return patternCache;
+    }
+
+    @Override
+    public PatternTracker  getBlockPattenTracker() {
+        return blockPattenTracker;
     }
 
     @Override

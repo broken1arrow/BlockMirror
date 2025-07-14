@@ -2,7 +2,7 @@ package org.brokenarrow.blockmirror.api.utility.particels;
 
 import com.google.common.base.Enums;
 import org.broken.arrow.library.menu.utility.ServerVersion;
-import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
+import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.utility.Pair;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -44,7 +44,7 @@ public class ConvetParticlesUntlity {
 		final List<ParticleEffectApi> particleList = new ArrayList<>();
 		for (final Pair<String, Object> particle : particles) {
 			if (particle.getSecond() instanceof List) {
-				BlockMirrorUtillity.getInstance().log(Level.WARNING, "This is an list, should be string  " + particle.getSecond());
+				BlockMirrorUtility.getInstance().log(Level.WARNING, "This is an list, should be string  " + particle.getSecond());
 				continue;
 			}
 			final ParticleEffect particleEffect = getParticleOrEffect(particle.getFirst(), (String) particle.getSecond(), 0.7F);

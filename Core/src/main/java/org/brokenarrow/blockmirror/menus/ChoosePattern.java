@@ -7,7 +7,7 @@ import org.broken.arrow.library.menu.button.logic.FillMenuButton;
 import org.broken.arrow.library.menu.holder.MenuHolderPage;
 import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.PlayerCache;
-import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
+import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
 import org.brokenarrow.blockmirror.api.builders.language.PlaceholderText;
@@ -34,7 +34,7 @@ public class ChoosePattern extends MenuHolderPage<PatternData> {
     private final MenuTemplate menuTemplate;
     private final BlockMirror plugin = BlockMirror.getPlugin();
     private final PlayerCache playerCache = plugin.getPlayerCache();
-    ItemCreator itemCreator = BlockMirrorUtillity.getInstance().getItemCreator();
+    ItemCreator itemCreator = BlockMirrorUtility.getInstance().getItemCreator();
     private PlayerBuilder data;
     private BlockVisualizeAPI blockVisualize = plugin.getBlockVisualize();
 

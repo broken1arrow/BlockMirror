@@ -1,7 +1,7 @@
 package org.brokenarrow.blockmirror.blockpatterns.utily;
 
 import org.brokenarrow.blockmirror.api.BlockMirrorAPI;
-import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
+import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DynamicRectangle implements PatternSetting {
-    private final BlockMirrorAPI plugin = BlockMirrorUtillity.getInstance();
+    private final BlockMirrorAPI plugin = BlockMirrorUtility.getInstance();
     private final String permission;
     private final ItemWrapper passive;
     private final ItemWrapper active;

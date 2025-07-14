@@ -4,7 +4,7 @@ package org.brokenarrow.blockmirror.utily;
 import org.broken.arrow.library.itemcreator.ItemCreator;
 import org.broken.arrow.library.menu.utility.ServerVersion;
 import org.broken.arrow.library.visualization.builders.VisualizeData;
-import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
+import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.utility.BlockVisualizeAPI;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -45,7 +45,7 @@ public class BlockVisualize implements BlockVisualizeAPI {
 
     @Override
     public Material getMaterial() {
-        ItemCreator itemCreator = BlockMirrorUtillity.getInstance().getItemCreator();
+        ItemCreator itemCreator = BlockMirrorUtility.getInstance().getItemCreator();
         Material material = null;
         if (ServerVersion.olderThan(ServerVersion.V1_13))
             material = Material.matchMaterial("STONE");

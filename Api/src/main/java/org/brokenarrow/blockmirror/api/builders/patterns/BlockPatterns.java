@@ -2,7 +2,7 @@ package org.brokenarrow.blockmirror.api.builders.patterns;
 
 
 import org.brokenarrow.blockmirror.api.BlockMirrorAPI;
-import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
+import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
 import org.brokenarrow.blockmirror.api.filemanger.ConfigurationSerializeUtility;
 import org.brokenarrow.blockmirror.api.utility.Pair;
@@ -25,7 +25,7 @@ public class BlockPatterns implements ConfigurationSerializeUtility {
     }
 
     public static BlockPatterns deserialize(Map<String, Object> map) {
-        BlockMirrorAPI blockMirror = BlockMirrorUtillity.getInstance();
+        BlockMirrorAPI blockMirror = BlockMirrorUtility.getInstance();
         Builder builder = new Builder();
         String patternKey = "Patterns.";
         String circle = "Circle.";

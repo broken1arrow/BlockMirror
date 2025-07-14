@@ -1,7 +1,7 @@
 package org.brokenarrow.blockmirror.blockpatterns.utily;
 
 import org.brokenarrow.blockmirror.api.BlockMirrorAPI;
-import org.brokenarrow.blockmirror.api.BlockMirrorUtillity;
+import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.PlayerCacheApi;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
@@ -20,12 +20,12 @@ import java.util.List;
 import static org.brokenarrow.blockmirror.menus.type.MenuType.Pattern_Settings;
 
 public class ChangeFacingToPattern implements PatternSetting {
-    private final PlayerCacheApi settings = BlockMirrorUtillity.getInstance().getPlayerCache();
+    private final PlayerCacheApi settings = BlockMirrorUtility.getInstance().getPlayerCache();
     @Nullable
     private final String permission;
     private final ItemWrapper passive;
     private final ItemWrapper active;
-    BlockMirrorAPI plugin = BlockMirrorUtillity.getInstance();
+    BlockMirrorAPI plugin = BlockMirrorUtility.getInstance();
 
     public ChangeFacingToPattern(@Nullable String permission, @Nonnull final ItemWrapper passive, final ItemWrapper active) {
         this.permission = permission;
