@@ -1,6 +1,8 @@
 package org.brokenarrow.blockmirror.blockpatterns.cache.pattentracker;
 
-import org.brokenarrow.blockmirror.api.builders.ChunkLocationCollection;
+import org.brokenarrow.blockmirror.api.builders.pattentracker.BlockPositionData;
+import org.brokenarrow.blockmirror.api.builders.pattentracker.ChunkCoordinats;
+import org.brokenarrow.blockmirror.api.builders.pattentracker.ChunkLocationCollection;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
@@ -14,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class ChunkLocationCache implements ChunkLocationCollection {
 
-    private final Map<ChunkCoord, Set<BlockPosition>> data = new HashMap<>();
+    private final Map<ChunkCoordinats, Set<BlockPositionData>> data = new HashMap<>();
 
     @Override
     public void add(Location location) {
@@ -38,9 +40,9 @@ public class ChunkLocationCache implements ChunkLocationCollection {
 
     @Override
     public boolean remove(Location location) {
-        final BlockPosition blockPosition = new BlockPosition(location);
-        final ChunkCoord chunkCoord = blockPosition.getChunkCoord();
-        Set<BlockPosition> blockPositions = data.get(chunkCoord);
+        final BlockPositionData blockPosition = new BlockPosition(location);
+        final ChunkCoordinats chunkCoord =  blockPosition.getChunkCoord();
+        Set<BlockPositionData> blockPositions = data.get(chunkCoord);
         if (blockPositions == null) return false;
 
         boolean removed = blockPositions.remove(blockPosition);
@@ -57,9 +59,9 @@ public class ChunkLocationCache implements ChunkLocationCollection {
 
         for (Location location : locations) {
             final BlockPosition blockPosition = new BlockPosition(location);
-            final ChunkCoord chunkCoord = blockPosition.getChunkCoord();
+            final ChunkCoordinats chunkCoord = blockPosition.getChunkCoord();
 
-            Set<BlockPosition> blockPositions = data.get(chunkCoord);
+            Set<BlockPositionData> blockPositions = data.get(chunkCoord);
             if (blockPositions != null && blockPositions.remove(blockPosition)) {
                 changed = true;
                 if (blockPositions.isEmpty()) {
@@ -73,8 +75,8 @@ public class ChunkLocationCache implements ChunkLocationCollection {
     @Override
     public boolean contains(Location location) {
         final BlockPosition blockPosition = new BlockPosition(location);
-        final ChunkCoord chunkCoord = blockPosition.getChunkCoord();
-        final Set<BlockPosition> blockPositions = data.get(chunkCoord);
+        final ChunkCoordinats chunkCoord = blockPosition.getChunkCoord();
+        final Set<BlockPositionData> blockPositions = data.get(chunkCoord);
         if (blockPositions == null) return false;
 
         return blockPositions.contains(blockPosition);
@@ -85,19 +87,23 @@ public class ChunkLocationCache implements ChunkLocationCollection {
         return locations.stream().anyMatch(this::contains);
     }
 
-    public Map<ChunkCoord, Set<BlockPosition>> getData() {
+    @Override
+    public Map<ChunkCoordinats, Set<BlockPositionData>> getData() {
         return Collections.unmodifiableMap(data);
     }
 
+    @Override
     public boolean isEmpty() {
         return data.isEmpty();
     }
 
+    @Override
     public int size() {
         return data.size();
     }
 
-    public Collection<BlockPosition> all() {
+    @Override
+    public Collection<BlockPositionData> all() {
         return data.values().stream()
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());

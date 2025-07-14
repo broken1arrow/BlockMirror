@@ -1,5 +1,6 @@
 package org.brokenarrow.blockmirror.api.builders;
 
+import org.brokenarrow.blockmirror.api.builders.pattentracker.ChunkLocationCollection;
 import org.bukkit.Location;
 
 import javax.annotation.Nonnull;

@@ -1,14 +1,16 @@
 package org.brokenarrow.blockmirror.blockpatterns.cache.pattentracker;
 
+import org.brokenarrow.blockmirror.api.builders.pattentracker.BlockPositionData;
+import org.brokenarrow.blockmirror.api.builders.pattentracker.ChunkCoordinats;
 import org.bukkit.Location;
 
 import javax.annotation.Nonnull;
 
-public class BlockPosition {
+public class BlockPosition implements BlockPositionData {
     private final int x;
     private final int y;
     private final int z;
-    private final ChunkCoord cachedChunkCoord;
+    private final ChunkCoordinats cachedChunkCoord;
 
     public BlockPosition(@Nonnull final Location location) {
         this(location.getBlockX(), location.getBlockY(), location.getBlockZ());
@@ -38,7 +40,7 @@ public class BlockPosition {
         return z;
     }
 
-    public ChunkCoord getChunkCoord() {
+    public ChunkCoordinats getChunkCoord() {
         return cachedChunkCoord;
     }
 

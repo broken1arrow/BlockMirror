@@ -120,7 +120,7 @@ public class BlockRotation {
 	/**
 	 * This is uesd for old mincraft versions that use byte insted of blockfaces.
 	 *
-	 * @param material
+	 * @param material the matrial to check.
 	 * @return return the byte number
 	 */
 	public byte convertRotation(Material material) {

@@ -1,6 +1,6 @@
 package org.brokenarrow.blockmirror.blockpatterns.cache;
 
-import org.brokenarrow.blockmirror.api.builders.ChunkLocationCollection;
+import org.brokenarrow.blockmirror.api.builders.pattentracker.ChunkLocationCollection;
 import org.brokenarrow.blockmirror.api.builders.PatternTracker;
 import org.brokenarrow.blockmirror.blockpatterns.cache.pattentracker.ChunkLocationCache;
 import org.bukkit.Location;

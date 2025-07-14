@@ -1,10 +1,11 @@
 package org.brokenarrow.blockmirror.blockpatterns.cache.pattentracker;
 
+import org.brokenarrow.blockmirror.api.builders.pattentracker.ChunkCoordinats;
 import org.bukkit.Location;
 
 import javax.annotation.Nonnull;
 
-public class ChunkCoord {
+public class ChunkCoord implements ChunkCoordinats {
 
     private final int x;
     private final int z;

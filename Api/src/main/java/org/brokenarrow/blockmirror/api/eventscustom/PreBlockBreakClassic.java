@@ -21,9 +21,7 @@ public class PreBlockBreakClassic extends EventUtility {
 		this.player = player;
 		this.playerBuilder = playerBuilder;
 
-
 		this.registerEvent();
-
 	}
 
 	public Set<Location> getBlockMirrorLoc() {
