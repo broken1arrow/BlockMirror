@@ -4,8 +4,8 @@ import org.broken.arrow.library.itemcreator.ItemCreator;
 import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.api.BlockListener;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
-import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
-import org.brokenarrow.blockmirror.api.builders.SettingsData;
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperApi;
+import org.brokenarrow.blockmirror.api.settings.SettingsDataApi;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.brokenarrow.blockmirror.utily.InventoyUtility;
 import org.bukkit.entity.Player;
@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class CheckPlayerInventory implements BlockListener {
-	SettingsData settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
+	SettingsDataApi settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
 	ItemCreator itemCreator = BlockMirrorUtility.getInstance().getItemCreator();
 
 	@Override
@@ -29,10 +29,10 @@ public class CheckPlayerInventory implements BlockListener {
 		InventoyUtility.removeCustomItemFromInventory(player, getItem(settingsData), Actions.set_distance.name());
 	}
 
-	public ItemStack getItem(SettingsData settingsData) {
+	public ItemStack getItem(SettingsDataApi settingsData) {
 		ItemStack itemStack = null;
 		if (settingsData != null && settingsData.getTools() != null) {
-			ItemWrapper markertool = settingsData.getTools().getMarkertool();
+			ItemWrapperApi markertool = settingsData.getTools().getMarkertool();
 			itemStack = itemCreator.of(markertool.getMaterial(), markertool.getDisplayName(), markertool.getLore())
 					.setItemMetaData(Actions.set_distance.name(), Actions.set_distance.name()).makeItemStack();
 		}

@@ -1,7 +1,7 @@
-package org.brokenarrow.blockmirror;
+package org.brokenarrow.blockmirror.player;
 
 import org.brokenarrow.blockmirror.api.PlayerCacheApi;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
 import org.brokenarrow.blockmirror.utily.EffectsActivated;
 
 import javax.annotation.Nonnull;
@@ -12,15 +12,15 @@ import java.util.UUID;
 
 public class PlayerCache implements PlayerCacheApi {
 
-    private final Map<UUID, PlayerBuilder> playerCache = new HashMap<>();
+    private final Map<UUID, PlayerMirrorDataApi> playerCache = new HashMap<>();
 
-    private Map<UUID, PlayerBuilder> getPlayerCache() {
+    private Map<UUID, PlayerMirrorDataApi> getPlayerCache() {
         return playerCache;
     }
 
     @Override
     @Nullable
-    public PlayerBuilder getData(UUID uuid) {
+    public PlayerMirrorDataApi getData(UUID uuid) {
         return this.getPlayerCache().get(uuid);
     }
 
@@ -33,24 +33,24 @@ public class PlayerCache implements PlayerCacheApi {
      */
     @Nonnull
     @Override
-    public PlayerBuilder getOrCreateData(UUID uuid) {
-        PlayerBuilder playerBuilder = this.getPlayerCache().get(uuid);
+    public PlayerMirrorDataApi getOrCreateData(UUID uuid) {
+        PlayerMirrorDataApi playerBuilder = this.getPlayerCache().get(uuid);
         if (playerBuilder != null)
             return playerBuilder;
-        return new PlayerBuilder.Builder().build();
+        return new PlayerMirrorData.Builder().build();
     }
 
     @Override
     public void clearPlayerData(UUID uuid) {
-        PlayerBuilder playerData = this.getData(uuid);
+        PlayerMirrorDataApi playerData = this.getData(uuid);
         if (playerData != null) {
             EffectsActivated.removeEffect(uuid, playerData);
         }
-        this.setPlayerData(uuid, new PlayerBuilder.Builder().build());
+        this.setPlayerData(uuid, new PlayerMirrorData.Builder().build());
     }
 
     @Override
-    public void setPlayerData(UUID uuid, PlayerBuilder playerBuilder) {
+    public void setPlayerData(UUID uuid, PlayerMirrorDataApi playerBuilder) {
         this.getPlayerCache().put(uuid, playerBuilder);
     }
 }

@@ -6,17 +6,18 @@ import org.broken.arrow.library.menu.button.logic.ButtonUpdateAction;
 import org.broken.arrow.library.menu.button.logic.FillMenuButton;
 import org.broken.arrow.library.menu.holder.MenuHolderPage;
 import org.brokenarrow.blockmirror.BlockMirror;
-import org.brokenarrow.blockmirror.PlayerCache;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
 import org.brokenarrow.blockmirror.api.builders.language.PlaceholderText;
 import org.brokenarrow.blockmirror.api.builders.menu.ButtonType;
 import org.brokenarrow.blockmirror.api.builders.menu.MenuButtonData;
 import org.brokenarrow.blockmirror.api.builders.menu.MenuTemplate;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorBuilder;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
 import org.brokenarrow.blockmirror.api.filemanger.SerializeingLocation;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.brokenarrow.blockmirror.api.utility.BlockVisualizeAPI;
+import org.brokenarrow.blockmirror.player.PlayerCache;
 import org.brokenarrow.blockmirror.utily.EffectsActivated;
 import org.brokenarrow.blockmirror.utily.TextConvertPlaceholders;
 import org.bukkit.Location;
@@ -35,7 +36,7 @@ public class ChoosePattern extends MenuHolderPage<PatternData> {
     private final BlockMirror plugin = BlockMirror.getPlugin();
     private final PlayerCache playerCache = plugin.getPlayerCache();
     ItemCreator itemCreator = BlockMirrorUtility.getInstance().getItemCreator();
-    private PlayerBuilder data;
+    private PlayerMirrorDataApi data;
     private BlockVisualizeAPI blockVisualize = plugin.getBlockVisualize();
 
     public ChoosePattern(Player player, String menuName) {
@@ -50,7 +51,7 @@ public class ChoosePattern extends MenuHolderPage<PatternData> {
         setIgnoreItemCheck(true);
 
         if (data != null && data.getCenterLocation() != null && player.hasMetadata(Actions.pattern.name())) {
-            PlayerBuilder.Builder builder = data.getBuilder();
+            PlayerMirrorBuilder builder = data.getBuilder();
             EffectsActivated.setEffect(player, data, builder,false);
             plugin.getPlayerCache().setPlayerData(player.getUniqueId(), builder.build());
             data = playerCache.getOrCreateData(player.getUniqueId());
@@ -116,7 +117,7 @@ public class ChoosePattern extends MenuHolderPage<PatternData> {
         }
         if (value.getButtonType() == ButtonType.CentreLoc) {
             data = this.playerCache.getOrCreateData(player.getUniqueId());
-            PlayerBuilder.Builder builder = data.getBuilder();
+             PlayerMirrorBuilder  builder = data.getBuilder();
             if (!click.isLeftClick()) {
                 EffectsActivated.removeEffect(player, data);
             } else {
@@ -138,7 +139,7 @@ public class ChoosePattern extends MenuHolderPage<PatternData> {
     public FillMenuButton<PatternData> createFillMenuButton() {
         return new FillMenuButton<>((player, inventory, click, itemStack, patternData) -> {
             data = this.playerCache.getOrCreateData(player.getUniqueId());
-            final PlayerBuilder.Builder builder = data.getBuilder();
+            final  PlayerMirrorBuilder  builder = data.getBuilder();
             if (click.isShiftClick()) {
                 if (patternData != null)
                     new PatternSettings(player, "Pattern_settings", patternData)

@@ -1,15 +1,15 @@
 package org.brokenarrow.blockmirror.listeners;
 
 import org.brokenarrow.blockmirror.BlockMirror;
-import org.brokenarrow.blockmirror.PlayerCache;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
+import org.brokenarrow.blockmirror.player.PlayerCache;
 import org.brokenarrow.blockmirror.api.BlockListener;
 import org.brokenarrow.blockmirror.api.builders.MirrorLoc;
 import org.brokenarrow.blockmirror.api.builders.MirrorOption;
 import org.brokenarrow.blockmirror.api.builders.PatternTracker;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
-import org.brokenarrow.blockmirror.api.builders.SettingsData;
 import org.brokenarrow.blockmirror.api.eventscustom.PreBlockBreakClassic;
 import org.brokenarrow.blockmirror.api.eventscustom.PreBlockPlaceClassic;
+import org.brokenarrow.blockmirror.api.settings.SettingsDataApi;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.brokenarrow.blockmirror.api.utility.blockdrops.ValidTool;
 import org.brokenarrow.blockmirror.utily.BlockPlacements;
@@ -39,13 +39,16 @@ public class ClassicPlacement implements BlockListener {
     private final BlockMirror blockMirror = getPlugin();
     private final PatternTracker pattenTracker = blockMirror.getBlockPattenTracker();
 
-    private static boolean checkDistance(Location blockLocation, PlayerBuilder data, Player player) {
-        SettingsData settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
-        if (settingsData != null && settingsData.getClassicBlockPlaceDistance() > 0) {
-            double distance = blockLocation.distance(data.getCenterLocation());
-            if (distance > settingsData.getClassicBlockPlaceDistance()) {
-                BlockMirror.getPlugin().sendMessage(player, "Reach_max_distance_classic", Math.round(distance * 100.00) / 100.00, settingsData.getClassicBlockPlaceDistance());
-                return true;
+    private static boolean checkDistance(Location blockLocation, PlayerMirrorDataApi data, Player player) {
+        SettingsDataApi settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
+        if (settingsData != null) {
+            double classicBlockPlaceDistance = settingsData.getClassicBlockPlaceDistance();
+            if (classicBlockPlaceDistance > 0) {
+                double distance = blockLocation.distance(data.getCenterLocation());
+                if (distance > classicBlockPlaceDistance) {
+                    BlockMirror.getPlugin().sendMessage(player, "Reach_max_distance_classic", Math.round(distance * 100.00) / 100.00, classicBlockPlaceDistance);
+                    return true;
+                }
             }
         }
         return false;
@@ -58,7 +61,7 @@ public class ClassicPlacement implements BlockListener {
         Player player = event.getPlayer();
 
         if (player.hasMetadata(Actions.classic_set_block.name()) && block.getType() != Material.AIR) {
-            PlayerBuilder data = playerCache.getData(player.getUniqueId());
+            PlayerMirrorDataApi data = playerCache.getData(player.getUniqueId());
             if (data == null) return;
             if (data.getCenterLocation() == null) return;
             final Location blockLocation = block.getLocation();
@@ -101,7 +104,7 @@ public class ClassicPlacement implements BlockListener {
         Player player = event.getPlayer();
 
         if (!player.hasMetadata(Actions.classic_set_block.name()) || block.getType() == Material.AIR) return;
-        PlayerBuilder data = playerCache.getData(player.getUniqueId());
+        PlayerMirrorDataApi data = playerCache.getData(player.getUniqueId());
         if (data == null) return;
         if (data.getCenterLocation() == null) return;
         Map<Material, ItemStack> itemStacks = new HashMap<>();
@@ -119,7 +122,7 @@ public class ClassicPlacement implements BlockListener {
         if (!pattenTracker.removePattern(locations))
             return;
 
-        SettingsData settingsData = blockMirror.getSettings().getSettingsData();
+        SettingsDataApi settingsData = blockMirror.getSettings().getSettingsData();
         boolean silkTouch = settingsData != null && settingsData.isSilkTouch();
         for (Location location : locations) {
             Block locationBlock = location.getBlock();
@@ -155,7 +158,7 @@ public class ClassicPlacement implements BlockListener {
      * @return
      */
     @Nullable
-    public Set<Location> getMirrorLoc(PlayerBuilder data, Location placedLoc) {
+    public Set<Location> getMirrorLoc(PlayerMirrorDataApi data, Location placedLoc) {
         MirrorLoc mirrorLoc = data.getMirrorLoc();
         if (mirrorLoc == null) {
             return null;

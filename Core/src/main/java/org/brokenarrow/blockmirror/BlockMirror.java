@@ -8,14 +8,14 @@ import org.brokenarrow.blockmirror.api.BlockMirrorAPI;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
-import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperApi;
 import org.brokenarrow.blockmirror.api.builders.PatternTracker;
-import org.brokenarrow.blockmirror.api.builders.SettingsData;
 import org.brokenarrow.blockmirror.api.builders.language.Language;
 import org.brokenarrow.blockmirror.api.builders.language.PlaceholderText;
 import org.brokenarrow.blockmirror.api.builders.language.PluginMessages;
 import org.brokenarrow.blockmirror.api.builders.patterns.PatternDisplayItem;
 import org.brokenarrow.blockmirror.api.commands.CommandBuilder;
+import org.brokenarrow.blockmirror.api.settings.SettingsDataApi;
 import org.brokenarrow.blockmirror.api.utility.BlockVisualizeAPI;
 import org.brokenarrow.blockmirror.api.utility.BossBarAPI;
 import org.brokenarrow.blockmirror.blockpatterns.CirclePattern;
@@ -35,6 +35,7 @@ import org.brokenarrow.blockmirror.listeners.ClassicPlacement;
 import org.brokenarrow.blockmirror.listeners.CustomPlacements;
 import org.brokenarrow.blockmirror.listeners.ItemRemove;
 import org.brokenarrow.blockmirror.listeners.PatternPlacements;
+import org.brokenarrow.blockmirror.player.PlayerCache;
 import org.brokenarrow.blockmirror.settings.LanguageCache;
 import org.brokenarrow.blockmirror.settings.MenusCache;
 import org.brokenarrow.blockmirror.settings.Settings;
@@ -186,17 +187,17 @@ public class BlockMirror extends BlockMirrorUtility implements BlockMirrorAPI {
     }
 
     @Override
-    public PatternDisplayItem createPatternWrapperApi(@Nonnull ItemWrapper passive, ItemWrapper active) {
+    public PatternDisplayItem createPatternWrapperApi(@Nonnull ItemWrapperApi passive, ItemWrapperApi active) {
         return new PatternWrapper(passive, active);
     }
 
     @Override
-    public PatternSetting createSetFillBlocksInPattern(@Nullable String permission, @Nonnull final ItemWrapper passive, final ItemWrapper active) {
+    public PatternSetting createSetFillBlocksInPattern(@Nullable String permission, @Nonnull final ItemWrapperApi passive, final ItemWrapperApi active) {
         return new SetFillBlocksInPattern(permission,passive, active);
     }
 
     @Override
-    public PatternSetting createChangeFacingToPattern(@Nullable String permission, @Nonnull final ItemWrapper passive, final ItemWrapper active) {
+    public PatternSetting createChangeFacingToPattern(@Nullable String permission, @Nonnull final ItemWrapperApi passive, final ItemWrapperApi active) {
         return new ChangeFacingToPattern(permission,passive, active);
     }
 
@@ -221,7 +222,7 @@ public class BlockMirror extends BlockMirrorUtility implements BlockMirrorAPI {
     public void registerCommands() {
         CommandRegister commandRegister = CommandRegister.getInstance();
         String pluginName = getPluginName().toLowerCase();
-        SettingsData settings = this.getSettings().getSettingsData();
+        SettingsDataApi settings = this.getSettings().getSettingsData();
         String mainCommand = null;
         if (settings != null)
             mainCommand = settings.getMainCommand();

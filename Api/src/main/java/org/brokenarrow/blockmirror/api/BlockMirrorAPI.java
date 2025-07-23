@@ -2,7 +2,7 @@ package org.brokenarrow.blockmirror.api;
 
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
-import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperApi;
 import org.brokenarrow.blockmirror.api.builders.PatternTracker;
 import org.brokenarrow.blockmirror.api.builders.patterns.PatternDisplayItem;
 import org.brokenarrow.blockmirror.api.settings.LanguageCacheApi;
@@ -42,11 +42,11 @@ public interface BlockMirrorAPI {
 
     SettingsApi getSettings();
 
-    PatternDisplayItem createPatternWrapperApi(@Nonnull final ItemWrapper passive, final ItemWrapper active);
+    PatternDisplayItem createPatternWrapperApi(@Nonnull final ItemWrapperApi passive, final ItemWrapperApi active);
 
-    PatternSetting createSetFillBlocksInPattern(@Nullable String permission, @Nonnull final ItemWrapper passive, final ItemWrapper active);
+    PatternSetting createSetFillBlocksInPattern(@Nullable String permission, @Nonnull final ItemWrapperApi passive, final ItemWrapperApi active);
 
-    PatternSetting createChangeFacingToPattern(@Nullable String permission, @Nonnull ItemWrapper passive, ItemWrapper active);
+    PatternSetting createChangeFacingToPattern(@Nullable String permission, @Nonnull ItemWrapperApi passive, ItemWrapperApi active);
 
     void addPatterns(PatternData pattern);
 

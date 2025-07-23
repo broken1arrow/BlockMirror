@@ -1,7 +1,8 @@
 package org.brokenarrow.blockmirror.utily;
 
 import org.brokenarrow.blockmirror.BlockMirror;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorBuilder;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
 import org.brokenarrow.blockmirror.api.utility.BlockVisualizeAPI;
 import org.brokenarrow.blockmirror.api.utility.BossBarAPI;
 import org.brokenarrow.blockmirror.utily.effects.SpawnBorderEffects;
@@ -18,20 +19,20 @@ public class EffectsActivated {
 
     }
 
-    public static void setEffect(final Player player, final PlayerBuilder data, final PlayerBuilder.Builder builder) {
+    public static void setEffect(final Player player, final PlayerMirrorDataApi data, final PlayerMirrorBuilder  builder) {
         setEffect(player, data, builder, "Mirror aktive");
     }
 
-    public static void setEffect(final Player player, final PlayerBuilder data, final PlayerBuilder.Builder builder, boolean newLocation) {
+    public static void setEffect(final Player player, final PlayerMirrorDataApi data, final PlayerMirrorBuilder  builder, boolean newLocation) {
         setEffect(player, data, builder, "Mirror aktive", newLocation);
     }
 
 
-    public static void setEffect(Player player, PlayerBuilder data, PlayerBuilder.Builder builder, String message) {
+    public static void setEffect(Player player, PlayerMirrorDataApi data, PlayerMirrorBuilder  builder, String message) {
         setEffect(player, data, builder, message, true);
     }
 
-    public static void setEffect(Player player, PlayerBuilder data, PlayerBuilder.Builder builder, String message, boolean newLocation) {
+    public static void setEffect(Player player, PlayerMirrorDataApi data, PlayerMirrorBuilder  builder, String message, boolean newLocation) {
         Location loc = data.getCenterLocation();
         if (loc != null) {
             blockVisualize.stopVisualizing(loc.getBlock());
@@ -49,7 +50,7 @@ public class EffectsActivated {
 
     }
 
-    public static void removeEffect(final Player player, final PlayerBuilder data) {
+    public static void removeEffect(final Player player, final PlayerMirrorDataApi data) {
         Location loc = data.getCenterLocation();
         if (loc == null) {
             loc = player.getLocation();
@@ -59,7 +60,7 @@ public class EffectsActivated {
         BlockMirror.getPlugin().getRunTask().setQueueTime(data.getEffectID(), -2);
         bar.hideFromPlayer(player);
     }
-    public static void removeEffect(final UUID uuid, final PlayerBuilder data) {
+    public static void removeEffect(final UUID uuid, final PlayerMirrorDataApi data) {
         Location loc = data.getCenterLocation();
         if (loc == null) {
           return;

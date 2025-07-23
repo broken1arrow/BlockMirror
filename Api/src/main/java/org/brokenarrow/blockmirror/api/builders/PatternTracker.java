@@ -12,6 +12,7 @@ public interface PatternTracker {
     Map<UUID, ChunkLocationCollection> getPatterns();
 
     void addPattern(@Nonnull final Location location);
+
     void addPatterns(Collection<Location> locations);
 
     boolean removePattern(@Nonnull final Collection<Location> location);

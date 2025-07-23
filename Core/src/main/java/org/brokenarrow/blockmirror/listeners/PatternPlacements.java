@@ -1,13 +1,13 @@
 package org.brokenarrow.blockmirror.listeners;
 
 import org.brokenarrow.blockmirror.BlockMirror;
-import org.brokenarrow.blockmirror.PlayerCache;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
+import org.brokenarrow.blockmirror.player.PlayerCache;
 import org.brokenarrow.blockmirror.api.BlockListener;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.builders.PatternTracker;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
-import org.brokenarrow.blockmirror.api.builders.SettingsData;
 import org.brokenarrow.blockmirror.api.builders.language.Language;
+import org.brokenarrow.blockmirror.api.settings.SettingsDataApi;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.brokenarrow.blockmirror.api.utility.blockdrops.ValidTool;
 import org.brokenarrow.blockmirror.utily.BlockPlacements;
@@ -45,8 +45,10 @@ public class PatternPlacements implements BlockListener {
 			if (metadata.isEmpty()) return;
 			Object value = metadata.get(0).value();
 			if (!(value instanceof PatternData)) return;
-			PatternData patternData = (PatternData) value;
-			PlayerBuilder data = playerCache.getOrCreateData(player.getUniqueId());
+
+			final PatternData patternData = (PatternData) value;
+			final PlayerMirrorDataApi data = playerCache.getOrCreateData(player.getUniqueId());
+
 			if (data.getCenterLocation() == null) return;
 			if (!patternData.hasPermission(player)) return;
 
@@ -95,7 +97,7 @@ public class PatternPlacements implements BlockListener {
 			Object value = metadata.get(0).value();
 			if (!(value instanceof PatternData)) return;
 			PatternData patternData = (PatternData) value;
-			PlayerBuilder data = playerCache.getOrCreateData(player.getUniqueId());
+			PlayerMirrorDataApi data = playerCache.getOrCreateData(player.getUniqueId());
 			if (data.getCenterLocation() == null) return;
 			if (!patternData.hasPermission(player)) return;
 
@@ -114,7 +116,7 @@ public class PatternPlacements implements BlockListener {
 			Material material = block.getType();
 			Map<Material, ItemStack> itemStacks = new HashMap<>();
 
-			SettingsData settingsData = getPlugin().getSettings().getSettingsData();
+			SettingsDataApi settingsData = getPlugin().getSettings().getSettingsData();
 			boolean silkTouch = settingsData != null && settingsData.isSilkTouch();
 
 			if (!locations.isEmpty()) {

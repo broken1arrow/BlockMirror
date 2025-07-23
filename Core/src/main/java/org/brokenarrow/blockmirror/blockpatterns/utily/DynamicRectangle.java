@@ -4,7 +4,7 @@ import org.brokenarrow.blockmirror.api.BlockMirrorAPI;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
-import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperApi;
 import org.brokenarrow.blockmirror.api.builders.language.PlaceholderText;
 import org.brokenarrow.blockmirror.blockpatterns.SquarePattern;
 import org.brokenarrow.blockmirror.utily.TextConvertPlaceholders;
@@ -19,10 +19,10 @@ import java.util.List;
 public class DynamicRectangle implements PatternSetting {
     private final BlockMirrorAPI plugin = BlockMirrorUtility.getInstance();
     private final String permission;
-    private final ItemWrapper passive;
-    private final ItemWrapper active;
+    private final ItemWrapperApi passive;
+    private final ItemWrapperApi active;
 
-    public DynamicRectangle(String permission, ItemWrapper passive, ItemWrapper active) {
+    public DynamicRectangle(String permission, ItemWrapperApi passive, ItemWrapperApi active) {
         this.permission = permission;
         this.passive = passive;
         this.active = active;
@@ -69,7 +69,7 @@ public class DynamicRectangle implements PatternSetting {
     @Nonnull
     @Override
     public Material icon(Player player, boolean active) {
-        ItemWrapper itemWrapper = getItemWrapper(active);
+        ItemWrapperApi itemWrapper = getItemWrapper(active);
         if (itemWrapper != null)
             return itemWrapper.getMaterial();
         return Material.ACTIVATOR_RAIL;
@@ -78,7 +78,7 @@ public class DynamicRectangle implements PatternSetting {
     @Nonnull
     @Override
     public String displayName(@Nonnull PatternData patternData, @Nonnull Player player, boolean active) {
-        ItemWrapper itemWrapper = getItemWrapper(active);
+        ItemWrapperApi itemWrapper = getItemWrapper(active);
         if (itemWrapper != null)
             return fixPlaceholders(patternData, player, itemWrapper.getDisplayName());
         return "Dynamic rectangle";
@@ -86,7 +86,7 @@ public class DynamicRectangle implements PatternSetting {
 
     @Override
     public @Nullable List<String> lore(@Nonnull PatternData patternData, @Nonnull Player player, boolean active) {
-        ItemWrapper itemWrapper = getItemWrapper(active);
+        ItemWrapperApi itemWrapper = getItemWrapper(active);
         if (itemWrapper != null)
             return fixPlaceholdersLore(patternData, player, itemWrapper.getLore());
         boolean isSet = false;
@@ -107,7 +107,7 @@ public class DynamicRectangle implements PatternSetting {
     }
 
     @Nullable
-    public ItemWrapper getItemWrapper(boolean active) {
+    public ItemWrapperApi getItemWrapper(boolean active) {
         if (this.active == null)
             return this.passive;
         if (active)

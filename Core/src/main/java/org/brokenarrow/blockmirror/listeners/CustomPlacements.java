@@ -1,19 +1,20 @@
 package org.brokenarrow.blockmirror.listeners;
 
 import org.brokenarrow.blockmirror.BlockMirror;
-import org.brokenarrow.blockmirror.PlayerCache;
 import org.brokenarrow.blockmirror.api.BlockListener;
 import org.brokenarrow.blockmirror.api.builders.Distance;
-import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder.Builder;
-import org.brokenarrow.blockmirror.api.builders.SettingsData;
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperApi;
 import org.brokenarrow.blockmirror.api.builders.language.Language;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorBuilder;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
 import org.brokenarrow.blockmirror.api.eventscustom.PreBlockBreakCustom;
 import org.brokenarrow.blockmirror.api.eventscustom.PreBlockPlaceCustom;
 import org.brokenarrow.blockmirror.api.filemanger.SerializeingLocation;
+import org.brokenarrow.blockmirror.api.settings.SettingsDataApi;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.brokenarrow.blockmirror.api.utility.blockdrops.ValidTool;
+import org.brokenarrow.blockmirror.player.PlayerCache;
+import org.brokenarrow.blockmirror.player.PlayerMirrorData;
 import org.brokenarrow.blockmirror.utily.BlockPlacements;
 import org.brokenarrow.blockmirror.utily.InventoyUtility;
 import org.bukkit.Bukkit;
@@ -45,20 +46,20 @@ public class CustomPlacements implements BlockListener {
 		Player player = event.getPlayer();
 
 		if (player.hasMetadata(Actions.set_distance.name()) && block != null && block.getType() != Material.AIR) {
-			SettingsData settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
+			SettingsDataApi settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
 			ItemStack itemStack = event.getItem();
 			boolean isRightType = false;
 			if (settingsData != null && settingsData.getTools() != null) {
-				ItemWrapper markertool = settingsData.getTools().getMarkertool();
+				ItemWrapperApi markertool = settingsData.getTools().getMarkertool();
 				isRightType = itemStack != null && markertool.getMaterial() == itemStack.getType();
 			}
 			if (!isRightType) return;
 			boolean hasMetadata = BlockMirror.getPlugin().getNbt().getCompMetadata().hasMetadata(itemStack, Actions.set_distance.name());
 			if (!hasMetadata) return;
 
-			PlayerBuilder data = playerCache.getData(player.getUniqueId());
-			if (data == null) data = new PlayerBuilder.Builder().build();
-			Builder builder = data.getBuilder();
+			PlayerMirrorDataApi data = playerCache.getData(player.getUniqueId());
+			if (data == null) data = new PlayerMirrorData.Builder().build();
+			PlayerMirrorBuilder builder = data.getBuilder();
 			if (data.getCenterLocation() == null) {
 				Location location = block.getLocation().clone();
 				if (player.isSneaking()) {
@@ -94,7 +95,7 @@ public class CustomPlacements implements BlockListener {
 		Player player = event.getPlayer();
 
 		if (player.hasMetadata(Actions.set_block.name()) && block.getType() != Material.AIR) {
-			PlayerBuilder data = playerCache.getData(player.getUniqueId());
+			PlayerMirrorDataApi data = playerCache.getData(player.getUniqueId());
 			if (data == null) return;
 			if (data.getCenterLocation() == null) return;
 			if (data.getDistances() == null) return;
@@ -120,7 +121,7 @@ public class CustomPlacements implements BlockListener {
 		PlayerCache playerCache = BlockMirror.getPlugin().getPlayerCache();
 		Player player = event.getPlayer();
 		if (!player.hasMetadata(Actions.set_block.name()) || block.getType() == Material.AIR) return;
-		PlayerBuilder data = playerCache.getData(player.getUniqueId());
+		PlayerMirrorDataApi data = playerCache.getData(player.getUniqueId());
 		if (data == null) return;
 		if (data.getCenterLocation() == null) return;
 		if (data.getDistances() == null) return;
@@ -128,7 +129,7 @@ public class CustomPlacements implements BlockListener {
 		PreBlockBreakCustom preBlockBreakCustom = new PreBlockBreakCustom(player, data, data.getDistances());
 		if (preBlockBreakCustom.isCancelled()) return;
 
-		SettingsData settingsData = getPlugin().getSettings().getSettingsData();
+		SettingsDataApi settingsData = getPlugin().getSettings().getSettingsData();
 		boolean silkTouch = settingsData != null && settingsData.isSilkTouch();
 
 		Material material = block.getType();

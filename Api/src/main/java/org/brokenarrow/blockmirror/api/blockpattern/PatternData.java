@@ -1,7 +1,7 @@
 package org.brokenarrow.blockmirror.api.blockpattern;
 
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
 import org.brokenarrow.blockmirror.api.builders.patterns.PatternDisplayItem;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -25,7 +25,7 @@ public interface PatternData {
      * @return list of locations to place blocks.
      */
     @Nonnull
-    List<Location> whenPlace(final PlayerBuilder data, final Player player, final Location centerLocation, final Location blockplacedLoc, final int radius);
+    List<Location> whenPlace(final PlayerMirrorDataApi data, final Player player, final Location centerLocation, final Location blockplacedLoc, final int radius);
 
     /**
      * When player break one block will this be exicuted.
@@ -38,7 +38,7 @@ public interface PatternData {
      * @return list of locations to place blocks.
      */
     @Nonnull
-    List<Location> whenBreak(final PlayerBuilder data, final Player player, final Location centerLocation, final Location blockplacedLoc, final int radius);
+    List<Location> whenBreak(final PlayerMirrorDataApi data, final Player player, final Location centerLocation, final Location blockplacedLoc, final int radius);
 
     /**
      * Set this to true if you want all breaked blocks

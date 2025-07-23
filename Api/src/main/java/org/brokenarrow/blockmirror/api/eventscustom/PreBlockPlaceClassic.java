@@ -1,6 +1,6 @@
 package org.brokenarrow.blockmirror.api.eventscustom;
 
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -12,11 +12,11 @@ public class PreBlockPlaceClassic extends EventUtility {
 
 	private final Set<Location> blockMirrorLoc;
 	private final Player player;
-	private final PlayerBuilder playerBuilder;
+	private final PlayerMirrorDataApi playerBuilder;
 	private final boolean hasNeededItems;
 	private boolean cancelled;
 
-	public PreBlockPlaceClassic(Player player, PlayerBuilder playerBuilder, Set<Location> blockMirrorLoc, boolean hasNeededItems) {
+	public PreBlockPlaceClassic(Player player, PlayerMirrorDataApi playerBuilder, Set<Location> blockMirrorLoc, boolean hasNeededItems) {
 		super(handlers);
 		this.blockMirrorLoc = blockMirrorLoc;
 		this.player = player;
@@ -24,7 +24,6 @@ public class PreBlockPlaceClassic extends EventUtility {
 		this.hasNeededItems = hasNeededItems;
 
 		this.registerEvent();
-
 	}
 
 	public Set<Location> getBlockMirrorLoc() {
@@ -35,7 +34,7 @@ public class PreBlockPlaceClassic extends EventUtility {
 		return player;
 	}
 
-	public PlayerBuilder getPlayerBuilder() {
+	public PlayerMirrorDataApi getPlayerBuilder() {
 		return playerBuilder;
 	}
 

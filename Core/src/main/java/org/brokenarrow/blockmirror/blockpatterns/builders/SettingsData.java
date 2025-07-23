@@ -1,18 +1,18 @@
-package org.brokenarrow.blockmirror.api.builders;
+package org.brokenarrow.blockmirror.blockpatterns.builders;
 
-
-import org.brokenarrow.blockmirror.api.builders.patterns.BlockPatterns;
+import org.brokenarrow.blockmirror.api.builders.ToolsApi;
+import org.brokenarrow.blockmirror.api.builders.patterns.BlockPatternsApi;
 import org.brokenarrow.blockmirror.api.filemanger.ConfigurationSerializeUtility;
+import org.brokenarrow.blockmirror.api.settings.SettingsDataApi;
 
 import javax.annotation.Nonnull;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class SettingsData implements ConfigurationSerializeUtility {
+public class SettingsData implements SettingsDataApi, ConfigurationSerializeUtility {
 
-
-    private final Tools tools;
-    private final BlockPatterns blockPatterns;
+    private final ToolsApi tools;
+    private final BlockPatternsApi blockPatterns;
     private final int classicBlockPlaceDistance;
     private final String mainCommand;
     private final boolean silkTouch;
@@ -40,11 +40,11 @@ public class SettingsData implements ConfigurationSerializeUtility {
         return new SettingsData(builder);
     }
 
-    public Tools getTools() {
+    public ToolsApi getTools() {
         return tools;
     }
 
-    public BlockPatterns getBlockPatterns() {
+    public BlockPatternsApi getBlockPatterns() {
         return blockPatterns;
     }
 
@@ -89,11 +89,11 @@ public class SettingsData implements ConfigurationSerializeUtility {
 
         public boolean silkTouch;
         public int classicBlockPlaceDistance;
-        private Tools tools;
+        private ToolsApi tools;
         private BlockPatterns blockPatterns;
         private String mainCommand;
 
-        public Builder setTools(final Tools tools) {
+        public Builder setTools(final ToolsApi tools) {
             this.tools = tools;
             return this;
         }

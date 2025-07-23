@@ -4,10 +4,11 @@ import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.api.PlayerCacheApi;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
-import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
-import org.brokenarrow.blockmirror.api.builders.SettingsData;
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperApi;
 import org.brokenarrow.blockmirror.api.builders.patterns.PatternDisplayItem;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorBuilder;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
+import org.brokenarrow.blockmirror.api.settings.SettingsDataApi;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.brokenarrow.blockmirror.utily.EffectsActivated;
 import org.bukkit.Location;
@@ -27,7 +28,7 @@ public class CirclePattern implements PatternData {
     private boolean fillBlocks;
 
     public CirclePattern() {
-        final SettingsData settings = BlockMirror.getPlugin().getSettings().getSettingsData();
+        final SettingsDataApi settings = BlockMirror.getPlugin().getSettings().getSettingsData();
         if (settings != null)
             this.settingsCircle = settings.getBlockPatterns().getCirclePattern();
         if (this.settingsCircle != null)
@@ -36,7 +37,7 @@ public class CirclePattern implements PatternData {
 
     @Nonnull
     @Override
-    public List<Location> whenPlace(final PlayerBuilder data, final Player player, final Location centerLocation, final Location blockplacedLoc, final int radius) {
+    public List<Location> whenPlace(final PlayerMirrorDataApi data, final Player player, final Location centerLocation, final Location blockplacedLoc, final int radius) {
 
         //if it shall fill all blocks inside the circle
         boolean fillAllBlocks = shallFillBlocks();
@@ -69,7 +70,7 @@ public class CirclePattern implements PatternData {
 
     @Nonnull
     @Override
-    public List<Location> whenBreak(final PlayerBuilder data, final Player player, final Location location, final Location blockplacedLoc, final int center) {
+    public List<Location> whenBreak(final PlayerMirrorDataApi data, final Player player, final Location location, final Location blockplacedLoc, final int center) {
         return this.whenPlace(data, player, location, blockplacedLoc, center);
     }
 
@@ -108,7 +109,7 @@ public class CirclePattern implements PatternData {
     public Material icon(boolean active) {
         PatternDisplayItem blockPatterns = this.getPatternGlobalSettings();
         if (blockPatterns != null) {
-            ItemWrapper itemWrapper = blockPatterns.getItemWrapper(active);
+            ItemWrapperApi itemWrapper = blockPatterns.getItemWrapper(active);
             if (itemWrapper != null) {
                 return itemWrapper.getMaterial();
             }
@@ -121,7 +122,7 @@ public class CirclePattern implements PatternData {
     public String displayName(boolean active) {
         PatternDisplayItem blockPatterns = this.getPatternGlobalSettings();
         if (blockPatterns != null) {
-            ItemWrapper itemWrapper = blockPatterns.getItemWrapper(active);
+            ItemWrapperApi itemWrapper = blockPatterns.getItemWrapper(active);
             if (itemWrapper != null) {
                 return itemWrapper.getDisplayName();
             }
@@ -135,7 +136,7 @@ public class CirclePattern implements PatternData {
     public List<String> lore(boolean active) {
         PatternDisplayItem blockPatterns = this.getPatternGlobalSettings();
         if (blockPatterns != null) {
-            ItemWrapper itemWrapper = blockPatterns.getItemWrapper(active);
+            ItemWrapperApi itemWrapper = blockPatterns.getItemWrapper(active);
             if (itemWrapper != null) {
                 return itemWrapper.getLore();
             }
@@ -147,8 +148,8 @@ public class CirclePattern implements PatternData {
     public void clickMenu(@Nonnull final Player player, @Nonnull final ClickType click) {
         final BlockMirror plugin = BlockMirror.getPlugin();
         final PlayerCacheApi playerCache = plugin.getPlayerCache();
-        final PlayerBuilder data = playerCache.getOrCreateData(player.getUniqueId());
-        final PlayerBuilder.Builder builder = data.getBuilder();
+        final PlayerMirrorDataApi  data = playerCache.getOrCreateData(player.getUniqueId());
+        final PlayerMirrorBuilder builder = data.getBuilder();
         if (click.isLeftClick()) {
             player.setMetadata(Actions.pattern.name(), new FixedMetadataValue(BlockMirror.getPlugin(), this));
             if (data.getCenterLocation() == null) {

@@ -1,13 +1,12 @@
 package org.brokenarrow.blockmirror.api.builders.patterns;
 
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
-import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperApi;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 public interface PatternDisplayItem {
-
 
 	/**
 	 * Get the settings for the pattern.
@@ -25,7 +24,7 @@ public interface PatternDisplayItem {
 	 * @return the item wrapper or null.
 	 */
 	@Nullable
-	ItemWrapper getItemWrapper(boolean active);
+  ItemWrapperApi getItemWrapper(boolean active);
 
 	/**
 	 * Return the item data, when player had not select the option.
@@ -33,7 +32,7 @@ public interface PatternDisplayItem {
 	 * @return the wrapper for the item.
 	 */
 	@Nullable
-	ItemWrapper getPassive();
+  ItemWrapperApi getPassive();
 
 	/**
 	 * Return the item data, when player have select the option.
@@ -41,7 +40,7 @@ public interface PatternDisplayItem {
 	 * @return the wrapper for the item.
 	 */
 	@Nullable
-	ItemWrapper getActive();
+  ItemWrapperApi getActive();
 
 	boolean isFillAllBlocks();
 
@@ -52,8 +51,6 @@ public interface PatternDisplayItem {
 	 * @return {#code true} if it shall fill the pattern.
 	 */
 	PatternDisplayItem  fillAllBlocks(boolean fillAllBlocks);
-
-
 
 	/**
 	 * The settings set for the build in patterns.

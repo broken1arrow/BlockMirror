@@ -2,7 +2,7 @@ package org.brokenarrow.blockmirror.api;
 
 import javax.annotation.Nonnull;
 
-public interface BlockMirrorLissnersApi {
+public interface BlockMirrorListenersApi {
 
 	void addLissner(@Nonnull BlockListener listener);
 

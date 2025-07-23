@@ -4,7 +4,7 @@ import org.brokenarrow.blockmirror.api.BlockMirrorAPI;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
-import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperApi;
 import org.brokenarrow.blockmirror.api.builders.language.PlaceholderText;
 import org.brokenarrow.blockmirror.utily.TextConvertPlaceholders;
 import org.bukkit.Material;
@@ -18,10 +18,10 @@ public class SetFillBlocksInPattern implements PatternSetting {
     private final BlockMirrorAPI plugin = BlockMirrorUtility.getInstance();
     @Nullable
     private final String permission;
-    private final ItemWrapper passive;
-    private final ItemWrapper active;
+    private final ItemWrapperApi passive;
+    private final ItemWrapperApi active;
 
-    public SetFillBlocksInPattern(@Nullable String permission, @Nonnull final ItemWrapper passive, final ItemWrapper active) {
+    public SetFillBlocksInPattern(@Nullable String permission, @Nonnull final ItemWrapperApi passive, final ItemWrapperApi active) {
         this.permission = permission;
         this.passive = passive;
         this.active = active;
@@ -58,7 +58,7 @@ public class SetFillBlocksInPattern implements PatternSetting {
     @Nonnull
     @Override
     public Material icon(Player player, boolean active) {
-        ItemWrapper itemWrapper = getItemWrapper(active);
+        ItemWrapperApi itemWrapper = getItemWrapper(active);
         if (itemWrapper != null)
             return itemWrapper.getMaterial();
         return Material.OAK_SIGN;
@@ -67,7 +67,7 @@ public class SetFillBlocksInPattern implements PatternSetting {
     @Nonnull
     @Override
     public String displayName(@Nonnull final PatternData patternData, @Nonnull final Player player, final boolean active) {
-        ItemWrapper itemWrapper = getItemWrapper(active);
+        ItemWrapperApi itemWrapper = getItemWrapper(active);
         if (itemWrapper != null)
             return fixPlaceholders(patternData, player, itemWrapper.getDisplayName());
         return "";
@@ -76,14 +76,14 @@ public class SetFillBlocksInPattern implements PatternSetting {
     @Nullable
     @Override
     public List<String> lore(@Nonnull final PatternData patternData, @Nonnull final Player player, final boolean active) {
-        ItemWrapper itemWrapper = getItemWrapper(active);
+        ItemWrapperApi itemWrapper = getItemWrapper(active);
         if (itemWrapper != null)
             return fixPlaceholdersLore(patternData, player, itemWrapper.getLore());
         return null;
     }
 
     @Nullable
-    public ItemWrapper getItemWrapper(boolean active) {
+    public ItemWrapperApi getItemWrapper(boolean active) {
         if (this.active == null)
             return this.passive;
         if (active)

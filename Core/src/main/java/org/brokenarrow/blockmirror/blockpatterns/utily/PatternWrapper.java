@@ -1,7 +1,7 @@
 package org.brokenarrow.blockmirror.blockpatterns.utily;
 
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
-import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperApi;
 import org.brokenarrow.blockmirror.api.builders.patterns.PatternDisplayItem;
 
 import javax.annotation.Nullable;
@@ -11,12 +11,12 @@ import java.util.List;
 
 public class PatternWrapper implements PatternDisplayItem {
 
-	private final ItemWrapper passive;
-	private final ItemWrapper active;
+	private final ItemWrapperApi passive;
+	private final ItemWrapperApi active;
 	private final List<PatternSetting> patternSetting = new ArrayList<>();
 	private boolean fillAllBlocks;
 
-	public PatternWrapper(final ItemWrapper passive, final ItemWrapper active) {
+	public PatternWrapper(final ItemWrapperApi passive, final ItemWrapperApi active) {
 		this.passive = passive;
 		this.active = active;
 	}
@@ -40,7 +40,7 @@ public class PatternWrapper implements PatternDisplayItem {
 
 	@Override
 	@Nullable
-	public ItemWrapper getItemWrapper(boolean active) {
+	public ItemWrapperApi getItemWrapper(boolean active) {
 		if (this.getActive() == null)
 			return this.getPassive();
 		if (active)
@@ -50,13 +50,13 @@ public class PatternWrapper implements PatternDisplayItem {
 
 	@Override
 	@Nullable
-	public ItemWrapper getPassive() {
+	public ItemWrapperApi getPassive() {
 		return passive;
 	}
 
 	@Override
 	@Nullable
-	public ItemWrapper getActive() {
+	public ItemWrapperApi getActive() {
 		return active;
 	}
 

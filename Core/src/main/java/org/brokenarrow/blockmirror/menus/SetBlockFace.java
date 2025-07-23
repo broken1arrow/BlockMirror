@@ -9,14 +9,15 @@ import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.builders.BlockRotation;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder.Builder;
 import org.brokenarrow.blockmirror.api.builders.language.PlaceholderText;
 import org.brokenarrow.blockmirror.api.builders.menu.ButtonType;
 import org.brokenarrow.blockmirror.api.builders.menu.MenuButtonData;
 import org.brokenarrow.blockmirror.api.builders.menu.MenuTemplate;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorBuilder;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
 import org.brokenarrow.blockmirror.api.filemanger.SerializeingLocation;
 import org.brokenarrow.blockmirror.menus.type.MenuType;
+import org.brokenarrow.blockmirror.player.PlayerMirrorData;
 import org.brokenarrow.blockmirror.utily.TextConvertPlaceholders;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -34,17 +35,17 @@ public class SetBlockFace extends MenuHolderPage<BlockFace> {
 	private final MenuTemplate menuTemplate;
 	private final MenuType menuType;
 	private final PatternData patternData;
-	private PlayerBuilder data;
+	private PlayerMirrorDataApi data;
 	private final BlockMirror plugin = BlockMirror.getPlugin();
 	private final ItemCreator itemCreator = BlockMirrorUtility.getInstance().getItemCreator();
 
-	public SetBlockFace(PlayerBuilder data, PatternData patternData, MenuType menuType, String menuName) {
+	public SetBlockFace(PlayerMirrorDataApi data, PatternData patternData, MenuType menuType, String menuName) {
 		super(Arrays.asList(BlockFace.values()));
 		this.menuTemplate = BlockMirror.getPlugin().getMenusCache().getTemplate(menuName);
 		this.menuType = menuType;
 		this.patternData = patternData;
 		if (this.menuTemplate == null) return;
-		if (data == null) this.data = new PlayerBuilder.Builder().build();
+		if (data == null) this.data = new PlayerMirrorData.Builder().build();
 		else this.data = data;
 		setMenuSize(menuTemplate.getinvSize(menuName));
 		setFillSpace(menuTemplate.getFillSlots());
@@ -111,7 +112,7 @@ public class SetBlockFace extends MenuHolderPage<BlockFace> {
 	@Override
 	public FillMenuButton<BlockFace> createFillMenuButton() {
 		return new FillMenuButton<>((player1, inventory, clickType, itemStack, blockFace) -> {
-			Builder builder = data.getBuilder();
+			PlayerMirrorBuilder builder = data.getBuilder();
 			if (builder != null) {
 				if (clickType.isRightClick())
 					builder.setBlockRotation(null);

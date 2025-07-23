@@ -1,6 +1,8 @@
-package org.brokenarrow.blockmirror.api.builders;
+package org.brokenarrow.blockmirror.blockpatterns.builders;
 
 import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperApi;
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperBuilder;
 import org.brokenarrow.blockmirror.api.filemanger.ConfigurationSerializeUtility;
 import org.bukkit.Material;
 
@@ -9,7 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ItemWrapper implements ConfigurationSerializeUtility {
+public class ItemWrapper implements ItemWrapperApi, ConfigurationSerializeUtility {
 
 	private final Material material;
 	private final String displayName;
@@ -26,53 +28,63 @@ public class ItemWrapper implements ConfigurationSerializeUtility {
 		this.builder = builder;
 	}
 
-	public Material getMaterial() {
+	@Override
+  public Material getMaterial() {
 		return material;
 	}
 
-	public String getDisplayName() {
+	@Override
+  public String getDisplayName() {
 		return displayName;
 	}
 
-	public List<String> getLore() {
+	@Override
+  public List<String> getLore() {
 		return lore;
 	}
 
-	public boolean isGlow() {
+	@Override
+  public boolean isGlow() {
 		return glow;
 	}
 
-	public Builder getBuilder() {
+	@Override
+  public ItemWrapperBuilder getBuilder() {
 		return builder;
 	}
 
-	public static class Builder {
+	public static class Builder implements ItemWrapperBuilder {
 		private Material material;
 		private String displayName;
 		private List<String> lore;
 		private boolean glow;
 
-		public Builder setMaterial(final Material material) {
+		@Override
+    public Builder setMaterial(final Material material) {
 			this.material = material;
 			return this;
 		}
 
-		public Builder setDisplayName(final String displayName) {
+		@Override
+    public Builder setDisplayName(final String displayName) {
 			this.displayName = displayName;
 			return this;
 		}
 
-		public Builder setLore(final List<String> lore) {
+		@Override
+    public Builder setLore(final List<String> lore) {
 			this.lore = lore;
 			return this;
 		}
 
-		public Builder setGlow(final boolean glow) {
+		@Override
+    public Builder setGlow(final boolean glow) {
 			this.glow = glow;
 			return this;
 		}
 
-		public ItemWrapper build() {
+		@Override
+		public ItemWrapperApi build() {
 			return new ItemWrapper(this);
 		}
 	}

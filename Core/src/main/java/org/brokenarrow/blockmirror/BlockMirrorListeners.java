@@ -1,7 +1,7 @@
 package org.brokenarrow.blockmirror;
 
 import org.brokenarrow.blockmirror.api.BlockListener;
-import org.brokenarrow.blockmirror.api.BlockMirrorLissnersApi;
+import org.brokenarrow.blockmirror.api.BlockMirrorListenersApi;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class BlockMirrorListeners implements BlockMirrorLissnersApi, Listener {
+public class BlockMirrorListeners implements BlockMirrorListenersApi, Listener {
 
 	private final Set<BlockListener> blockListeners = new LinkedHashSet<>();
 

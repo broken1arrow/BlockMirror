@@ -3,12 +3,12 @@ package org.brokenarrow.blockmirror.commands;
 import org.broken.arrow.library.itemcreator.ItemCreator;
 import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.api.builders.BlockRotation;
-import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder.Builder;
-import org.brokenarrow.blockmirror.api.builders.SettingsData;
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperApi;
 import org.brokenarrow.blockmirror.api.builders.language.Language;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorBuilder;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
 import org.brokenarrow.blockmirror.api.commands.CommandHolder;
+import org.brokenarrow.blockmirror.api.settings.SettingsDataApi;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.brokenarrow.blockmirror.utily.InventoyUtility;
 import org.bukkit.block.BlockFace;
@@ -42,10 +42,10 @@ public class CustomMirror extends CommandHolder {
 			if (arg.equals("set")) {
 				player.setMetadata(Actions.set_distance.name(), new FixedMetadataValue(BlockMirror.getPlugin(), "set_distance"));
 				player.removeMetadata(Actions.set_block.name(), BlockMirror.getPlugin());
-				SettingsData settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
+				SettingsDataApi settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
 				ItemStack itemStack = null;
 				if (settingsData != null && settingsData.getTools() != null) {
-					ItemWrapper markertool = settingsData.getTools().getMarkertool();
+					ItemWrapperApi markertool = settingsData.getTools().getMarkertool();
 					itemStack = itemCreator.of(markertool.getMaterial(), markertool.getDisplayName(), markertool.getLore())
 							.setItemMetaData(Actions.set_distance.name(), Actions.set_distance.name()).makeItemStack();
 				}
@@ -59,8 +59,8 @@ public class CustomMirror extends CommandHolder {
 				player.setMetadata(Actions.set_block.name(), new FixedMetadataValue(BlockMirror.getPlugin(), "set_distance"));
 				player.removeMetadata(Actions.set_distance.name(), BlockMirror.getPlugin());
 				if (facing != null) {
-					PlayerBuilder data = BlockMirror.getPlugin().getPlayerCache().getOrCreateData(player.getUniqueId());
-					Builder builder = data.getBuilder();
+					PlayerMirrorDataApi data = BlockMirror.getPlugin().getPlayerCache().getOrCreateData(player.getUniqueId());
+					PlayerMirrorBuilder builder = data.getBuilder();
 					builder.setBlockRotation(new BlockRotation(facing.toUpperCase()));
 					BlockMirror.getPlugin().getPlayerCache().setPlayerData(player.getUniqueId(), builder.build());
 				}
@@ -71,9 +71,9 @@ public class CustomMirror extends CommandHolder {
 				BlockMirror.getPlugin().getPlayerCache().clearPlayerData(player.getUniqueId());
 				player.removeMetadata(Actions.set_block.name(), BlockMirror.getPlugin());
 				player.removeMetadata(Actions.set_distance.name(), BlockMirror.getPlugin());
-				SettingsData settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
+				SettingsDataApi settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
 				if (settingsData != null && settingsData.getTools() != null) {
-					ItemWrapper markertool = settingsData.getTools().getMarkertool();
+					ItemWrapperApi markertool = settingsData.getTools().getMarkertool();
 					ItemStack itemStack = itemCreator.of(markertool.getMaterial(), markertool.getDisplayName(), markertool.getLore())
 							.setItemMetaData(Actions.set_distance.name(), Actions.set_distance.name()).makeItemStack();
 					InventoyUtility.removeCustomItemFromInventory(player, itemStack, Actions.set_distance.name());

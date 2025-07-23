@@ -1,8 +1,8 @@
 package org.brokenarrow.blockmirror.commands;
 
 import org.brokenarrow.blockmirror.BlockMirror;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
 import org.brokenarrow.blockmirror.api.builders.language.Language;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
 import org.brokenarrow.blockmirror.api.commands.CommandHolder;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.brokenarrow.blockmirror.menus.ClassicMirrorSettings;
@@ -28,7 +28,7 @@ public class ClassicMirror extends CommandHolder {
         if (cmdArg.length > 0) {
             String arg = cmdArg[0];
             if (arg.equals("clear")) {
-                PlayerBuilder playerBuilder = BlockMirror.getPlugin().getPlayerCache().getData(player.getUniqueId());
+                PlayerMirrorDataApi playerBuilder = BlockMirror.getPlugin().getPlayerCache().getData(player.getUniqueId());
                 if (playerBuilder != null) {
                     BlockMirror.getPlugin().getRunTask().setQueueTime(playerBuilder.getEffectID(), 1);
                     BlockMirror.getPlugin().getPlayerCache().clearPlayerData(player.getUniqueId());
@@ -37,7 +37,6 @@ public class ClassicMirror extends CommandHolder {
                 BlockMirror.getPlugin().sendMessage(player, "Classic_command_clear");
             }
         } else {
-
             new ClassicMirrorSettings(player, "Auction_selector").menuOpen(player);
         }
     }

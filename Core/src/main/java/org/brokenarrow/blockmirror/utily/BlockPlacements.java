@@ -2,7 +2,7 @@ package org.brokenarrow.blockmirror.utily;
 
 import org.broken.arrow.library.menu.utility.ServerVersion;
 import org.brokenarrow.blockmirror.api.builders.BlockRotation;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
 import org.brokenarrow.blockmirror.api.utility.OppositeFacing;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -19,7 +19,7 @@ import org.bukkit.block.data.type.Slab;
 
 public class BlockPlacements {
 
-	public static void setDirection(PlayerBuilder data, final Block blockToPlace, final Block placedBlock) {
+	public static void setDirection(PlayerMirrorDataApi data, final Block blockToPlace, final Block placedBlock) {
 		if (ServerVersion.atLeast(ServerVersion.V1_12)) {
 			new BlockPlace(data).setDirection(blockToPlace, placedBlock);
 		} else {
@@ -37,9 +37,9 @@ public class BlockPlacements {
 	}
 
 	public static class BlockPlace {
-		private final PlayerBuilder data;
+		private final PlayerMirrorDataApi data;
 
-		public BlockPlace(PlayerBuilder data) {
+		public BlockPlace(PlayerMirrorDataApi data) {
 			this.data = data;
 
 		}

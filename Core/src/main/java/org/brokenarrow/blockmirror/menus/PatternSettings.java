@@ -9,11 +9,11 @@ import org.brokenarrow.blockmirror.BlockMirror;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternData;
 import org.brokenarrow.blockmirror.api.blockpattern.PatternSetting;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
 import org.brokenarrow.blockmirror.api.builders.language.PlaceholderText;
 import org.brokenarrow.blockmirror.api.builders.menu.ButtonType;
 import org.brokenarrow.blockmirror.api.builders.menu.MenuButtonData;
 import org.brokenarrow.blockmirror.api.builders.menu.MenuTemplate;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
 import org.brokenarrow.blockmirror.api.filemanger.SerializeingLocation;
 import org.brokenarrow.blockmirror.utily.TextConvertPlaceholders;
 import org.bukkit.entity.Player;
@@ -29,7 +29,7 @@ public class PatternSettings extends MenuHolderPage<PatternSetting> {
     private final MenuTemplate menuTemplate;
     private final PatternData patternData;
     private final BlockMirror plugin = BlockMirror.getPlugin();
-    private PlayerBuilder data;
+    private PlayerMirrorDataApi data;
     private final ItemCreator itemCreator = BlockMirrorUtility.getInstance().getItemCreator();
 
     public PatternSettings(Player player, String menuName, @Nonnull PatternData patternData) {

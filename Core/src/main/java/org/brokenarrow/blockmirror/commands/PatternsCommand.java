@@ -2,10 +2,10 @@ package org.brokenarrow.blockmirror.commands;
 
 import org.broken.arrow.library.itemcreator.ItemCreator;
 import org.brokenarrow.blockmirror.BlockMirror;
-import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
-import org.brokenarrow.blockmirror.api.builders.SettingsData;
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperApi;
 import org.brokenarrow.blockmirror.api.builders.language.Language;
 import org.brokenarrow.blockmirror.api.commands.CommandHolder;
+import org.brokenarrow.blockmirror.api.settings.SettingsDataApi;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.brokenarrow.blockmirror.menus.ChoosePattern;
 import org.brokenarrow.blockmirror.utily.InventoyUtility;
@@ -48,9 +48,9 @@ public class PatternsCommand extends CommandHolder {
 
         if (player.hasMetadata(Actions.set_distance.name())) {
             player.removeMetadata(Actions.set_distance.name(), BlockMirror.getPlugin());
-            SettingsData settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
+            SettingsDataApi settingsData = BlockMirror.getPlugin().getSettings().getSettingsData();
             if (settingsData != null && settingsData.getTools() != null) {
-                ItemWrapper markertool = settingsData.getTools().getMarkertool();
+                ItemWrapperApi markertool = settingsData.getTools().getMarkertool();
                 ItemStack itemStack = itemCreator.of(markertool.getMaterial(), markertool.getDisplayName(), markertool.getLore())
                         .setItemMetaData(Actions.set_distance.name(), Actions.set_distance.name()).makeItemStack();
                 InventoyUtility.removeCustomItemFromInventory(player, itemStack, Actions.set_distance.name());

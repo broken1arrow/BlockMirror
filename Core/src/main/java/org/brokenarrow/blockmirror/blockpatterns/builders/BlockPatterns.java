@@ -1,9 +1,10 @@
-package org.brokenarrow.blockmirror.api.builders.patterns;
-
+package org.brokenarrow.blockmirror.blockpatterns.builders;
 
 import org.brokenarrow.blockmirror.api.BlockMirrorAPI;
 import org.brokenarrow.blockmirror.api.BlockMirrorUtility;
-import org.brokenarrow.blockmirror.api.builders.ItemWrapper;
+import org.brokenarrow.blockmirror.api.builders.patterns.BlockPatternsApi;
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperApi;
+import org.brokenarrow.blockmirror.api.builders.patterns.PatternDisplayItem;
 import org.brokenarrow.blockmirror.api.filemanger.ConfigurationSerializeUtility;
 import org.brokenarrow.blockmirror.api.utility.Pair;
 
@@ -11,7 +12,7 @@ import javax.annotation.Nonnull;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class BlockPatterns implements ConfigurationSerializeUtility {
+public class BlockPatterns implements BlockPatternsApi,  ConfigurationSerializeUtility {
 
 
     private final PatternDisplayItem circlePattern;
@@ -39,14 +40,14 @@ public class BlockPatterns implements ConfigurationSerializeUtility {
     private static void getCircle(final Map<String, Object> map, final BlockMirrorAPI blockMirror, final Builder builder, final String patternKey, final String pattenType) {
         String fillBlocks = pattenType + "Settings.Fill_blocks.";
         String changeFacing = pattenType + "Settings.Change_facing.";
-        ItemWrapper circlePassive = getDeserialize(map, patternKey, pattenType, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
-        ItemWrapper circleActive = getDeserialize(map, patternKey, pattenType, "Active.Display_name", "Active.Matrial", "Active.Lore");
+        ItemWrapperApi circlePassive = getDeserialize(map, patternKey, pattenType, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
+        ItemWrapperApi circleActive = getDeserialize(map, patternKey, pattenType, "Active.Display_name", "Active.Matrial", "Active.Lore");
 
-        ItemWrapper fillBlocksInPatternPassive = getDeserialize(map, patternKey, fillBlocks, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
-        ItemWrapper fillBlocksInPatternActive = getDeserialize(map, patternKey, fillBlocks, "Active.Display_name", "Active.Matrial", "Active.Lore");
+        ItemWrapperApi fillBlocksInPatternPassive = getDeserialize(map, patternKey, fillBlocks, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
+        ItemWrapperApi fillBlocksInPatternActive = getDeserialize(map, patternKey, fillBlocks, "Active.Display_name", "Active.Matrial", "Active.Lore");
 
-        ItemWrapper changeFacingToPatternPassive = getDeserialize(map, patternKey, changeFacing, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
-        ItemWrapper changeFacingToPatternActive = getDeserialize(map, patternKey, changeFacing, "Active.Display_name", "Active.Matrial", "Active.Lore");
+        ItemWrapperApi changeFacingToPatternPassive = getDeserialize(map, patternKey, changeFacing, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
+        ItemWrapperApi changeFacingToPatternActive = getDeserialize(map, patternKey, changeFacing, "Active.Display_name", "Active.Matrial", "Active.Lore");
 
         if (fillBlocksInPatternPassive.getDisplayName() == null || fillBlocksInPatternPassive.getDisplayName().isEmpty())
             fillBlocksInPatternPassive = getDeserialize(map, patternKey, fillBlocks, "Display_name", "Matrial", "Lore");
@@ -66,14 +67,14 @@ public class BlockPatterns implements ConfigurationSerializeUtility {
     private static void getSquare(final Map<String, Object> map, final BlockMirrorAPI blockMirror, final Builder builder, final String patternKey, final String pattenType) {
         String fillBlocks = pattenType + "Settings.Fill_blocks.";
         String changeFacing = pattenType + "Settings.Change_facing.";
-        ItemWrapper squarePassive = getDeserialize(map, patternKey, pattenType, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
-        ItemWrapper squareActive = getDeserialize(map, patternKey, pattenType, "Active.Display_name", "Active.Matrial", "Active.Lore");
+        ItemWrapperApi squarePassive = getDeserialize(map, patternKey, pattenType, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
+        ItemWrapperApi squareActive = getDeserialize(map, patternKey, pattenType, "Active.Display_name", "Active.Matrial", "Active.Lore");
 
-        ItemWrapper fillBlocksInPatternPassive = getDeserialize(map, patternKey, fillBlocks, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
-        ItemWrapper fillBlocksInPatternActive = getDeserialize(map, patternKey, fillBlocks, "Active.Display_name", "Active.Matrial", "Active.Lore");
+        ItemWrapperApi fillBlocksInPatternPassive = getDeserialize(map, patternKey, fillBlocks, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
+        ItemWrapperApi fillBlocksInPatternActive = getDeserialize(map, patternKey, fillBlocks, "Active.Display_name", "Active.Matrial", "Active.Lore");
 
-        ItemWrapper changeFacingToPatternPassive = getDeserialize(map, patternKey, changeFacing, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
-        ItemWrapper changeFacingToPatternActive = getDeserialize(map, patternKey, changeFacing, "Active.Display_name", "Active.Matrial", "Active.Lore");
+        ItemWrapperApi changeFacingToPatternPassive = getDeserialize(map, patternKey, changeFacing, "Passive.Display_name", "Passive.Matrial", "Passive.Lore");
+        ItemWrapperApi changeFacingToPatternActive = getDeserialize(map, patternKey, changeFacing, "Active.Display_name", "Active.Matrial", "Active.Lore");
 
         if (fillBlocksInPatternPassive.getDisplayName() == null || fillBlocksInPatternPassive.getDisplayName().isEmpty())
             fillBlocksInPatternPassive = getDeserialize(map, patternKey, fillBlocks, "Display_name", "Matrial", "Lore");
@@ -89,7 +90,7 @@ public class BlockPatterns implements ConfigurationSerializeUtility {
                         , blockMirror.createChangeFacingToPattern("blockmirror.change.square_pattern", changeFacingToPatternPassive, changeFacingToPatternActive)));
     }
 
-    private static ItemWrapper getDeserialize(final Map<String, Object> map, final String patternKey, final String subKey, final String displayName, final String matrial, final String lore) {
+    private static ItemWrapperApi getDeserialize(final Map<String, Object> map, final String patternKey, final String subKey, final String displayName, final String matrial, final String lore) {
         return ItemWrapper.deserialize(deserializeData(
                 new Pair<>("Display_name", map.get(patternKey + subKey + displayName)),
                 new Pair<>("Material", map.get(patternKey + subKey + matrial)),
@@ -106,10 +107,12 @@ public class BlockPatterns implements ConfigurationSerializeUtility {
         return tools;
     }
 
+    @Override
     public PatternDisplayItem getCirclePattern() {
         return circlePattern;
     }
 
+    @Override
     public PatternDisplayItem getSquarePattern() {
         return squarePattern;
     }

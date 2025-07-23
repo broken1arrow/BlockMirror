@@ -1,6 +1,8 @@
-package org.brokenarrow.blockmirror.api.builders;
+package org.brokenarrow.blockmirror.blockpatterns.builders;
 
-
+import org.brokenarrow.blockmirror.api.builders.ItemWrapperApi;
+import org.brokenarrow.blockmirror.api.builders.ToolBuilder;
+import org.brokenarrow.blockmirror.api.builders.ToolsApi;
 import org.brokenarrow.blockmirror.api.filemanger.ConfigurationSerializeUtility;
 import org.brokenarrow.blockmirror.api.utility.Pair;
 
@@ -8,9 +10,9 @@ import javax.annotation.Nonnull;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Tools implements ConfigurationSerializeUtility {
+public class Tools implements ToolsApi,ConfigurationSerializeUtility {
 
-	private final ItemWrapper markertool;
+	private final ItemWrapperApi markertool;
 	private final Builder builder;
 
 	private Tools(Builder builder) {
@@ -19,19 +21,19 @@ public class Tools implements ConfigurationSerializeUtility {
 		this.builder = builder;
 	}
 
-	public ItemWrapper getMarkertool() {
+	public ItemWrapperApi getMarkertool() {
 		return markertool;
 	}
 
-	public Builder getBuilder() {
+	public ToolBuilder getBuilder() {
 		return builder;
 	}
 
-	public static class Builder {
+	public static class Builder implements ToolBuilder{
 
-		private ItemWrapper markertool;
+		private ItemWrapperApi markertool;
 
-		public Builder setMarkertool(final ItemWrapper markertool) {
+		public Builder setMarkertool(final ItemWrapperApi markertool) {
 			this.markertool = markertool;
 			return this;
 		}

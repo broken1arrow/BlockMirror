@@ -4,18 +4,19 @@ import org.broken.arrow.library.itemcreator.SkullCreator;
 import org.broken.arrow.library.menu.button.MenuButton;
 import org.broken.arrow.library.menu.holder.MenuHolder;
 import org.brokenarrow.blockmirror.BlockMirror;
-import org.brokenarrow.blockmirror.PlayerCache;
 import org.brokenarrow.blockmirror.api.builders.MirrorLoc;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder;
-import org.brokenarrow.blockmirror.api.builders.PlayerBuilder.Builder;
 import org.brokenarrow.blockmirror.api.builders.language.PlaceholderText;
 import org.brokenarrow.blockmirror.api.builders.menu.ButtonType;
 import org.brokenarrow.blockmirror.api.builders.menu.MenuButtonData;
 import org.brokenarrow.blockmirror.api.builders.menu.MenuTemplate;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorBuilder;
+import org.brokenarrow.blockmirror.api.builders.player.PlayerMirrorDataApi;
 import org.brokenarrow.blockmirror.api.filemanger.SerializeingLocation;
 import org.brokenarrow.blockmirror.api.utility.Actions;
 import org.brokenarrow.blockmirror.api.utility.BlockVisualizeAPI;
 import org.brokenarrow.blockmirror.api.utility.OppositeFacing;
+import org.brokenarrow.blockmirror.player.PlayerCache;
+import org.brokenarrow.blockmirror.player.PlayerMirrorData;
 import org.brokenarrow.blockmirror.utily.EffectsActivated;
 import org.brokenarrow.blockmirror.utily.TextConvertPlaceholders;
 import org.bukkit.entity.Player;
@@ -32,7 +33,7 @@ import static org.brokenarrow.blockmirror.menus.type.MenuType.Classic_Mirror_Set
 public class ClassicMirrorSettings extends MenuHolder {
 
     private final MenuTemplate menuTemplate;
-    private PlayerBuilder data;
+    private PlayerMirrorDataApi data;
     private BlockMirror plugin = BlockMirror.getPlugin();
     private final PlayerCache playerCache = plugin.getPlayerCache();
 
@@ -47,7 +48,7 @@ public class ClassicMirrorSettings extends MenuHolder {
         setIgnoreItemCheck(true);
 
         if (data != null && data.getCenterLocation() != null && player.hasMetadata(Actions.classic_set_block.name())) {
-            PlayerBuilder.Builder builder = data.getBuilder();
+            PlayerMirrorBuilder builder = data.getBuilder();
             EffectsActivated.setEffect(player, data, builder,false);
             plugin.getPlayerCache().setPlayerData(player.getUniqueId(), builder.build());
             data = this.playerCache.getOrCreateData(player.getUniqueId());
@@ -141,8 +142,8 @@ public class ClassicMirrorSettings extends MenuHolder {
     public boolean run(final MenuButtonData value, final Inventory menu, final Player player, final ClickType click) {
         final BlockVisualizeAPI blockVisualize = plugin.getBlockVisualize();
 
-        if (data == null) data = new PlayerBuilder.Builder().build();
-        Builder builder = data.getBuilder();
+        if (data == null) data = new PlayerMirrorData.Builder().build();
+        PlayerMirrorBuilder builder = data.getBuilder();
         MirrorLoc.Builder mirrorbuilder;
         if (data.getMirrorLoc() != null)
             mirrorbuilder = data.getMirrorLoc().getBuilder();
