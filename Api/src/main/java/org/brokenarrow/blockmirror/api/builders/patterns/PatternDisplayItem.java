@@ -53,6 +53,19 @@ public interface PatternDisplayItem {
 	PatternDisplayItem  fillAllBlocks(boolean fillAllBlocks);
 
 	/**
+	 * Retrive the distance player is alowed place blocks.
+	 * @return the distance.
+	 */
+	int getPlaceDistance();
+
+	/**
+	 * The distance from center player is allowed place blocks.
+	 *
+	 * @param range the range.
+	 * @return this class for chaining.
+	 */
+	PatternDisplayItem setPlaceDistance(int range);
+	/**
 	 * The settings set for the build in patterns.
 	 *
 	 * @param patternSettingsWraper

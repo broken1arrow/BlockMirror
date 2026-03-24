@@ -51,7 +51,7 @@
         <dependency>
             <groupId>CMILib</groupId>
             <artifactId>CMILib</artifactId>
-            <systemPath>D:/PluginsJarUseForAPI/CMILib-0.0.20.jar</systemPath>
+            <systemPath>/mnt/4tb_hdd/PluginsJarUseForAPI/CMILib-0.0.20.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.mojang</groupId>

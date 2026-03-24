@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class BlockPatterns implements BlockPatternsApi,  ConfigurationSerializeUtility {
+public class BlockPatterns implements BlockPatternsApi, ConfigurationSerializeUtility {
 
 
     private final PatternDisplayItem circlePattern;
@@ -55,9 +55,11 @@ public class BlockPatterns implements BlockPatternsApi,  ConfigurationSerializeU
             fillBlocksInPatternActive = null;
 
         boolean fillAllBlocks = (boolean) map.getOrDefault(patternKey + pattenType + "Fill_all_blocks", false);
+        int range = (int) map.getOrDefault(patternKey + pattenType + "Place_distance", 0);
 
         builder.setCirclePattern(blockMirror.createPatternWrapperApi(circlePassive, circleActive)
                 .fillAllBlocks(fillAllBlocks)
+                .setPlaceDistance(range)
                 .setPatternSettingsWraper(
                         blockMirror.createSetFillBlocksInPattern("blockmirror.change.circle_pattern", fillBlocksInPatternPassive, fillBlocksInPatternActive)
                         , blockMirror.createChangeFacingToPattern("blockmirror.change.circle_pattern", changeFacingToPatternPassive, changeFacingToPatternActive))
@@ -82,9 +84,11 @@ public class BlockPatterns implements BlockPatternsApi,  ConfigurationSerializeU
             fillBlocksInPatternActive = null;
 
         boolean fillAllBlocks = (boolean) map.getOrDefault(patternKey + pattenType + "Fill_all_blocks", false);
+        int range = (int) map.getOrDefault(patternKey + pattenType + "Place_distance", 0);
 
         builder.setSquarePattern(blockMirror.createPatternWrapperApi(squarePassive, squareActive)
                 .fillAllBlocks(fillAllBlocks)
+                .setPlaceDistance(range)
                 .setPatternSettingsWraper(
                         blockMirror.createSetFillBlocksInPattern("blockmirror.change.square_pattern", fillBlocksInPatternPassive, fillBlocksInPatternActive)
                         , blockMirror.createChangeFacingToPattern("blockmirror.change.square_pattern", changeFacingToPatternPassive, changeFacingToPatternActive)));

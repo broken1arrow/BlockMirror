@@ -148,7 +148,7 @@ public class CirclePattern implements PatternData {
     public void clickMenu(@Nonnull final Player player, @Nonnull final ClickType click) {
         final BlockMirror plugin = BlockMirror.getPlugin();
         final PlayerCacheApi playerCache = plugin.getPlayerCache();
-        final PlayerMirrorDataApi  data = playerCache.getOrCreateData(player.getUniqueId());
+        final PlayerMirrorDataApi data = playerCache.getOrCreateData(player.getUniqueId());
         final PlayerMirrorBuilder builder = data.getBuilder();
         if (click.isLeftClick()) {
             player.setMetadata(Actions.pattern.name(), new FixedMetadataValue(BlockMirror.getPlugin(), this));
@@ -174,7 +174,10 @@ public class CirclePattern implements PatternData {
 
     @Override
     public double reachMaxDistance(Player player, int distance) {
-        return 30;
+        int max = this.settingsCircle.getPlaceDistance();
+        if (max <= 0)
+            return 100;
+        return max;
     }
 
     @Override

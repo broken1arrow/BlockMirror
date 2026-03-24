@@ -179,7 +179,10 @@ public class SquarePattern implements PatternData {
 
     @Override
     public double reachMaxDistance(Player player, int distance) {
-        return 30;
+        int max = this.settingsSquare.getPlaceDistance();
+        if (max <= 0)
+            return 100;
+        return max;
     }
 
 

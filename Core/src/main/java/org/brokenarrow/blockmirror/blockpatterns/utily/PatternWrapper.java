@@ -15,6 +15,7 @@ public class PatternWrapper implements PatternDisplayItem {
 	private final ItemWrapperApi active;
 	private final List<PatternSetting> patternSetting = new ArrayList<>();
 	private boolean fillAllBlocks;
+	private int placeDistance;
 
 	public PatternWrapper(final ItemWrapperApi passive, final ItemWrapperApi active) {
 		this.passive = passive;
@@ -68,6 +69,17 @@ public class PatternWrapper implements PatternDisplayItem {
 	@Override
 	public PatternDisplayItem fillAllBlocks(boolean fillAllBlocks) {
 		this.fillAllBlocks = fillAllBlocks;
+		return this;
+	}
+
+	@Override
+	public int getPlaceDistance() {
+		return placeDistance;
+	}
+
+	@Override
+	public PatternDisplayItem setPlaceDistance(int range) {
+		this.placeDistance = range;
 		return this;
 	}
 }
