@@ -41,7 +41,7 @@ public class SpawnBorderEffects implements HeavyLoad {
 		for (final Location location : this.location) {
 			if (this.player != null) {
 				ParticleEffectApi effect;
-				if (ServerVersion.atLeast(ServerVersion.V1_13))
+				if (ServerVersion.atLeast(13.0))
 					effect = new ParticleEffect.Builder().setParticle(Particle.REDSTONE).setDustOptions(new ParticleDustOptions("0,0,0", 1)).build();
 				else
 					effect = new ParticleEffect.Builder().setEffect(Effect.valueOf("COLOURED_DUST")).build();

@@ -39,7 +39,7 @@ public class SerializeData {
 		else if (obj instanceof net.md_5.bungee.api.ChatColor) {
 			final net.md_5.bungee.api.ChatColor color = ((net.md_5.bungee.api.ChatColor) obj);
 
-			return ServerVersion.atLeast(ServerVersion.V1_16) ? color.toString() : color.name();
+			return ServerVersion.atLeast(16.0) ? color.toString() : color.name();
 		} else if (obj instanceof Location)
 			return SerializeingLocation.serializeLocYaw((Location) obj);
 
@@ -110,7 +110,7 @@ public class SerializeData {
 	}
 
 	public static String toJson(final BaseComponent... comps) {
-		if (ServerVersion.olderThan(ServerVersion.V1_7))
+		if (ServerVersion.olderThan(8.0))
 			return "{}";
 		String json;
 		try {

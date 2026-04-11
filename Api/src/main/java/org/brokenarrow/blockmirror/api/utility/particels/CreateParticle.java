@@ -100,7 +100,7 @@ public class CreateParticle {
 	public boolean create() {
 		final ParticleDustOptionsApi particleDustOptions = this.particleDustOptions;
 		if (particleDustOptions != null) {
-			if (ServerVersion.newerThan(ServerVersion.V1_16) && particleDustOptions.getToColor() != null)
+			if (ServerVersion.newerThan(16.0) && particleDustOptions.getToColor() != null)
 				spawnDustTransitionParticle(new Particle.DustTransition(particleDustOptions.getFromColor(), particleDustOptions.getToColor(), particleDustOptions.getSize()));
 			else
 				spawnDustOptionsParticle(new Particle.DustOptions(particleDustOptions.getFromColor(), particleDustOptions.getSize()));

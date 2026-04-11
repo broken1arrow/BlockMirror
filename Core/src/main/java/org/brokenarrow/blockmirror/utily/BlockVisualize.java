@@ -47,7 +47,7 @@ public class BlockVisualize implements BlockVisualizeAPI {
     public Material getMaterial() {
         ItemCreator itemCreator = BlockMirrorUtility.getInstance().getItemCreator();
         Material material = null;
-        if (ServerVersion.olderThan(ServerVersion.V1_13))
+        if (ServerVersion.olderThan(13.0))
             material = Material.matchMaterial("STONE");
         return material != null ? material : itemCreator.of("BONE_BLOCK").makeItemStack().getType();
     }

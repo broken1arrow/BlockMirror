@@ -20,7 +20,7 @@ import java.util.UUID;
 
 public class BossBar implements Listener, BossBarAPI {
 
-    private static final float SERVERVERSION = BlockMirror.getPlugin().getItemCreator().getServerVersion();
+    private static final double SERVERVERSION = BlockMirror.getPlugin().getItemCreator().getServerVersion();
     private final Map<UUID, Integer> activeBars = new HashMap<>();
     private final Map<UUID, org.bukkit.boss.BossBar> activeBarsModern = new HashMap<>();
 

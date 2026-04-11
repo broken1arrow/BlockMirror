@@ -81,7 +81,7 @@ public class ConvetParticlesUntlity {
 	public static ParticleEffect getParticleOrEffect(final Object particle, final String firstColor, final String secondColor, final float flot) {
 		if (particle == null) return null;
 		Object partc;
-		if (ServerVersion.olderThan(ServerVersion.V1_9)) {
+		if (ServerVersion.olderThan(9.0)) {
 			partc = getEffect(String.valueOf(particle));
 		} else {
 			partc = getParticle(String.valueOf(particle));
@@ -91,7 +91,7 @@ public class ConvetParticlesUntlity {
 		}
 
 		final ParticleEffect.Builder builder = new ParticleEffect.Builder();
-		if (ServerVersion.atLeast(ServerVersion.V1_9)) {
+		if (ServerVersion.atLeast(9.0)) {
 			if (partc instanceof Particle) {
 				final Particle part = (Particle) partc;
 				builder.setParticle(part).setDataType(part.getDataType());
@@ -130,7 +130,7 @@ public class ConvetParticlesUntlity {
 					return true;
 				}
 			}
-			if (ServerVersion.olderThan(ServerVersion.V1_9)) {
+			if (ServerVersion.olderThan(9.0)) {
 				final Effect effect = getEffect(String.valueOf(particle));
 				if (effect != null)
 					if (obj == effect.getData()) {
@@ -179,7 +179,7 @@ public class ConvetParticlesUntlity {
 
 	public static String replaceOldParticle(final String particle) {
 
-		if (ServerVersion.atLeast(ServerVersion.V1_17))
+		if (ServerVersion.atLeast(17.0))
 			if (particle.equals("BARRIER"))
 				return "BLOCK_MARKER";
 		return particle;
@@ -187,7 +187,7 @@ public class ConvetParticlesUntlity {
 
 	public static Effect checkParticleOld(final String particle) {
 
-		if (ServerVersion.olderThan(ServerVersion.V1_9)) {
+		if (ServerVersion.olderThan(9.0)) {
 			if (particle != null && Enums.getIfPresent(Effect.class, particle).orNull() != null)
 				return Effect.valueOf(particle);
 		} else

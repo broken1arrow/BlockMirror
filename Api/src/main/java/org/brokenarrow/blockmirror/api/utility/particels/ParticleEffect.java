@@ -144,7 +144,7 @@ public final class ParticleEffect implements ConfigurationSerializable, Particle
 		particleData.put("Data", this.data);
 		final ParticleDustOptions dustOptions = this.particleDustOptions;
 		if (dustOptions != null) {
-			if (ServerVersion.newerThan(ServerVersion.V1_16) && dustOptions.getToColor() != null) {
+			if (ServerVersion.newerThan(16.0) && dustOptions.getToColor() != null) {
 				particleData.put("Transition", new ParticleDustOptions(dustOptions.getFromColor(), dustOptions.getToColor(), dustOptions.getSize()));
 			} else {
 				particleData.put("DustOptions", new ParticleDustOptions(dustOptions.getFromColor(), dustOptions.getSize()));

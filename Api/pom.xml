@@ -25,17 +25,17 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.broken1arrow.Utility-Library</groupId>
+            <groupId>org.broken.arrow.library</groupId>
             <artifactId>menu-library</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.broken1arrow.Utility-Library</groupId>
+            <groupId>org.broken.arrow.library</groupId>
             <artifactId>block-visualization</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.broken1arrow.Utility-Library</groupId>
+            <groupId>org.broken.arrow.library</groupId>
             <artifactId>item-creator</artifactId>
         </dependency>
         <!--        <dependency>

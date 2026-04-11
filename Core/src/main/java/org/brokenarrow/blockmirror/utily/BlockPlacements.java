@@ -20,7 +20,7 @@ import org.bukkit.block.data.type.Slab;
 public class BlockPlacements {
 
 	public static void setDirection(PlayerMirrorDataApi data, final Block blockToPlace, final Block placedBlock) {
-		if (ServerVersion.atLeast(ServerVersion.V1_12)) {
+		if (ServerVersion.atLeast(12.0)) {
 			new BlockPlace(data).setDirection(blockToPlace, placedBlock);
 		} else {
 			byte bytes = data.getBlockRotation() != null ? data.getBlockRotation().convertRotation(placedBlock.getType()) : placedBlock.getData();

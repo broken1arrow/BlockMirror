@@ -24,7 +24,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <utility-library>0.125</utility-library>
+        <utility-library>0.133</utility-library>
     </properties>
 
     <repositories>
@@ -79,7 +79,10 @@
             <id>minecraft-repo</id>
             <url>https://libraries.minecraft.net/</url>
         </repository>
-
+        <repository>
+            <id>repsy</id>
+            <url>https://repo.repsy.io/broken-arrow/utility-library</url>
+        </repository>
  <!--       <repository>
             <id>github</id>
             <url>https://maven.pkg.github.com/broken1arrow/Utility-Library</url>
@@ -207,37 +210,37 @@
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.github.broken1arrow.Utility-Library</groupId>
+                <groupId>org.broken.arrow.library</groupId>
                 <artifactId>block-visualization</artifactId>
                 <version>${utility-library}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.github.broken1arrow.Utility-Library</groupId>
+                <groupId>org.broken.arrow.library</groupId>
                 <artifactId>menu-library</artifactId>
                 <version>${utility-library}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.github.broken1arrow.Utility-Library</groupId>
+                <groupId>org.broken.arrow.library</groupId>
                 <artifactId>title-update</artifactId>
                 <version>${utility-library}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.github.broken1arrow.Utility-Library</groupId>
+                <groupId>org.broken.arrow.library</groupId>
                 <artifactId>color-conversion</artifactId>
                 <version>${utility-library}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.github.broken1arrow.Utility-Library</groupId>
+                <groupId>org.broken.arrow.library</groupId>
                 <artifactId>nbt</artifactId>
                 <version>${utility-library}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.github.broken1arrow.Utility-Library</groupId>
+                <groupId>org.broken.arrow.library</groupId>
                 <artifactId>item-creator</artifactId>
                 <version>${utility-library}</version>
                 <scope>compile</scope>
@@ -301,22 +304,22 @@
                             <shadedClassifierName>all</shadedClassifierName>
                             <artifactSet>
                                 <includes>
-                                    <include>com.github.broken1arrow.Utility-Library:Menu_Library:*</include>
+                                    <include>org.broken.arrow.library:Menu_Library:*</include>
                                     <include>broken_MenuAPI:*</include>
                                     <exclude>net.kyori:*</exclude>
                                     <include>org.brokenarrow:BlockMirror-Api:*</include>
-                                    <include>com.github.broken1arrow.Utility-Library:block-visualization:*</include>
-                                    <include>com.github.broken1arrow.Utility-Library:color_conversion:*</include>
-                                    <include>com.github.broken1arrow.Utility-Library:nbt:*</include>
-                                    <include>com.github.broken1arrow.Utility-Library:title-update:*</include>
-                                    <include>com.github.broken1arrow.Utility-Library:log_and_validate:*</include>
-                                    <include>com.github.broken1arrow.Utility-Library:menu-library:*</include>
+                                    <include>org.broken.arrow.library:block-visualization:*</include>
+                                    <include>org.broken.arrow.library:color_conversion:*</include>
+                                    <include>org.broken.arrow.library:nbt:*</include>
+                                    <include>org.broken.arrow.library:title-update:*</include>
+                                    <include>org.broken.arrow.library:log_and_validate:*</include>
+                                    <include>org.broken.arrow.library:menu-library:*</include>
                                     <include>org.broken.arrow.Utility-Library</include>
                                     <include>org.broken.arrow.**</include>
                                     <include>de.tr7zw:item-nbt-api:*</include>
-                                    <include>com.github.broken1arrow.Utility-Library:item-creator:*</include>
-                                    <include>com.github.broken1arrow.Utility-Library:log-and-validate:*</include>
-                                    <include>com.github.broken1arrow.Utility-Library:color-conversion:*</include>
+                                    <include>org.broken.arrow.library:item-creator:*</include>
+                                    <include>org.broken.arrow.library:log-and-validate:*</include>
+                                    <include>org.broken.arrow.library:color-conversion:*</include>
                                 </includes>
                                 <excludes>
                                     <exclude>net.kyori:adventure-platform-bukkit*</exclude>
